@@ -53,7 +53,3 @@ def read_game_history(game_id):
     for field in fields:
         game_dict[field] = q.value(field)
     return game_dict
-
-create_game_history("battle", "event", "Blue", "April" )
-
-print(read_game_history("battle"))
