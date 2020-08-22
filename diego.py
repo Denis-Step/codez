@@ -14,7 +14,7 @@ class Word(Base):
     wordid = Column(Integer)
 
     def __repr__(self):
-        return f'User {self.name}'
+        return f'{self.word}'
 
 class User(Base):
     __tablename__ = 'users'
@@ -38,7 +38,7 @@ class GameHistory(Base):
     when = Column(String)
 
     def __repr__(self):
-        return f'User {self.name}'
+        return f'User {self.gamehistoryid}'
 
 # Base.metadata.create_all(engine)
 
