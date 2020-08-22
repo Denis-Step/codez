@@ -3,10 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 
-engine = create_engine('sqlite:///:memory:', echo=True)
-
-Session = sessionmaker(bind=engine)
-session = Session()
+engine = create_engine('sqlite:///db.db', echo=True)
 
 Base = declarative_base()
 
@@ -43,8 +40,13 @@ class GameHistory(Base):
     def __repr__(self):
         return f'User {self.name}'
 
+Base.metadata.create_all(engine)
+
+Session = sessionmaker(bind=engine)
+Session.configure(bind=engine)
+session = Session()
 
 user = User(id=1234, password='bakedbeans')
 session.add(user)
 
-print(user.password)
+session.commit()
