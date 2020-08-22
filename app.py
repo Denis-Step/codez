@@ -6,15 +6,13 @@ app = Flask(__name__, static_url_path='/static')
 def home():
     return send_from_directory('static', 'index.html')
 
-
 @app.route('/static/script.js')
 def script():
     return send_file('script.js')
 
-@app.route('/static/style.css')
+@app.route('/static/styles.css')
 def style():
-    return send_file('style.css')
-
+    return send_from_directory('static','styles.css')
 
 if __name__ == '__main__':
     app.debug = True

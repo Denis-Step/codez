@@ -1,8 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Title from "./Title";
+import Board from "./Board";
 
 export default function Game() {
-  console.log("hello");
-
-  return <Title />;
+  return (
+    <Fragment>
+      <Title />
+      Yerr
+      <Board />
+    </Fragment>
+  );
 }
