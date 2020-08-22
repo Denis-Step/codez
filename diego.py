@@ -3,10 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 
-engine = create_engine('sqlite:///:memory:', echo=True)
-
-Session = sessionmaker(bind=engine)
-session = Session()
+engine = create_engine('sqlite:///db.db', echo=True)
 
 Base = declarative_base()
 
@@ -17,7 +14,7 @@ class Word(Base):
     wordid = Column(Integer)
 
     def __repr__(self):
-        return f'User {self.name}'
+        return f'{self.word}'
 
 class User(Base):
     __tablename__ = 'users'
@@ -41,10 +38,19 @@ class GameHistory(Base):
     when = Column(String)
 
     def __repr__(self):
-        return f'User {self.name}'
+        return f'User {self.gamehistoryid}'
 
+# Base.metadata.create_all(engine)
 
-user = User(id=1234, password='bakedbeans')
-session.add(user)
+Session = sessionmaker(bind=engine)
+Session.configure(bind=engine)
+session = Session()
 
-print(user.password)
+# user = User(id=0, name='John', password='johnspassword')
+# session.add(user)
+# user1 = User(id=1, name='John', gamesWon=4)
+# session.add(user1)
+
+print(session)
+
+# session.commit()
