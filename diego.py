@@ -35,12 +35,12 @@ class GameHistory(Base):
     gamehistoryid = Column(String, primary_key=True)
     history = Column(String)
     winners = Column(String)
-    when = Column(String)
+    date = Column(String)
 
     def __repr__(self):
-        return f'User {self.gamehistoryid}'
+        return f'{self.gamehistoryid}'
 
-# Base.metadata.create_all(engine)
+Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
 Session.configure(bind=engine)

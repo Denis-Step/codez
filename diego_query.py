@@ -23,8 +23,8 @@ def create_user(id, name, email, password, gamesPlayed, gamesWon):
     session.commit()
     return True
 
-def create_game_history(game_history_id, history, winners, when):
-    session.add(GameHistory(gamehistoryid=game_history_id, history=history, winners=winners, when=when))
+def create_game_history(game_history_id, history, winners, date):
+    session.add(GameHistory(gamehistoryid=game_history_id, history=history, winners=winners, date=date))
     session.commit()
     return True
 
@@ -47,13 +47,10 @@ def read_user(user_id):
 
 def read_game_history(game_id):
     q = session.query(GameHistory).filter(GameHistory.gamehistoryid==game_id)
+    print(q)
     game_dict = dict()
     game_dict["game history id"] = game_id
-    fields = ["history", "winners", "when"]
+    fields = ["history", "winners", "date"]
     for field in fields:
         game_dict[field] = q.value(field)
     return game_dict
-
-create_game_history("battle", "event", "Blue", "April" )
-
-print(read_game_history("battle"))
