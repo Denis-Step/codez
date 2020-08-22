@@ -40,13 +40,17 @@ class GameHistory(Base):
     def __repr__(self):
         return f'User {self.name}'
 
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
 Session.configure(bind=engine)
 session = Session()
 
-user = User(id=1234, password='bakedbeans')
-session.add(user)
+# user = User(id=0, name='John', password='johnspassword')
+# session.add(user)
+# user1 = User(id=1, name='John', gamesWon=4)
+# session.add(user1)
 
-session.commit()
+print(session)
+
+# session.commit()
