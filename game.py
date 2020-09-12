@@ -11,6 +11,7 @@ class Game:
         #Words: Red, Blue, Black, Bomb, + revealed at end
         self.words = self.create_word_dict()
         self.turn = "Red"
+        self.teamHint = ""
         self.redPoints = 0
         self.bluePoints = 0
         self.winner = None
@@ -59,21 +60,33 @@ class Game:
     def reveal_word(self,word):
         #Check for Bomb first:
         if self.words[word] == "Bomb":
+            self.hint = ""
             self.set_winner('Red') if self.turn == "Blue" else self.set_winner("Blue")
         elif self.words[word] == "Red":
             self.words[word] = self.words[word] + "Revealed"
-            self.redPoints += 1 if self.turn == "Red" else "Blue" 
+            self.redPoints += 1
+            if self.turn == "Blue":
+                self.change_turn()
         elif self.words[word] == "Blue":
             self.words[word] = self.words[word] + "Revealed"
-            self.bluePoints += 1 if self.turn == "Blue" else "Blue"
+            self.bluePoints += 1
+            if self.turn == "Red":
+                self.change_turn()
         elif self.words[word] == "Black":
             self.words[word] = self.words[word] + "Revealed"
-            if self.turn == "Red":
-                self.turn = "Blue"
-            else:
-                self.turn = "Red"
-
+            self.change_turn()
     
+    def change_turn(self):
+        if self.turn == "Red":
+                self.turn = "Blue"
+                self.hint = ""
+        else:
+            self.turn = "Red"
+            self.hint = ""
+
+    def make_turn(self,wordstoChoose,word):
+        pass
+
     def set_winner(self,team):
         #TODO
         pass
