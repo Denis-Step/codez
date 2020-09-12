@@ -4,10 +4,10 @@ import { BoardContext } from "./BoardContext";
 
 export default function Board() {
   let ctxt = useContext(BoardContext);
-  let cells = Object.values(ctxt.words);
 
+  const cells = [];
   for (let i = 0; i < 25; i++) {
-    cells.push(<Cell key={i} />);
+    cells.push(<Cell key={ctxt.words[i]} word={ctxt.words[i]} />);
   }
   //Hello
 
