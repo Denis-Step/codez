@@ -11,7 +11,8 @@ class Game:
         #Words: Red, Blue, Black, Bomb, + revealed at end
         self.words = self.create_word_dict()
         self.turn = "Red"
-        self.teamHint = ""
+        self.spymasterHint = ""
+        self.attemptsLeft = 0
         self.redPoints = 0
         self.bluePoints = 0
         self.winner = None
@@ -58,35 +59,58 @@ class Game:
         print(shuffleddict)
 
     def reveal_word(self,word):
+        if self.attemptsLeft < 1:
+            print (f'{self.turn} Spymaster needs to go!')
+            return ''
+
         #Check for Bomb first:
         if self.words[word] == "Bomb":
             self.hint = ""
             self.set_winner('Red') if self.turn == "Blue" else self.set_winner("Blue")
+
         elif self.words[word] == "Red":
             self.words[word] = self.words[word] + "Revealed"
             self.redPoints += 1
+            self.checkWinner()
             if self.turn == "Blue":
                 self.change_turn()
+            else:
+                self.attemptsLeft -= 1
+
         elif self.words[word] == "Blue":
             self.words[word] = self.words[word] + "Revealed"
             self.bluePoints += 1
+            self.checkWinner()
             if self.turn == "Red":
                 self.change_turn()
+            else:
+                self.attemptsLeft -= 1
+
         elif self.words[word] == "Black":
             self.words[word] = self.words[word] + "Revealed"
+            self.checkWinner()
             self.change_turn()
     
+    def checkWinner(self):
+        if self.redPoints >= 9:
+            self.set_winner('Red')
+        elif self.bluePoints >= 8:
+            self.set_winner('Blue')
+
     def change_turn(self):
+        self.spymasterHint = ''
+        self.attemptsLeft = 0
         if self.turn == "Red":
-                self.turn = "Blue"
-                self.hint = ""
+            self.turn = "Blue"
         else:
             self.turn = "Red"
-            self.hint = ""
 
-    def make_turn(self,wordstoChoose,word):
-        pass
+    def spymaster_turn(self,hint,noOfWords):
+        if self.spymasterHint == '':
+            print('Spymaster already went!')
+        self.spymasterHint = hint
+        self.attemptsLeft = noOfWords
 
     def set_winner(self,team):
-        #TODO
-        pass
+        self.winner = team
+        print(f'{self.winner} wins!!')
