@@ -2,7 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
+import random
 from diego import Word, User, GameHistory
+
 engine = create_engine('sqlite:///db.db', echo=True)
 
 Base = declarative_base()
@@ -125,4 +127,4 @@ def delete_game_history(game_history_delete):
         session.delete(x)
         session.commit()
     else:
-        print("delete_game_history errory")
+        print("delete_game_history error")
