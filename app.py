@@ -1,23 +1,11 @@
 from flask import Flask, Response, request, url_for, send_file, send_from_directory, jsonify
 from flask_restful import Resource, Api
-
-from game import Game as GameState
+from game import Game as Game
 
 app = Flask(__name__, static_url_path='/static')
 api = Api(app)
 
-class Game(Resource):
-    def __init__(self):
-        super().__init__()
-        self.currGame = None
-
-    def get(self):
-        if not isinstance(self.currGame,GameState):
-            self.currGame = GameState()
-            print(self.currGame.words)
-        return jsonify(list(self.currGame.words.keys()))
-
-api.add_resource(Game, '/loadWords')
+g = Game()
 
 @app.route('/')
 def home():
@@ -31,12 +19,10 @@ def script():
 def style():
     return send_from_directory('static','styles.css')
 
-@app.route('/api/loadWords')
-def load_words():
-    words = []
-    for i in range(0,25):
-        words.append(str(i))
-    return jsonify(words)
+@app.route('/api/creategame')
+def create_game():
+    global g
+    return jsonify(g.words)
 
 if __name__ == '__main__':
     app.debug = True

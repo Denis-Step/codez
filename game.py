@@ -16,6 +16,7 @@ class Game:
         self.redPoints = 0
         self.bluePoints = 0
         self.winner = None
+        self.revealedWords = dict()
 
     def create_word_dict(self):
         engine = create_engine('sqlite:///db.db', echo=True)
@@ -113,4 +114,5 @@ class Game:
 
     def set_winner(self,team):
         self.winner = team
+        self.revealedWords = list(self.words.keys())
         print(f'{self.winner} wins!!')
