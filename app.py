@@ -19,8 +19,13 @@ def script():
 def style():
     return send_from_directory('static','styles.css')
 
-@app.route('/api/creategame')
-def create_game():
+@app.route('/api/loadwords')
+def get_words():
+    global g
+    return jsonify(g.words)
+
+@app.route('/api/')
+def get_revealed_words():
     global g
     return jsonify(g.words)
 

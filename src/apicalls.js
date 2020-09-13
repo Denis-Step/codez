@@ -6,7 +6,7 @@ import Game from "./Game.js";
 let BASE = "http://127.0.0.1:5000/";
 
 export async function loadWords() {
-  let endpoint = "/api/creategame";
+  let endpoint = "/api/loadwords";
 
   const response = await axios({
     method: "get",

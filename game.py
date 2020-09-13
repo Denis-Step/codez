@@ -18,6 +18,9 @@ class Game:
         self.winner = None
         self.revealedWords = dict()
 
+        for word in self.words:
+            self.revealedWords[word] = False
+
     def create_word_dict(self):
         engine = create_engine('sqlite:///db.db', echo=True)
         Base = declarative_base()
@@ -70,7 +73,7 @@ class Game:
             self.set_winner('Red') if self.turn == "Blue" else self.set_winner("Blue")
 
         elif self.words[word] == "Red":
-            self.words[word] = self.words[word] + "Revealed"
+            self.revealedWords[word] = self.words[word]
             self.redPoints += 1
             self.checkWinner()
             if self.turn == "Blue":
@@ -79,7 +82,7 @@ class Game:
                 self.attemptsLeft -= 1
 
         elif self.words[word] == "Blue":
-            self.words[word] = self.words[word] + "Revealed"
+            self.revealedWords[word] = self.words[word]
             self.bluePoints += 1
             self.checkWinner()
             if self.turn == "Red":
@@ -88,7 +91,7 @@ class Game:
                 self.attemptsLeft -= 1
 
         elif self.words[word] == "Black":
-            self.words[word] = self.words[word] + "Revealed"
+            self.revealedWords[word] = self.words[word]
             self.checkWinner()
             self.change_turn()
     
