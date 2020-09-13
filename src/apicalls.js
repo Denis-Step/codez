@@ -3,7 +3,7 @@ import axios from "axios";
 import ReactDOM from "react-dom";
 import Game from "./Game.js";
 
-let BASE = "http://127.0.0.1:5000/api/";
+let BASE = "http://127.0.0.1:5000/";
 
 export async function loadWords() {
   let endpoint = "loadWords";
