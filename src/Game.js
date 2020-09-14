@@ -3,16 +3,17 @@ import Title from "./Title";
 import { BoardContext, BoardContextProvider } from "./BoardContext";
 import Board from "./Board";
 import { loadWords } from "./apicalls";
+import SpymasterBox from "./SpymasterBox";
 
 export default function Game() {
   console.log(loadWords());
   return (
-    <Fragment>
+    <div className={"main"}>
       <Title />
-      Yerr
       <BoardContextProvider>
+        <SpymasterBox />
         <Board />
       </BoardContextProvider>
-    </Fragment>
+    </div>
   );
 }
