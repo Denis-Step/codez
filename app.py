@@ -7,28 +7,34 @@ api = Api(app)
 
 g = Game()
 
+
 @app.route('/')
 def home():
     return send_from_directory('static', 'index.html')
+
 
 @app.route('/static/script.js')
 def script():
     return send_file('script.js')
 
+
 @app.route('/static/styles.css')
 def style():
-    return send_from_directory('static','styles.css')
+    return send_from_directory('static', 'styles.css')
+
 
 @app.route('/api/loadwords')
 def get_words():
     global g
+    print(g)
     return jsonify(g.revealedWords)
+
 
 @app.route('/api/revealword', methods=['GET', 'POST'])
 def get_revealed_words():
     global g
 
-    if request.method == 'POST':   
+    if request.method == 'POST':
         word = str(request.get_json()['pick'])
         g.reveal_word(word)
         data = {'message': 'Created', 'code': 'SUCCESS'}
@@ -39,6 +45,8 @@ def get_revealed_words():
         data = {'message': 'Not Created', 'code': 'Failure'}
         return make_response(jsonify(data), 400)
  """
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run()

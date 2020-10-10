@@ -3,10 +3,11 @@ import axios from "axios";
 import ReactDOM from "react-dom";
 import Game from "./Game.js";
 
-let BASE = "http://127.0.0.1:5000/";
+let BASE = "http://159.203.124.40:8000";
 
 export async function loadWords() {
-  let endpoint = "api/loadwords";
+  let endpoint = "/api/loadwords";
+  console.log(BASE + endpoint);
 
   const response = await axios({
     method: "get",

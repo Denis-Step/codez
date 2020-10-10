@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 import random
-from diego import Word, User, GameHistory
+from models import Word, User, GameHistory
 
 engine = create_engine('sqlite:///db.db', echo=True)
 

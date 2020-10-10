@@ -1,5 +1,5 @@
 from nltk.corpus import wordnet as wn
-import diego_query as db
+import modelmethods as db
 
 
 with open('5lenwords.txt') as f:
