@@ -2,6 +2,10 @@
 
 CodeNames
 
+TODO:
+-Redux Integration
+-Redis Integration
+
 1. Run word_load
 2. Change BASE in apicalls.js
 3. Run npm dev to re-make bundle
