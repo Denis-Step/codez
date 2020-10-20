@@ -35,7 +35,7 @@ def get_revealed_words():
     global g
 
     if request.method == 'POST':
-        word = str(request.get_json()['pick'])
+        word = request.get_json()['pick']
         g.reveal_word(word)
         data = {'message': 'Created', 'code': 'SUCCESS'}
         return make_response(jsonify(data), 201)

@@ -21,7 +21,7 @@ export async function loadWords() {
 }
 
 export async function revealWord(word) {
-  let endpoint = "api/revealword";
+  let endpoint = "/api/revealword";
   let postData = { pick: word };
   console.log(postData);
 
