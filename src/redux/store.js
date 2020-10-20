@@ -1,7 +1,4 @@
 import { createStore } from "redux";
-import clickApp from "./reducer";
+import { clickApp } from "./reducer";
 
-const store = createStore(todoApp);
-console.log(store.getState());
-
-store.dispatch(addWord("Hectic"));
+export const store = createStore(clickApp);

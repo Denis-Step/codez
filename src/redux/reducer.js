@@ -1,18 +1,16 @@
-import { addWord } from "./actionTypes";
+import { ADD_WORD } from "./actionTypes";
 
 const initialState = {
-  words: [],
+  words: ["hello", "malarkey", "baloney"],
 };
 
-function clickApp(state = initialState, action) {
+export function clickApp(state = initialState, action) {
   switch (action.type) {
     case ADD_WORD:
-      const state = Object.assign({}, state, {
+      return Object.assign({}, state, {
         words: [...state.words, action.word],
       });
-      state.words.push(action.word);
+    default:
       return state;
   }
-
-  return state;
 }
