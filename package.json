@@ -26,6 +26,7 @@
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
+    "@reduxjs/toolkit": "^1.4.0",
     "axios": "^0.19.2",
     "formik": "^2.1.5",
     "material-table": "^1.67.1",
@@ -38,6 +39,7 @@
     "react-router-dom": "^5.2.0",
     "react-test-renderer": "^16.13.1",
     "recharts": "^1.8.5",
+    "redux-thunk": "^2.3.0",
     "save-dev": "0.0.1-security"
   },
   "browserslist": [

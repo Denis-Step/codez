@@ -1,7 +1,7 @@
-import { ADD_WORD } from "./actionTypes";
+import { ADD_WORD, RECEIVE_WORDS } from "./actionTypes";
 
 const initialState = {
-  words: ["hello", "malarkey", "baloney"],
+  words: [],
 };
 
 export function clickApp(state = initialState, action) {
@@ -9,6 +9,10 @@ export function clickApp(state = initialState, action) {
     case ADD_WORD:
       return Object.assign({}, state, {
         words: [...state.words, action.word],
+      });
+    case RECEIVE_WORDS:
+      return Object.assign({}, state, {
+        words: action.words,
       });
     default:
       return state;

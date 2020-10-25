@@ -1,4 +1,12 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunkMiddleware from "redux-thunk";
+import { configureStore } from "@reduxjs/toolkit";
 import { clickApp } from "./reducer";
 
-export const store = createStore(clickApp);
+const store = createStore(
+  clickApp,
+  applyMiddleware(
+    thunkMiddleware // lets us dispatch() functions
+  )
+);
+export default store;

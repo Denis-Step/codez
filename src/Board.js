@@ -3,6 +3,9 @@ import Cell from "./Cell";
 
 export default function Board(props) {
   console.log(props.words);
+  if (props.words.length < 1) {
+    props.fetchWords();
+  }
 
   function handleClick(e, word) {
     console.log(e.target.id);
