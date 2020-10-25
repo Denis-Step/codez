@@ -10,7 +10,7 @@ export default function Board(props) {
   function handleClick(e, word) {
     console.log(e.target.id);
     console.log("clicked");
-    props.addWord(word);
+    props.clickWord(word);
   }
 
   const cells = [];

@@ -1,14 +1,21 @@
-import { ADD_WORD, RECEIVE_WORDS } from "./actionTypes";
+import {
+  ADD_WORD,
+  RECEIVE_WORDS,
+  CALL_WORDS,
+  REVEAL_WORD,
+} from "./actionTypes";
 import { loadWords } from "../apicalls";
 
 export function addWord(word) {
   return { type: ADD_WORD, word };
 }
 
+export function callingWords() {
+  return { type: CALL_WORDS };
+}
+
 export function receiveWords(words) {
-  console.log("in receive words");
   const wordList = Object.getOwnPropertyNames(words);
-  console.log(wordList);
   return { type: RECEIVE_WORDS, words: wordList };
 }
 
@@ -21,7 +28,7 @@ export function fetchWords() {
     // First dispatch: the app state is updated to inform
     // that the API call is starting.
 
-    // dispatch(requestWords());
+    dispatch(callingWords());
 
     // The function called by the thunk middleware can return a value,
     // that is passed on as the return value of the dispatch method.
@@ -33,6 +40,22 @@ export function fetchWords() {
       console.log("Words loaded");
       // We can dispatch many times!
       // Here, we update the app state with the results of the API call.
+
+      dispatch(receiveWords(data));
+    });
+  };
+}
+
+export function revealingWord() {
+  return { type: REVEAL_WORD };
+}
+
+export function clickWord(word) {
+  return function (dispatch) {
+    dispatch(revealingWord());
+
+    return loadWords().then((data) => {
+      console.log("Refreshing after Click");
 
       dispatch(receiveWords(data));
     });

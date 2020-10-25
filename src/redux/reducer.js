@@ -1,7 +1,13 @@
-import { ADD_WORD, RECEIVE_WORDS } from "./actionTypes";
+import {
+  ADD_WORD,
+  RECEIVE_WORDS,
+  CALL_WORDS,
+  REVEAL_WORD,
+} from "./actionTypes";
 
 const initialState = {
   words: [],
+  isFetching: false,
 };
 
 export function clickApp(state = initialState, action) {
@@ -13,6 +19,15 @@ export function clickApp(state = initialState, action) {
     case RECEIVE_WORDS:
       return Object.assign({}, state, {
         words: action.words,
+        isFetching: false,
+      });
+    case CALL_WORDS:
+      return Object.assign({}, state, {
+        isFetching: true,
+      });
+    case REVEAL_WORD:
+      return Object.assign({}, state, {
+        isFetching: true,
       });
     default:
       return state;
