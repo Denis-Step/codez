@@ -18,7 +18,9 @@ r = redis.Redis(host='localhost', port=6379, db=0)
 NUM_WORDS = 5757
 
 # TODO: Make The Red/Blue/Neutral/Bomb Constants
-
+def get_state(game_ID):
+    words = r.hgetall(game_ID)
+    return words
 
 def create_game(game_ID, db=0):
     session = Session()
@@ -33,7 +35,6 @@ def create_game(game_ID, db=0):
         if word in words:
             continue
 
-        print(f'Adding word {word}')
         if Red < 9:
             words[word] = "Red"
             Red += 1
@@ -58,7 +59,6 @@ def create_game(game_ID, db=0):
         shuffledDict.update({key: words[key]})
     session.close()
 
-    print(words)
     r.hmset(game_ID, words)
     return words
 
