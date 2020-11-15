@@ -36,7 +36,7 @@ def create_game(game_ID):
     words = create_board()
     set_fields = r.hset('state:' + game_ID, mapping=new_game)
     set_fields += r.hset('words:' + game_ID, mapping=words)
-    return {'playerState': new_game, 'wordsState': words} if set_fields == 30 else{}
+    return {'playerState': new_game, 'wordsState': words} if set_fields == 30 else {}
 
 # TODO: Refactor this!!
 def create_board():
@@ -77,6 +77,21 @@ def create_board():
         shuffledDict.update({key: words[key]})
 
     return words
+
+def handle_turn(game_ID, team, action, payload):
+    state = r.hgetall('state:' + game_ID)
+    if f'{team}-{action}' != state[b'turn'].decode("utf-8"):
+        print("Can't go now")
+        return 0
+    if action == 'spymaster':
+        update = {b'hint': payload['hint'].encode()}
+        if state[b'turn'].decode('utf-8').split("-")[0] == 'blue':
+            update[b'turn'] = 'blue-chooser'
+            update[b'attemptsLeft' ] = payload['attempts']
+        else:
+            update[b'turn'] = 'red-chooser'
+            update[b'attemptsLeft'] = payload['attempts']
+        r.hset('state:' + game_ID,mapping=update)
 
 def lch(word_one, word_two):
     word_one = wn.synsets(word_one)[0]
