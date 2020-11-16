@@ -5,8 +5,8 @@ import Game from "./Game.js";
 
 let BASE = "http://159.203.124.40:8000";
 
-export async function loadWords() {
-  let endpoint = "/api/loadwords";
+export async function loadWords(game_ID) {
+  let endpoint = `/${game_ID}/loadwords`;
   console.log(BASE + endpoint);
 
   const response = await axios({

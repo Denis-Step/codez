@@ -2,9 +2,9 @@ import React from "react";
 import Cell from "./Cell";
 
 export default function Board(props) {
-  console.log(props.words);
+  console.log(props);
   if (props.words.length < 1) {
-    props.fetchWords();
+    props.fetchWords(props.game_ID);
   }
 
   function handleClick(e, word) {
@@ -26,7 +26,6 @@ export default function Board(props) {
       />
     );
   }
-  //Hello
 
   return <div className={"board"}>{cells}</div>;
 }

@@ -4,8 +4,6 @@ import { BoardContext } from "./BoardContext";
 import TextField from "@material-ui/core/TextField";
 
 export default function SpymasterBox() {
-  let ctxt = useContext(BoardContext);
-
   return (
     <div id="spymasterbox">
       <form className={"spymasterBox"} noValidate autoComplete="off">

@@ -19,29 +19,14 @@ export function receiveWords(words) {
   return { type: RECEIVE_WORDS, words: wordList };
 }
 
-export function fetchWords() {
-  // Thunk middleware knows how to handle functions.
-  // It passes the dispatch method as an argument to the function,
-  // thus making it able to dispatch actions itself.
-
+export function fetchWords(game_ID) {
   return function (dispatch) {
-    // First dispatch: the app state is updated to inform
-    // that the API call is starting.
-
     dispatch(callingWords());
 
-    // The function called by the thunk middleware can return a value,
-    // that is passed on as the return value of the dispatch method.
-
-    // In this case, we return a promise to wait for.
-    // This is not required by thunk middleware, but it is convenient for us.
-
-    return loadWords().then((data) => {
+    return loadWords(game_ID).then((data) => {
       console.log("Words loaded");
-      // We can dispatch many times!
-      // Here, we update the app state with the results of the API call.
 
-      dispatch(receiveWords(data));
+      dispatch(receiveWords(data.wordsState));
     });
   };
 }
@@ -57,7 +42,7 @@ export function clickWord(word) {
     return loadWords().then((data) => {
       console.log("Refreshing after Click");
 
-      dispatch(receiveWords(data));
+      dispatch(receiveWords(data.wordsState));
     });
   };
 }

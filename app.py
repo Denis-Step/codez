@@ -1,15 +1,19 @@
 from flask import Flask, Response, request, url_for, send_file, send_from_directory, jsonify, make_response
 from flask_restful import Resource, Api
 from game import Game as Game
+import services
 
 app = Flask(__name__, static_url_path='/static')
 api = Api(app)
 
-g = Game()
-
 
 @app.route('/')
 def home():
+    return send_from_directory('static', 'index.html')
+
+
+@app.route('/<game_ID>')
+def game_view(game_ID):
     return send_from_directory('static', 'index.html')
 
 
@@ -23,11 +27,12 @@ def style():
     return send_from_directory('static', 'styles.css')
 
 
-@app.route('/api/loadwords')
-def get_words():
-    global g
-    print(g)
-    return jsonify(g.revealedWords)
+@app.route('/<game_ID>/loadwords')
+def get_words(game_ID):
+    print(game_ID)
+    words = services.get_state(game_ID)
+    print(words)
+    return jsonify(words)
 
 
 @app.route('/api/revealword', methods=['GET', 'POST'])

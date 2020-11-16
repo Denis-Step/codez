@@ -19,5 +19,5 @@ const wordsSlice = createSlice({
   },
 });
 
-export const { increment, decrement, incrementByAmount } = wordslice.actions;
+export const { increment, decrement, incrementByAmount } = wordsSlice.actions;
 export default wordsSlice.reducer;

@@ -17,29 +17,35 @@ r = redis.Redis(host='localhost', port=6379, db=0)
 NUM_WORDS = 5757
 
 # TODO: Make The Red/Blue/Neutral/Bomb Constants
-def get_state(game_ID):
+
+
+def get_state(game_ID: str) -> dict:
     '''Return player and word state'''
-    state = {'playerState': r.hgetall('state:' + game_ID),
-        'wordsState': r.hgetall('words:' + game_ID)}
+
+    state = {'playerState': {k.decode('utf-8'): v.decode('utf-8') for k, v in r.hgetall('state:' + game_ID).items()},
+             'wordsState': {k.decode('utf-8'): v.decode('utf-8') for k, v in r.hgetall('words:' + game_ID).items()}}
     return state
+
 
 def create_game(game_ID):
     '''Takes a UUID and creates two hashes, one for the player state
     and a second for the words. Throws an exception if either table
     cannot be created. Returns the dict of words. '''
-    
+
     new_game = {'winner': 'none',
-        'turn': 'blue-spymaster',
-        'hint': '',
-        'attemptsLeft': 0,
-        'redPoints': 0,
-        'bluePoints': 0}
+                'turn': 'blue-spymaster',
+                'hint': '',
+                'attemptsLeft': 0,
+                'redPoints': 0,
+                'bluePoints': 0}
     words = create_board()
     set_fields = r.hset('state:' + game_ID, mapping=new_game)
     set_fields += r.hset('words:' + game_ID, mapping=words)
     return {'playerState': new_game, 'wordsState': words} if set_fields == 31 else {}
 
 # TODO: Refactor this!!
+
+
 def create_board():
     session = Session()
     words = dict()
@@ -69,7 +75,7 @@ def create_board():
             words[word] = "bomb"
             Bomb += 1
             i += 1
-    
+
     session.close()
     keys = list(words.keys())
     random.shuffle(keys)
@@ -79,8 +85,10 @@ def create_board():
 
     return shuffledDict
 
+
 def set_winner(game_ID, team):
     r.hset('state:' + game_ID, 'winner', team)
+
 
 def finish_turn(game_ID, team):
     opposite = 'blue' if team == 'red' else 'red'
@@ -93,8 +101,9 @@ def finish_turn(game_ID, team):
     if int(state[b'attemptsLeft']) == 0:
         print('last part')
         update = {b'turn': opposite + "-" + 'spymaster',
-            b'hint' : ''}
+                  b'hint': ''}
         r.hset('state:' + game_ID, mapping=update)
+
 
 def handle_turn(game_ID, team, action, payload):
     state = r.hgetall('state:' + game_ID)
@@ -108,7 +117,7 @@ def handle_turn(game_ID, team, action, payload):
         update = {b'hint': payload['hint'].encode()}
         if state[b'turn'].decode('utf-8').split("-")[0] == 'blue':
             update[b'turn'] = 'blue-chooser'
-            update[b'attemptsLeft' ] = payload['attempts']
+            update[b'attemptsLeft'] = payload['attempts']
         else:
             update[b'turn'] = 'red-chooser'
             update[b'attemptsLeft'] = payload['attempts']
@@ -116,13 +125,15 @@ def handle_turn(game_ID, team, action, payload):
         return 1
     elif action == 'chooser':
         choose_word(game_ID, team, payload['choice'])
-        finish_turn(game_ID,team)
+        finish_turn(game_ID, team)
+
 
 def choose_word(game_ID, team, choice):
     opposite = 'blue' if team == 'red' else 'red'
     if r.hget('words:' + game_ID, choice) == 'bomb'.encode():
         r.hset('words:' + game_ID, choice, 'bomb-revealed-' + team)
-        set_winner(game_ID, 'red') if team == 'blue' else set_winner(game_ID, 'blue')
+        set_winner(game_ID, 'red') if team == 'blue' else set_winner(
+            game_ID, 'blue')
 
     elif r.hget('words:' + game_ID, choice) == team.encode():
         r.hincrby('state:' + game_ID, team + 'Points', 1)
@@ -139,15 +150,12 @@ def choose_word(game_ID, team, choice):
         r.hset('state:' + game_ID, 'attemptsLeft', 0)
         r.hset('words:' + game_ID, choice, 'neutral' + '-revealed')
 
+
 def lch(word_one, word_two):
     word_one = wn.synsets(word_one)[0]
     word_two = wn.synsets(word_two)[0]
 
     return word_one.lowest_common_hypernyms(word_two)
 
-NUM = str(random.randrange(575700))
 
-game = create_game(NUM)
-print(game)
-handle_turn(NUM, 'blue', 'spymaster', {'hint': 'example', 'attempts': 3})
-handle_turn(NUM,'blue','chooser',{'choice': 'weeks'})
+# 495481
