@@ -12,11 +12,6 @@ export default function SpymasterBox() {
           label="Spymaster Clue"
           variant="outlined"
         />
-        <TextField
-          id="outlined-basic"
-          label="Spymaster Clue"
-          variant="outlined"
-        />
       </form>
     </div>
   );
