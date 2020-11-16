@@ -28,7 +28,8 @@ def create_game(game_ID):
     and a second for the words. Throws an exception if either table
     cannot be created. Returns the dict of words. '''
     
-    new_game = {'turn': 'blue-spymaster',
+    new_game = {'winner': 'none',
+        'turn': 'blue-spymaster',
         'hint': '',
         'attemptsLeft': 0,
         'redPoints': 0,
@@ -36,7 +37,7 @@ def create_game(game_ID):
     words = create_board()
     set_fields = r.hset('state:' + game_ID, mapping=new_game)
     set_fields += r.hset('words:' + game_ID, mapping=words)
-    return {'playerState': new_game, 'wordsState': words} if set_fields == 30 else {}
+    return {'playerState': new_game, 'wordsState': words} if set_fields == 31 else {}
 
 # TODO: Refactor this!!
 def create_board():
@@ -78,8 +79,17 @@ def create_board():
 
     return words
 
+def set_winner(game_ID, team):
+    r.hset('state:' + game_ID, 'winner', team)
+
+def finish_turn(team):
+    pass
+
 def handle_turn(game_ID, team, action, payload):
     state = r.hgetall('state:' + game_ID)
+    if state[b'winner'] != b'none':
+        print(f"{state[b'winner']} won! No further action.")
+        return 0
     if f'{team}-{action}' != state[b'turn'].decode("utf-8"):
         print("Can't go now")
         return 0
@@ -91,10 +101,41 @@ def handle_turn(game_ID, team, action, payload):
         else:
             update[b'turn'] = 'red-chooser'
             update[b'attemptsLeft'] = payload['attempts']
-        r.hset('state:' + game_ID,mapping=update)
+        r.hset('state:' + game_ID, mapping=update)
+        return 1
+    elif action == 'chooser':
+        choose_word(game_ID,team, payload['choice'])
+        finish_turn(team)
+
+def choose_word(game_ID, team, choice):
+    opposite = 'blue' if team == 'red' else 'red'
+    if r.hget('words:' + game_ID, choice) == 'bomb'.encode():
+        r.hset('words:' + game_ID, choice, 'bomb-revealed-' + team)
+        set_winner(game_ID,'red') if team == 'blue' else set_winner(game_ID,'blue')
+
+    elif r.hget('words:' + game_ID, choice) == team.encode():
+        r.hincrby('state:' + game_ID, team + 'Points', 1)
+        r.hincrby('state:' + game_ID, 'attemptsLeft', -1)
+        r.hset('words:' + game_ID, choice, team + '-revealed')
+
+    elif r.hget('words:' + game_ID, choice) == opposite.encode():
+        r.hincrby('state:' + game_ID, opposite + 'Points', 1)
+        r.hset('state:' + game_ID, 'attemptsLeft', 0)
+        r.hset('words:' + game_ID, choice, opposite + '-revealed')
+
+    elif r.hget('words:' + game_ID, choice) == 'neutral':
+        r.hset('state:' + game_ID, 'attemptsLeft', 0)
+        r.hset('words:' + game_ID, choice, 'neutral' + '-revealed')
 
 def lch(word_one, word_two):
     word_one = wn.synsets(word_one)[0]
     word_two = wn.synsets(word_two)[0]
 
     return word_one.lowest_common_hypernyms(word_two)
+
+NUM = str(random.randrange(575700))
+
+game = create_game(NUM)
+print(game)
+handle_turn(NUM, 'blue', 'spymaster', {'hint': 'example', 'attempts': 3})
+handle_turn(NUM,'blue','chooser',{'choice': 'weeks'})
