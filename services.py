@@ -77,13 +77,24 @@ def create_board():
     for key in keys:
         shuffledDict.update({key: words[key]})
 
-    return words
+    return shuffledDict
 
 def set_winner(game_ID, team):
     r.hset('state:' + game_ID, 'winner', team)
 
-def finish_turn(team):
-    pass
+def finish_turn(game_ID, team):
+    opposite = 'blue' if team == 'red' else 'red'
+    state = r.hgetall('state:' + game_ID)
+    if state[b'redPoints'] == 9:
+        set_winner(game_ID, 'red')
+    elif state[b'bluePoints'] == 8:
+        set_winner(game_ID, 'blue')
+
+    if int(state[b'attemptsLeft']) == 0:
+        print('last part')
+        update = {b'turn': opposite + "-" + 'spymaster',
+            b'hint' : ''}
+        r.hset('state:' + game_ID, mapping=update)
 
 def handle_turn(game_ID, team, action, payload):
     state = r.hgetall('state:' + game_ID)
@@ -104,14 +115,14 @@ def handle_turn(game_ID, team, action, payload):
         r.hset('state:' + game_ID, mapping=update)
         return 1
     elif action == 'chooser':
-        choose_word(game_ID,team, payload['choice'])
-        finish_turn(team)
+        choose_word(game_ID, team, payload['choice'])
+        finish_turn(game_ID,team)
 
 def choose_word(game_ID, team, choice):
     opposite = 'blue' if team == 'red' else 'red'
     if r.hget('words:' + game_ID, choice) == 'bomb'.encode():
         r.hset('words:' + game_ID, choice, 'bomb-revealed-' + team)
-        set_winner(game_ID,'red') if team == 'blue' else set_winner(game_ID,'blue')
+        set_winner(game_ID, 'red') if team == 'blue' else set_winner(game_ID, 'blue')
 
     elif r.hget('words:' + game_ID, choice) == team.encode():
         r.hincrby('state:' + game_ID, team + 'Points', 1)
@@ -123,7 +134,8 @@ def choose_word(game_ID, team, choice):
         r.hset('state:' + game_ID, 'attemptsLeft', 0)
         r.hset('words:' + game_ID, choice, opposite + '-revealed')
 
-    elif r.hget('words:' + game_ID, choice) == 'neutral':
+    elif r.hget('words:' + game_ID, choice) == b'neutral':
+        print('Neutral')
         r.hset('state:' + game_ID, 'attemptsLeft', 0)
         r.hset('words:' + game_ID, choice, 'neutral' + '-revealed')
 
