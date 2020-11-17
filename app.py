@@ -29,13 +29,11 @@ def style():
 
 @app.route('/<game_ID>/loadwords')
 def get_words(game_ID):
-    print(game_ID)
     words = services.get_state(game_ID)
-    print(words)
     return jsonify(words)
 
 
-@app.route('/api/revealword', methods=['GET', 'POST'])
+'''@app.route('/api/revealword', methods=['GET', 'POST'])
 def get_revealed_words():
     global g
 
@@ -43,14 +41,7 @@ def get_revealed_words():
         word = request.get_json()['pick']
         g.reveal_word(word)
         data = {'message': 'Created', 'code': 'SUCCESS'}
-        return make_response(jsonify(data), 201)
-        """ print('Error')
-        print(request)
-        print(list(request.form.keys()))
-        data = {'message': 'Not Created', 'code': 'Failure'}
-        return make_response(jsonify(data), 400)
- """
-
+        return make_response(jsonify(data), 201)'''
 
 if __name__ == '__main__':
     app.debug = True
