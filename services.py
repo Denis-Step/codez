@@ -99,7 +99,6 @@ def finish_turn(game_ID, team):
         set_winner(game_ID, 'blue')
 
     if int(state[b'attemptsLeft']) == 0:
-        print('last part')
         update = {b'turn': opposite + "-" + 'spymaster',
                   b'hint': ''}
         r.hset('state:' + game_ID, mapping=update)
@@ -151,11 +150,12 @@ def choose_word(game_ID, team, choice):
         r.hset('words:' + game_ID, choice, 'neutral' + '-revealed')
 
 
-def lch(word_one, word_two):
+#TODO
+'''def lch(word_one, word_two):
     word_one = wn.synsets(word_one)[0]
     word_two = wn.synsets(word_two)[0]
 
-    return word_one.lowest_common_hypernyms(word_two)
+    return word_one.lowest_common_hypernyms(word_two)'''
 
 
-# 495481
+# 495481 is the test case 
