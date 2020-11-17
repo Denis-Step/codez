@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import Title from "./Title";
 import StateBox from "./containers/StateBox";
+import FullBoard from "./containers/FullBoard";
 import SpymasterBox from "./SpymasterBox";
 import { useRouteMatch } from "react-router-dom";
 
