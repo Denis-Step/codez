@@ -50,6 +50,8 @@ def create_board():
     session = Session()
     words = dict()
 
+    #Leave this logic but change to use parameters eventually instead of built-in constants. 
+    #
     Red, Blue, Neutral, Bomb = 0, 0, 0, 0
     i = 0
     while i < 25:
