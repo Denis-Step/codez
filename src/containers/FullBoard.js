@@ -1,7 +1,7 @@
 import Board from "../Board";
 import React from "react";
 import { connect } from "react-redux";
-import { addWord, fetchWords, clickWord } from "../redux/actions";
+import { addWord, refreshState, clickWord } from "../redux/actions";
 
 export default function FullBoard(props) {
   const mapStateToProps = (state, ownProps) => {
@@ -14,7 +14,7 @@ export default function FullBoard(props) {
 
   const mapDispatchToProps = (dispatch) => ({
     addWord: (word) => dispatch(addWord(word)),
-    fetchWords: (game_ID) => dispatch(fetchWords(game_ID)),
+    refreshState: (game_ID) => dispatch(refreshState(game_ID)),
     clickWord: (word) => dispatch(clickWord(word)),
   });
 

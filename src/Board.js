@@ -3,25 +3,23 @@ import Cell from "./Cell";
 
 export default function Board(props) {
   console.log(props);
-  if (props.words.length < 1) {
-    props.fetchWords(props.game_ID);
+  if (Object.getOwnPropertyNames(props.words).length < 1) {
+    props.refreshState(props.game_ID);
   }
 
-  function handleClick(e, word) {
-    console.log(e.target.id);
-    console.log("clicked");
+  function handleClick(word) {
     props.clickWord(word);
   }
 
   const cells = [];
-  for (let i = 0; i < 25; i++) {
-    const word = props.words[i];
+  for (const word in props.words) {
     cells.push(
       <Cell
-        key={props.words[i]}
+        key={word}
         word={word}
+        state={props.words[word]}
         onClick={(event) => {
-          handleClick(event, props.words[i]);
+          handleClick(word);
         }}
       />
     );

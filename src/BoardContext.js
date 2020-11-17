@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { loadWords, revealWord } from "./apicalls";
+import { get_State, revealWord } from "./apicalls";
 
 let BoardContext = React.createContext();
 
@@ -14,7 +13,7 @@ class BoardContextProvider extends Component {
   }
 
   setBoard() {
-    loadWords().then((result) => {
+    get_State().then((result) => {
       this.setState({ words: result });
     });
   }

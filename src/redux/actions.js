@@ -3,8 +3,9 @@ import {
   RECEIVE_WORDS,
   CALL_WORDS,
   REVEAL_WORD,
+  RECEIVE_GAME_STATE,
 } from "./actionTypes";
-import { loadWords } from "../apicalls";
+import { get_State } from "../apicalls";
 
 export function addWord(word) {
   return { type: ADD_WORD, word };
@@ -14,19 +15,23 @@ export function callingWords() {
   return { type: CALL_WORDS };
 }
 
-export function receiveWords(words) {
-  const wordList = Object.getOwnPropertyNames(words);
-  return { type: RECEIVE_WORDS, words: wordList };
+export function receiveGameState(gameInfo) {
+  return { type: RECEIVE_GAME_STATE, gameInfo: gameInfo };
 }
 
-export function fetchWords(game_ID) {
+export function receiveWordsState(words) {
+  return { type: RECEIVE_WORDS, words: words };
+}
+
+export function refreshState(game_ID) {
   return function (dispatch) {
     dispatch(callingWords());
 
-    return loadWords(game_ID).then((data) => {
+    return get_State(game_ID).then((data) => {
       console.log("Words loaded");
 
-      dispatch(receiveWords(data.wordsState));
+      dispatch(receiveGameState(data.playerState));
+      dispatch(receiveWordsState(data.wordsState));
     });
   };
 }
@@ -39,10 +44,10 @@ export function clickWord(word) {
   return function (dispatch) {
     dispatch(revealingWord());
 
-    return loadWords().then((data) => {
+    return get_State().then((data) => {
       console.log("Refreshing after Click");
 
-      dispatch(receiveWords(data.wordsState));
+      dispatch(receiveWordsState(data.wordsState));
     });
   };
 }
