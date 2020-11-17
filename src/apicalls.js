@@ -15,7 +15,6 @@ export async function get_State(game_ID) {
     params: {},
   });
 
-  console.log(response);
   const results = response.data;
   return results;
 }
@@ -23,7 +22,6 @@ export async function get_State(game_ID) {
 export async function revealWord(word) {
   let endpoint = "/api/revealword";
   let postData = { pick: word };
-  console.log(postData);
 
   const response = await axios({
     method: "post",
@@ -31,7 +29,6 @@ export async function revealWord(word) {
     data: postData,
   });
 
-  console.log(response);
   const results = response.data;
   return results;
 }

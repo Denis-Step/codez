@@ -9,6 +9,5 @@ with open('5lenwords.txt') as f:
         word=line.strip()
         try:
             db.create_word(word, counter)
-        except:
-            print(Exception)
+        except Exception:
             continue

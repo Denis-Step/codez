@@ -2,7 +2,6 @@ import React from "react";
 import Cell from "./Cell";
 
 export default function Board(props) {
-  console.log(props);
   if (Object.getOwnPropertyNames(props.words).length < 1) {
     props.refreshState(props.game_ID);
   }
