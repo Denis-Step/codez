@@ -4,3 +4,5 @@ node_modules
 __pycache__
 *.db
 *.rdb
+redisconf
+redis-start.zsh
