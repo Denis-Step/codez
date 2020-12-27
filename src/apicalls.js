@@ -3,7 +3,7 @@ import axios from "axios";
 import ReactDOM from "react-dom";
 import Game from "./Game.js";
 
-let BASE = "http://159.203.124.40:8000";
+let BASE = "http://127.0.0.1:5000";
 
 export async function get_State(game_ID) {
   let endpoint = `/${game_ID}/loadwords`;

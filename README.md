@@ -10,6 +10,8 @@ TODO:
 *Compare vs Django + DRF implementation
 *Log hints and expose hypernym, synset, and definition functions
 
+( Brew or apt-get install redis-cli)
+### Install/Start redis-server
 1. Run word_load
 2. Change BASE in apicalls.js
 3. Run npm dev to re-make bundle
