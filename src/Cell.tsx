@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function Cell(props) {
+interface CellProps {
+  seen: boolean;
+  word: string;
+  onClick: React.MouseEventHandler<HTMLElement>;
+}
+
+const Cell : React.FC<CellProps> = (props: CellProps) => {
   let revealed = "";
   if (props.seen == false) {
     revealed = "cell not-revealed";
@@ -14,3 +20,5 @@ export default function Cell(props) {
     </div>
   );
 }
+
+export default Cell

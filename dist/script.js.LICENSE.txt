@@ -444,8 +444,6 @@ object-assign
 
 /*! prop-types */
 
-/*! prop-types/checkPropTypes */
-
 /*! react */
 
 /*! react-dom */
@@ -479,10 +477,6 @@ object-assign
 /*! value-equal */
 
 /*!*********************!*\
-  !*** ./src/Cell.js ***!
-  \*********************/
-
-/*!*********************!*\
   !*** ./src/Game.js ***!
   \*********************/
 
@@ -492,6 +486,10 @@ object-assign
 
 /*!**********************!*\
   !*** ./src/Board.js ***!
+  \**********************/
+
+/*!**********************!*\
+  !*** ./src/Cell.tsx ***!
   \**********************/
 
 /*!**********************!*\
@@ -507,12 +505,12 @@ object-assign
   \****************************/
 
 /*!******************************!*\
-  !*** ./src/redux/actions.js ***!
-  \******************************/
-
-/*!******************************!*\
   !*** ./src/redux/reducer.js ***!
   \******************************/
+
+/*!*******************************!*\
+  !*** ./src/redux/actions.tsx ***!
+  \*******************************/
 
 /*!**********************************!*\
   !*** ./src/redux/actionTypes.js ***!
@@ -530,9 +528,9 @@ object-assign
   !*** ./node_modules/react/index.js ***!
   \*************************************/
 
-/*!*************************************!*\
-  !*** ./src/containers/FullBoard.js ***!
-  \*************************************/
+/*!**************************************!*\
+  !*** ./src/containers/FullBoard.tsx ***!
+  \**************************************/
 
 /*!***************************************!*\
   !*** ./node_modules/isarray/index.js ***!
@@ -1420,7 +1418,7 @@ object-assign
  * @license Modernizr 3.0.0pre (Custom Build) | MIT
  */
 
-/** @license React v0.19.1
+/** @license React v0.20.1
  * scheduler-tracing.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -1429,7 +1427,7 @@ object-assign
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v0.19.1
+/** @license React v0.20.1
  * scheduler.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -1447,17 +1445,8 @@ object-assign
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v16.14.0
+/** @license React v17.0.1
  * react-dom.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-/** @license React v16.14.0
- * react.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -1467,6 +1456,15 @@ object-assign
 
 /** @license React v17.0.1
  * react-is.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.1
+ * react.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
