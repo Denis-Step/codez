@@ -8,6 +8,7 @@ export default function Board(props) {
 
   function handleClick(word) {
     props.clickWord(word);
+    props.refreshState(props.game_ID);
   }
 
   const cells = [];

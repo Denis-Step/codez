@@ -5,7 +5,6 @@ import {
   REVEAL_WORD,
   RECEIVE_GAME_STATE,
 } from "./actionTypes";
-import { get_State } from "../apicalls";
 
 export function addWord(word) {
   return { type: ADD_WORD, word };
@@ -23,7 +22,8 @@ export function receiveWordsState(words) {
   return { type: RECEIVE_WORDS, words: words };
 }
 
-export function refreshState(game_ID) {
+export function refreshState(game_ID, get_State) {
+  console.log(game_ID);
   return function (dispatch) {
     dispatch(callingWords());
 
@@ -43,11 +43,5 @@ export function revealingWord() {
 export function clickWord(word) {
   return function (dispatch) {
     dispatch(revealingWord());
-
-    return get_State().then((data) => {
-      console.log("Refreshing after Click");
-
-      dispatch(receiveWordsState(data.wordsState));
-    });
   };
 }

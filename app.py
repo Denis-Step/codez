@@ -28,7 +28,7 @@ def game_view(game_ID):
 
 @app.route("/static/script.js")
 def script():
-    return send_file("script.js")
+    return send_file("dist/script.js")
 
 
 @app.route("/static/styles.css")
