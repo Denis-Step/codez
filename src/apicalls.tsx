@@ -34,7 +34,7 @@ interface StateResponse {
 }
 
 export async function get_State(game_ID: string): Promise<StateResponse> {
-  let endpoint = `/${game_ID}/loadwords`;
+  const endpoint = `/${game_ID}/loadwords`;
   console.log(BASE + endpoint);
 
   const response = await axios({
@@ -47,16 +47,31 @@ export async function get_State(game_ID: string): Promise<StateResponse> {
   return results;
 }
 
+
+export async function spymaster_Move(game_ID: string, hint: string, attempts: number): Promise<number> {
+  const endpoint = `/${game_ID}/spymaster`
+  console.log(hint)
+  console.log(attempts)
+  
+  const response = await axios({
+    method: "post",
+    url: BASE + endpoint,
+    data: {hint: hint,
+           attempts: attempts}
+  })
+  
+  return response.status
+}
+
 export async function revealWord(word) {
-  let endpoint = "/api/revealword";
-  let postData = { pick: word };
+  const endpoint = "/api/revealword";
 
   const response = await axios({
     method: "post",
     url: BASE + endpoint,
-    data: postData,
+    data: {pick: word},
   });
 
   const results = response.data;
-  return results;
+  return results
 }

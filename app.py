@@ -10,7 +10,6 @@ from flask import (
     abort,
 )
 from flask_restful import Resource, Api
-from game import Game as Game
 import services
 
 app = Flask(__name__, static_url_path="/static")
@@ -42,6 +41,14 @@ def get_words(game_ID):
     print(game_ID)
     words = services.get_state(game_ID)
     return jsonify(words)
+
+
+@app.route("/<string:game_ID>/spymaster", methods=["POST"])
+def enter_hint(game_ID):
+    if request.method != "POST":
+        abort(400, "POST Data required")
+    else:
+        print(request.get_json())
 
 
 @app.route("/<string:game_ID>/revealword", methods=["POST"])

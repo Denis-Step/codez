@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import Title from "./Title";
 import StateBox from "./containers/StateBox";
 import FullBoard from "./containers/FullBoard";
-import SpymasterBox from "./SpymasterBox";
 import { useRouteMatch } from "react-router-dom";
 
 export default function Game() {
@@ -11,7 +10,7 @@ export default function Game() {
   return (
     <div className={"main"}>
       <Title />
-      <StateBox />
+      <StateBox game_ID={game_ID} />
       <FullBoard game_ID={game_ID} />
     </div>
   );
