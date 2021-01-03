@@ -18121,18 +18121,37 @@ function StateBox(props) {
     var StateBox = function (props) {
         var _a = (0,react.useState)(0), attempts = _a[0], setAttempts = _a[1];
         var _b = (0,react.useState)(""), hint = _b[0], setHint = _b[1];
+        var DecisionBox = function (turn) {
+            if (turn === void 0) { turn = props.turn; }
+            if (props.turn.split("-")[1] == "spymaster") {
+                return (react.createElement("div", null,
+                    react.createElement(TextField_TextField, { id: "outlined-basic-attempts", label: "Attempts Left", variant: "outlined", default: props.attemptsLeft, onChange: function (e) { return setAttempts(e.target.value); } }),
+                    react.createElement(TextField_TextField, { id: "outlined-hint", label: "Spymaster Hint", variant: "outlined", default: props.hint, onChange: function (e) { return setHint(e.target.value); } }),
+                    react.createElement(Button_Button, { variant: "contained", onClick: function (e) {
+                            return props.spymasterMove(props.game_ID, hint, attempts);
+                        } })));
+            }
+            else {
+                return (react.createElement("div", null,
+                    react.createElement(Typography_Typography, { variant: "h5" },
+                        "Red Score: ",
+                        props.attemptsLeft),
+                    react.createElement(Typography_Typography, { variant: "h5" },
+                        "Blue Score: ",
+                        props.hint)));
+            }
+        };
         return (react.createElement("div", { id: "statebox" },
             react.createElement(Typography_Typography, { variant: "h4" }, props.winner != "none" ? props.winner : ""),
             react.createElement(Typography_Typography, { variant: "h4" }, props.turn.split("-")[0]),
+            react.createElement(Typography_Typography, { variant: "h4" }, props.turn.split("-")[1]),
             react.createElement(Typography_Typography, { variant: "h4" },
                 "Red Score: ",
                 props.redPoints),
             react.createElement(Typography_Typography, { variant: "h4" },
                 "Blue Score: ",
                 props.bluePoints),
-            react.createElement(TextField_TextField, { id: "outlined-basic-attempts", label: "Attempts Left", variant: "outlined", default: props.attemptsLeft, onChange: function (e) { return setAttempts(e.target.value); } }),
-            react.createElement(TextField_TextField, { id: "outlined-hint", label: "Spymaster Hint", variant: "outlined", default: props.hint, onChange: function (e) { return setHint(e.target.value); } }),
-            react.createElement(Button_Button, { variant: "contained", onClick: function (e) { return props.spymasterMove(props.game_ID, hint, attempts); } })));
+            react.createElement(DecisionBox, null)));
     };
     var mapStateToProps = function (state) {
         return {

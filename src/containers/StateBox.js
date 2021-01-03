@@ -10,32 +10,54 @@ export default function StateBox(props) {
     const [attempts, setAttempts] = useState(0);
     const [hint, setHint] = useState("");
 
+    const DecisionBox = (turn = props.turn) => {
+      if (props.turn.split("-")[1] == "spymaster") {
+        return (
+          <div>
+            <TextField
+              id="outlined-basic-attempts"
+              label="Attempts Left"
+              variant="outlined"
+              default={props.attemptsLeft}
+              onChange={(e) => setAttempts(e.target.value)}
+            />
+            <TextField
+              id="outlined-hint"
+              label="Spymaster Hint"
+              variant="outlined"
+              default={props.hint}
+              onChange={(e) => setHint(e.target.value)}
+            />
+            <Button
+              variant="contained"
+              onClick={(e) =>
+                props.spymasterMove(props.game_ID, hint, attempts)
+              }
+            />
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <Typography variant="h5">
+              Attempts Left: {props.attemptsLeft}
+            </Typography>
+            <Typography variant="h5">Hint: {props.hint}</Typography>
+          </div>
+        );
+      }
+    };
+
     return (
       <div id="statebox">
         <Typography variant="h4">
           {props.winner != "none" ? props.winner : ""}
         </Typography>
         <Typography variant="h4">{props.turn.split("-")[0]}</Typography>
+        <Typography variant="h4">{props.turn.split("-")[1]}</Typography>
         <Typography variant="h4">Red Score: {props.redPoints}</Typography>
         <Typography variant="h4">Blue Score: {props.bluePoints}</Typography>
-        <TextField
-          id="outlined-basic-attempts"
-          label="Attempts Left"
-          variant="outlined"
-          default={props.attemptsLeft}
-          onChange={(e) => setAttempts(e.target.value)}
-        />
-        <TextField
-          id="outlined-hint"
-          label="Spymaster Hint"
-          variant="outlined"
-          default={props.hint}
-          onChange={(e) => setHint(e.target.value)}
-        />
-        <Button
-          variant="contained"
-          onClick={(e) => props.spymasterMove(props.game_ID, hint, attempts)}
-        />
+        <DecisionBox />
       </div>
     );
   };

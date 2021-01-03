@@ -20,11 +20,11 @@ NUM_WORDS = 5757
 
 
 def get_state(game_ID: str) -> dict:
-    print("game_ID")
     """Return player and word state"""
 
     if r.exists("state:" + game_ID) == 0:
-        raise Exception(f"Game {game_ID} not found")
+        create_game(game_ID)
+        return get_state(game_ID)
 
     state = {
         "playerState": {

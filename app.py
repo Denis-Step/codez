@@ -47,8 +47,13 @@ def get_words(game_ID):
 def enter_hint(game_ID):
     if request.method != "POST":
         abort(400, "POST Data required")
-    else:
-        print(request.get_json())
+
+    print(request.get_json())
+    code = services.handle_turn(game_ID, "blue", "spymaster", request.get_json())
+    if code == 0:
+        abort(400, "Invalid")
+    elif code == 1:
+        return "Accepted"
 
 
 @app.route("/<string:game_ID>/revealword", methods=["POST"])
