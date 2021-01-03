@@ -7,6 +7,7 @@ from flask import (
     send_from_directory,
     jsonify,
     make_response,
+    abort,
 )
 from flask_restful import Resource, Api
 from game import Game as Game
@@ -36,21 +37,30 @@ def style():
     return send_from_directory("static", "styles.css")
 
 
-@app.route("/<game_ID>/loadwords")
+@app.route("/<string:game_ID>/loadwords")
 def get_words(game_ID):
-    words = services.get_or_create_state(game_ID)
+    print(game_ID)
+    words = services.get_state(game_ID)
     return jsonify(words)
 
 
-"""@app.route('/api/revealword', methods=['GET', 'POST'])
+@app.route("/<string:game_ID>/revealword", methods=["POST"])
+def reveal_word(game_ID):
+    if request.method != "POST":
+        abort(400, "POST Data required")
+
+
+@app.route("/api/revealword", methods=["POST"])
 def get_revealed_words():
+    return None
     global g
 
-    if request.method == 'POST':
-        word = request.get_json()['pick']
+    if request.method == "POST":
+        word = request.get_json()["pick"]
         g.reveal_word(word)
-        data = {'message': 'Created', 'code': 'SUCCESS'}
-        return make_response(jsonify(data), 201)"""
+        data = {"message": "Created", "code": "SUCCESS"}
+        return make_response(jsonify(data), 201)
+
 
 if __name__ == "__main__":
     app.debug = True

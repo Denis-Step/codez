@@ -19,13 +19,12 @@ NUM_WORDS = 5757
 # TODO: Make The Red/Blue/Neutral/Bomb Constants
 
 
-def get_or_create_state(game_ID: str) -> dict:
+def get_state(game_ID: str) -> dict:
     print("game_ID")
     """Return player and word state"""
 
     if r.exists("state:" + game_ID) == 0:
-        create_game(game_ID)
-        return get_or_create_state(game_ID)
+        raise Exception(f"Game {game_ID} not found")
 
     state = {
         "playerState": {
@@ -97,11 +96,11 @@ def create_board():
     session.close()
     keys = list(words.keys())
     random.shuffle(keys)
-    shuffledDict = dict()
+    shuffled_dict = dict()
     for key in keys:
-        shuffledDict.update({key: words[key]})
+        shuffled_dict.update({key: words[key]})
 
-    return shuffledDict
+    return shuffled_dict
 
 
 def set_winner(game_ID, team):
