@@ -6,7 +6,6 @@ import { useRouteMatch } from "react-router-dom";
 
 export default function Game() {
   const game_ID = useRouteMatch("/:id").params.id;
-  console.log(game_ID);
   return (
     <div className={"main"}>
       <Title />

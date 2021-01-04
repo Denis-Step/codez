@@ -18054,6 +18054,26 @@ function revealWord(word) {
         });
     });
 }
+function login(name) {
+    return __awaiter(this, void 0, void 0, function () {
+        var endpoint, response, results;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    endpoint = "/api/login";
+                    return [4 /*yield*/, axios_default()({
+                            method: "post",
+                            url: BASE + endpoint,
+                            data: { name: name },
+                        })];
+                case 1:
+                    response = _a.sent();
+                    results = response.status;
+                    return [2 /*return*/, results];
+            }
+        });
+    });
+}
 
 ;// CONCATENATED MODULE: ./src/redux/actions.tsx
 
@@ -20089,7 +20109,6 @@ if (false) { var secondaryBuildName, initialBuildName, buildNames, react_router_
 
 function Game() {
     var game_ID = useRouteMatch("/:id").params.id;
-    console.log(game_ID);
     return (react.createElement("div", { className: "main" },
         react.createElement(Title, null),
         react.createElement(StateBox, { game_ID: game_ID }),
@@ -20362,6 +20381,21 @@ if (false) { var ariaCurrentType; }
 
 //# sourceMappingURL=react-router-dom.js.map
 
+;// CONCATENATED MODULE: ./src/LoginPage.tsx
+
+
+var LoginPage = function (props) {
+    var _a = (0,react.useState)(""), name = _a[0], setName = _a[1];
+    return react.createElement("div", null,
+        react.createElement("form", null,
+            react.createElement("input", { type: "text", onChange: function (e) { return setName(e.target.value); } }),
+            react.createElement("button", { onClick: function (e) {
+                    e.preventDefault();
+                    login(name);
+                } })));
+};
+/* harmony default export */ const src_LoginPage = (LoginPage);
+
 ;// CONCATENATED MODULE: ./src/main.js
 
 
@@ -20369,9 +20403,15 @@ if (false) { var ariaCurrentType; }
 
 
 
+
+
 react_dom.render(react.createElement(BrowserRouter, null,
-    react.createElement(components_Provider, { store: redux_store },
-        react.createElement(Game, null))), document.getElementById("root"));
+    react.createElement(Switch, null,
+        react.createElement(Route, { path: "/login" },
+            react.createElement(src_LoginPage, null)),
+        react.createElement(Route, { exact: true, path: "/:id" },
+            react.createElement(components_Provider, { store: redux_store },
+                react.createElement(Game, null))))), document.getElementById("root"));
 
 })();
 

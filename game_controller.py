@@ -4,7 +4,7 @@ import exceptions
 
 def get_or_create_state(game_ID: str):
     try:
-        services.get_state(game_ID)
+        return services.get_state(game_ID)
     except exceptions.GameNotFoundError:
         return services.create_game(game_ID)
 

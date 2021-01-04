@@ -75,3 +75,16 @@ export async function revealWord(word) {
   const results = response.data;
   return results
 }
+
+export async function login(name: string): Promise<number> {
+  const endpoint = "/api/login";
+
+  const response = await axios({
+    method: "post",
+    url: BASE + endpoint,
+    data: {name: name},
+  });
+
+  const results = response.status;
+  return results
+}

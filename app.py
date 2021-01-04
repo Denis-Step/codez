@@ -23,6 +23,12 @@ def home():
     return send_from_directory("static", "index.html")
 
 
+@app.route("/api/login", methods=["POST"])
+def login():
+    print(request.get_json())
+    return "Logging in"
+
+
 @app.route("/<game_ID>")
 def game_view(game_ID):
     return send_from_directory("static", "index.html")
