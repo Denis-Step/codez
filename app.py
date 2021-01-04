@@ -11,7 +11,7 @@ from flask import (
     session,
 )
 from flask_restful import Resource, Api
-import services
+import game_controller
 
 app = Flask(__name__, static_url_path="/static")
 api = Api(app)
@@ -41,7 +41,7 @@ def style():
 @app.route("/<string:game_ID>/loadwords")
 def get_words(game_ID):
     print(game_ID)
-    words = services.get_state(game_ID)
+    words = game_controller.get_or_create_state(game_ID)
     return jsonify(words)
 
 
@@ -51,7 +51,7 @@ def enter_hint(game_ID):
         abort(400, "POST Data required")
 
     print(request.get_json())
-    code = services.handle_turn(game_ID, "blue", "spymaster", request.get_json())
+    code = game_controller.check_turn(game_ID, "blue", "spymaster", request.get_json())
     if code == 0:
         abort(400, "Invalid")
     elif code == 1:

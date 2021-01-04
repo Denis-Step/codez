@@ -53,7 +53,11 @@ def create_game(game_ID):
     words = create_board()
     set_fields = r.hset("state:" + game_ID, mapping=new_game)
     set_fields += r.hset("words:" + game_ID, mapping=words)
-    return {"playerState": new_game, "wordsState": words} if set_fields == 31 else {}
+
+    if set_fields == 31:
+        return {"playerState": new_game, "wordsState": words}
+    else:
+        raise Exception("Could not make Game")
 
 
 # TODO: Refactor this!!
@@ -116,19 +120,14 @@ def finish_turn(game_ID, team):
     if int(state[b"attemptsLeft"]) == 0:
         update = {b"turn": opposite + "-" + "spymaster", b"hint": ""}
         r.hset("state:" + game_ID, mapping=update)
+    return 1
 
 
 def handle_turn(game_ID, team, action, payload):
     state = r.hgetall("state:" + game_ID)
-    if state[b"winner"] != b"none":
-        print(f"{state[b'winner']} won! No further action.")
-        return 0
-    if f"{team}-{action}" != state[b"turn"].decode("utf-8"):
-        print("Can't go now")
-        return 0
     if action == "spymaster":
         update = {b"hint": payload["hint"].encode()}
-        if state[b"turn"].decode("utf-8").split("-")[0] == "blue":
+        if team == "blue":
             update[b"turn"] = "blue-chooser"
             update[b"attemptsLeft"] = payload["attempts"]
         else:
@@ -138,7 +137,7 @@ def handle_turn(game_ID, team, action, payload):
         return 1
     elif action == "chooser":
         choose_word(game_ID, team, payload["choice"])
-        finish_turn(game_ID, team)
+        return finish_turn(game_ID, team)
 
 
 def choose_word(game_ID, team, choice):
