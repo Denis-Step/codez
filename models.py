@@ -1,3 +1,4 @@
+import bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 
@@ -23,14 +24,23 @@ class User(db.Model):
     name = db.Column(db.String)
     email = db.Column(db.String)
     password = db.Column(db.String, nullable=False)
+    salt = db.Column(db.String, nullable=False)
     gamesPlayed = db.Column(db.Integer)
     gamesWon = db.Column(db.Integer)
 
     def __repr__(self):
         return f"User {self.name}"
 
-    def generate_next_id(self):
-        pass
+    @classmethod
+    def generate_next_id(cls):
+        highest_id = User.query.order_by(User.id.desc())
+        return highest_id + 1
+
+    @classmethod
+    def hash_password(cls, password):
+        salt = bcrypt.gensalt()
+        hashed_pw = bcrypt.hashpw(password, salt)
+        return {"salt": salt, "hashed_pw": hashed_pw}
 
 
 class GameHistory(db.Model):
