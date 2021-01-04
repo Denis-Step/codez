@@ -23,6 +23,11 @@ def home():
         return redirect("/login")
 
 
+@app.route("/login")
+def login_page():
+    return send_from_directory("static", "login.html")
+
+
 @app.route("/api/login", methods=["POST"])
 def login():
     print(request.get_json())
@@ -33,8 +38,13 @@ def login():
 
 
 @app.route("/static/script.js")
-def script():
-    return send_file("dist/script.js")
+def main_script():
+    return send_file("script.js")
+
+
+@app.route("/static/login.js")
+def login_script():
+    return send_file("login.js")
 
 
 @app.route("/static/styles.css")

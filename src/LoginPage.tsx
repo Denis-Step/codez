@@ -1,5 +1,7 @@
 import React, {useState} from "react";
-import {login} from "./apicalls"
+import {login} from "./apicalls";
+import ReactDOM from "react-dom";
+
 
 interface LoginPageProps {}
 
@@ -18,5 +20,8 @@ const LoginPage : React.FC<LoginPageProps> = (props: LoginPageProps) => {
     </div>
     
 }
-
-export default LoginPage
+ReactDOM.render(
+        <LoginPage />,
+    document.getElementById("root")
+  );
+  

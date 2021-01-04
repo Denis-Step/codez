@@ -1,9 +1,12 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/main.js",
+  entry: {
+    script: "./src/main.js",
+    login: "./src/LoginPage.tsx",
+  },
   output: {
-    filename: "./script.js",
+    filename: "./[name].js",
     path: path.resolve(__dirname, ""),
   },
   resolve: {
@@ -35,9 +38,6 @@ module.exports = {
   },
   optimization: {
     minimize: false,
-  },
-  output: {
-    filename: "script.js",
   },
   devtool: "source-map",
 };
