@@ -1,12 +1,11 @@
-from nltk.corpus import wordnet as wn
-import modelmethods as db
+import random
 import redis
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import modelmethods as db
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
-import random
-from models import Word, User, GameHistory
+import exceptions
+from models import Word
 
 engine = create_engine("sqlite:///db.db", echo=True)
 Base = declarative_base()
@@ -23,8 +22,7 @@ def get_state(game_ID: str) -> dict:
     """Return player and word state"""
 
     if r.exists("state:" + game_ID) == 0:
-        create_game(game_ID)
-        return get_state(game_ID)
+        raise exceptions.GameNotFoundError("Game not Found")
 
     state = {
         "playerState": {

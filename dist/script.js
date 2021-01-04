@@ -18134,10 +18134,10 @@ function StateBox(props) {
             else {
                 return (react.createElement("div", null,
                     react.createElement(Typography_Typography, { variant: "h5" },
-                        "Red Score: ",
+                        "Attempts Left: ",
                         props.attemptsLeft),
                     react.createElement(Typography_Typography, { variant: "h5" },
-                        "Blue Score: ",
+                        "Hint: ",
                         props.hint)));
             }
         };
