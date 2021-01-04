@@ -1,5 +1,5 @@
 from nltk.corpus import wordnet as wn
-import modelmethods as db
+import models
 
 if __name__ == "__main__":
     with open("5lenwords.txt") as f:
@@ -8,7 +8,9 @@ if __name__ == "__main__":
             counter += 1
             word = line.strip()
             try:
-                db.create_word(word, counter)
+                new_word = models.Word(word=word, wordid=counter)
+                models.db.session.add(new_word)
+                models.db.session.commit()
             except Exception:
                 print("exception")
                 continue

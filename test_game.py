@@ -17,7 +17,7 @@ class TestGame:
 
     @pytest.fixture
     def good_game_ID(self):
-        return str(10000)
+        return str(90000)
 
     @pytest.fixture
     def initial_word_states(self):

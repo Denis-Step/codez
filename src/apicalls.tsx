@@ -76,13 +76,14 @@ export async function revealWord(word) {
   return results
 }
 
-export async function login(name: string): Promise<number> {
+export async function login(name: string, game: string): Promise<number> {
   const endpoint = "/api/login";
 
   const response = await axios({
     method: "post",
     url: BASE + endpoint,
-    data: {name: name},
+    data: {username: name,
+           game_ID: game},
   });
 
   const results = response.status;

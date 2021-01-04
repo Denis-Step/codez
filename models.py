@@ -1,56 +1,45 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 
-engine = create_engine('sqlite:///db.db', echo=True)
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.db"
+db = SQLAlchemy(app)
 
-Base = declarative_base()
 
-class Word(Base):
-    __tablename__ = 'words'
+class Word(db.Model):
+    __tablename__ = "words"
 
-    word = Column(String, primary_key=True)
-    wordid = Column(Integer)
-
-    def __repr__(self):
-        return f'{self.word}'
-
-class User(Base):
-    __tablename__ = 'users'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    email = Column(String)
-    password = Column(String)
-    gamesPlayed = Column(Integer)
-    gamesWon = Column(Integer)
+    word = db.Column(db.String, primary_key=True)
+    wordid = db.Column(db.Integer)
 
     def __repr__(self):
-        return f'User {self.name}'
+        return f"{self.word}"
 
-class GameHistory(Base):
-    __tablename__ = 'gamehistories'
 
-    gamehistoryid = Column(String, primary_key=True)
-    history = Column(String)
-    winners = Column(String)
-    date = Column(String)
+class User(db.Model):
+    __tablename__ = "users"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    email = db.Column(db.String)
+    password = db.Column(db.String, nullable=False)
+    gamesPlayed = db.Column(db.Integer)
+    gamesWon = db.Column(db.Integer)
 
     def __repr__(self):
-        return f'{self.gamehistoryid}'
+        return f"User {self.name}"
 
-Base.metadata.create_all(engine)
+    def generate_next_id(self):
+        pass
 
-Session = sessionmaker(bind=engine)
-Session.configure(bind=engine)
-session = Session()
 
-# user = User(id=0, name='John', password='johnspassword')
-# session.add(user)
-# user1 = User(id=1, name='John', gamesWon=4)
-# session.add(user1)
+class GameHistory(db.Model):
+    __tablename__ = "gamehistories"
 
-print(session)
+    gamehistoryid = db.Column(db.String, primary_key=True)
+    history = db.Column(db.String)
+    winners = db.Column(db.String)
+    date = db.Column(db.String)
 
-# session.commit()
+    def __repr__(self):
+        return f"{self.gamehistoryid}"

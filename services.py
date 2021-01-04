@@ -1,16 +1,9 @@
 import random
 import redis
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-import modelmethods as db
-from sqlalchemy.ext.declarative import declarative_base
 import exceptions
 from models import Word
 
-engine = create_engine("sqlite:///db.db", echo=True)
-Base = declarative_base()
-Session = sessionmaker(bind=engine)
-Session.configure(bind=engine)
+
 r = redis.Redis(host="localhost", port=6379, db=0)
 
 NUM_WORDS = 5757
@@ -65,7 +58,6 @@ def create_game(game_ID):
 
 
 def create_board():
-    session = Session()
     words = dict()
 
     # Leave this logic but change to use parameters eventually instead of built-in constants.
@@ -74,7 +66,7 @@ def create_board():
     i = 0
     while i < 25:
         n = random.randrange(5757)
-        word = session.query(Word).filter(Word.wordid == n)
+        word = Word.query.filter_by(wordid=n)
         word = word.value("word")
         if word in words:
             continue
@@ -96,7 +88,6 @@ def create_board():
             Bomb += 1
             i += 1
 
-    session.close()
     keys = list(words.keys())
     random.shuffle(keys)
     shuffled_dict = dict()
