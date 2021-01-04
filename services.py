@@ -34,6 +34,7 @@ def get_state(game_ID: str) -> dict:
             for k, v in r.hgetall("words:" + game_ID).items()
         },
     }
+
     return state
 
 

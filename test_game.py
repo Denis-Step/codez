@@ -60,5 +60,22 @@ class TestGame:
         )
         assert success == 1
         pstate = services.get_state(good_game_ID)["playerState"]
-        print(pstate)
         assert pstate["turn"] == "blue-chooser"
+        assert pstate["hint"] == spymaster_payload["hint"]
+        assert pstate["attemptsLeft"] == str(spymaster_payload["attempts"])
+
+    def test_chooser_turn(self, good_game_ID):
+        words_master = services.get_state(good_game_ID)["wordsState"]
+        blue_words = [word for word in words_master if "blue" in words_master[word]]
+        assert len(blue_words) == 8
+
+        for i in range(0, 3):
+            payload = {"choice": blue_words[i]}
+            services.handle_turn(good_game_ID, "blue", "chooser", payload)
+
+        new_state = services.get_state(good_game_ID)["playerState"]
+        assert new_state["turn"] == "red-spymaster"
+        assert new_state["bluePoints"] == "3"
+        assert new_state["redPoints"] == "0"
+        assert new_state["attemptsLeft"] == "0"
+        assert new_state["hint"] == ""
