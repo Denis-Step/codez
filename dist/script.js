@@ -58157,24 +58157,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./redux/store */ "./src/redux/store.js");
 /* harmony import */ var _Game_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Game.js */ "./src/Game.js");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _LoginPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./LoginPage */ "./src/LoginPage.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 
 
 
 
 
 
-
-
-react_dom__WEBPACK_IMPORTED_MODULE_1__.render(react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.BrowserRouter, null,
-    react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_7__.Switch, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_7__.Route, { path: "/login" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LoginPage__WEBPACK_IMPORTED_MODULE_5__.default, null)),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_7__.Route, { exact: true, path: "/:id" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, { store: _redux_store__WEBPACK_IMPORTED_MODULE_3__.default },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Game_js__WEBPACK_IMPORTED_MODULE_4__.default, null))))), document.getElementById("root"));
+react_dom__WEBPACK_IMPORTED_MODULE_1__.render(react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.BrowserRouter, null,
+    react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, { store: _redux_store__WEBPACK_IMPORTED_MODULE_3__.default },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Game_js__WEBPACK_IMPORTED_MODULE_4__.default, null))), document.getElementById("root"));
 
 
 /***/ }),
@@ -58325,38 +58317,6 @@ var Cell = function (props) {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: props.word, onClick: props.onClick, className: revealed }, props.word));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Cell);
-
-
-/***/ }),
-
-/***/ "./src/LoginPage.tsx":
-/*!***************************!*\
-  !*** ./src/LoginPage.tsx ***!
-  \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _apicalls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./apicalls */ "./src/apicalls.tsx");
-
-
-var LoginPage = function (props) {
-    var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""), name = _a[0], setName = _a[1];
-    var _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""), game = _b[0], setGame = _b[1];
-    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", null,
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { type: "text", onChange: function (e) { return setName(e.target.value); } }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { type: "text", onChange: function (e) { return setGame(e.target.value); } }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { onClick: function (e) {
-                    e.preventDefault();
-                    (0,_apicalls__WEBPACK_IMPORTED_MODULE_1__.login)(name, game);
-                } })));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LoginPage);
 
 
 /***/ }),

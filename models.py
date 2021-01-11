@@ -28,19 +28,46 @@ class User(db.Model):
     gamesPlayed = db.Column(db.Integer)
     gamesWon = db.Column(db.Integer)
 
+    class UserExistsError(Exception):
+        def __init__(self, message, username):
+            super().__init__(message)
+            self.username = username
+
     def __repr__(self):
         return f"User {self.name}"
 
-    @classmethod
-    def generate_next_id(cls):
-        highest_id = User.query.order_by(User.id.desc())
+    @staticmethod
+    def generate_next_id():
+        highest_id = User.query.order_by(User.id.desc()).first().id
         return highest_id + 1
 
-    @classmethod
-    def hash_password(cls, password):
+    @staticmethod
+    def hash_password(password):
         salt = bcrypt.gensalt()
         hashed_pw = bcrypt.hashpw(password, salt)
         return {"salt": salt, "hashed_pw": hashed_pw}
+
+    @classmethod
+    def exists(cls, username):
+        user = User.query.filter(User.name == username).scalar()
+        return True if user else False
+
+    @classmethod
+    def create(cls, username, password):
+        if User.exists(username):
+            raise User.UserExistsError(
+                message="Username already exists", username=username
+            )
+
+        pw_info = User.hash_password(password.encode())
+        new_user = User(
+            id=User.generate_next_id(),
+            name=username,
+            password=pw_info["hashed_pw"],
+            salt=pw_info["salt"],
+        )
+        db.session.add(new_user)
+        db.session.commit()
 
 
 class GameHistory(db.Model):

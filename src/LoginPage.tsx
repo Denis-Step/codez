@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {login} from "./apicalls";
+import {register} from "./apicalls";
 import ReactDOM from "react-dom";
 
 
@@ -7,14 +7,14 @@ interface LoginPageProps {}
 
 const LoginPage : React.FC<LoginPageProps> = (props: LoginPageProps) => {
     const [name, setName] = useState("")
-    const [game, setGame] = useState("")
+    const [password, setPassword] = useState("")
     
     return <div>
-        <form>
+        <form id="user-registration">
             <input type="text" onChange = {(e) => setName(e.target.value)} />
-            <input type="text" onChange = {(e) => setGame(e.target.value)} />
+            <input type="password" onChange = {(e) => setPassword(e.target.value)} />
             <button onClick = {(e) => {e.preventDefault();
-                                         login(name,game)}
+                                         login(name, password)}
              } />
         </form>
     </div>

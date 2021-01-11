@@ -39,12 +39,12 @@ def login():
 
 @app.route("/static/script.js")
 def main_script():
-    return send_file("script.js")
+    return send_file("dist/script.js")
 
 
 @app.route("/static/login.js")
 def login_script():
-    return send_file("login.js")
+    return send_file("dist/login.js")
 
 
 @app.route("/static/styles.css")

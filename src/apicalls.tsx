@@ -33,6 +33,7 @@ interface StateResponse {
   wordsState: WordsState
 }
 
+
 export async function get_State(game_ID: string): Promise<StateResponse> {
   const endpoint = `/${game_ID}/loadwords`;
   console.log(BASE + endpoint);
@@ -76,14 +77,14 @@ export async function revealWord(word) {
   return results
 }
 
-export async function login(name: string, game: string): Promise<number> {
+export async function register(name: string, password: string): Promise<number> {
   const endpoint = "/api/login";
 
   const response = await axios({
     method: "post",
     url: BASE + endpoint,
     data: {username: name,
-           game_ID: game},
+           password: password},
   });
 
   const results = response.status;
