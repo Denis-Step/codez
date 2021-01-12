@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import { makeSpymasterMove } from "../redux/actions";
 
@@ -14,21 +11,21 @@ export default function StateBox(props) {
       if (props.turn.split("-")[1] == "spymaster") {
         return (
           <div>
-            <TextField
+            <span
               id="outlined-basic-attempts"
               label="Attempts Left"
               variant="outlined"
               default={props.attemptsLeft}
               onChange={(e) => setAttempts(e.target.value)}
             />
-            <TextField
+            <span
               id="outlined-hint"
               label="Spymaster Hint"
               variant="outlined"
               default={props.hint}
               onChange={(e) => setHint(e.target.value)}
             />
-            <Button
+            <button
               variant="contained"
               onClick={(e) =>
                 props.spymasterMove(props.game_ID, hint, attempts)
@@ -39,10 +36,8 @@ export default function StateBox(props) {
       } else {
         return (
           <div>
-            <Typography variant="h5">
-              Attempts Left: {props.attemptsLeft}
-            </Typography>
-            <Typography variant="h5">Hint: {props.hint}</Typography>
+            <p variant="h5">Attempts Left: {props.attemptsLeft}</p>
+            <p variant="h5">Hint: {props.hint}</p>
           </div>
         );
       }
@@ -50,13 +45,11 @@ export default function StateBox(props) {
 
     return (
       <div id="statebox">
-        <Typography variant="h4">
-          {props.winner != "none" ? props.winner : ""}
-        </Typography>
-        <Typography variant="h4">{props.turn.split("-")[0]}</Typography>
-        <Typography variant="h4">{props.turn.split("-")[1]}</Typography>
-        <Typography variant="h4">Red Score: {props.redPoints}</Typography>
-        <Typography variant="h4">Blue Score: {props.bluePoints}</Typography>
+        <p variant="h4">{props.winner != "none" ? props.winner : ""}</p>
+        <p variant="h4">{props.turn.split("-")[0]}</p>
+        <p variant="h4">{props.turn.split("-")[1]}</p>
+        <p variant="h4">Red Score: {props.redPoints}</p>
+        <p variant="h4">Blue Score: {props.bluePoints}</p>
         <DecisionBox />
       </div>
     );
@@ -80,5 +73,5 @@ export default function StateBox(props) {
 
   StateBox = connect(mapStateToProps, mapDispatchToProps)(StateBox);
 
-  return <StateBox {...props} />;
+  return <div />;
 }

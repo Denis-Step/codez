@@ -50,7 +50,7 @@ class User(db.Model):
     @classmethod
     def exists(cls, username):
         user = User.query.filter(User.name == username).scalar()
-        return True if user else False
+        return bool(user)
 
     @classmethod
     def create(cls, username, password):

@@ -12,6 +12,7 @@ from flask import (
     redirect,
 )
 import game_controller
+import models
 
 app = Flask(__name__, static_url_path="/static")
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -26,6 +27,17 @@ def home():
 @app.route("/login")
 def login_page():
     return send_from_directory("static", "login.html")
+
+
+@app.route("/api/signup", methods=["POST"])
+def signup():
+    print(request.get_json())
+    try:
+        data = request.get_json()
+        models.User.create(data["username"], data["password"])
+        return redirect("/")
+    except models.User.UserExistsError:
+        abort(400, "User Already Exists")
 
 
 @app.route("/api/login", methods=["POST"])

@@ -3,10 +3,10 @@ const path = require("path");
 module.exports = {
   entry: {
     script: "./src/main.js",
-    login: "./src/LoginPage.tsx",
+    login: "./src/SignupPage.tsx",
   },
   output: {
-    filename: "./[name].js",
+    filename: "./dist/[name].js",
     path: path.resolve(__dirname, ""),
   },
   resolve: {
