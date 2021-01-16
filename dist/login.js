@@ -1385,6 +1385,43 @@ if (_chakra_ui_utils__WEBPACK_IMPORTED_MODULE_2__.__DEV__) {
 
 /***/ }),
 
+/***/ "./node_modules/@chakra-ui/layout/dist/esm/center.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@chakra-ui/layout/dist/esm/center.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Center": () => /* binding */ Center
+/* harmony export */ });
+/* harmony import */ var _chakra_ui_system__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @chakra-ui/system */ "./node_modules/@chakra-ui/system/dist/esm/index.js");
+/* harmony import */ var _chakra_ui_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/utils */ "./node_modules/@chakra-ui/utils/dist/esm/index.js");
+
+
+
+/**
+ * React component used to horizontally and vertically center its child.
+ * It uses the popular `display: flex` centering technique.
+ *
+ * @see Docs https://chakra-ui.com/docs/layout/center
+ */
+var Center = (0,_chakra_ui_system__WEBPACK_IMPORTED_MODULE_0__.chakra)("div", {
+  baseStyle: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});
+
+if (_chakra_ui_utils__WEBPACK_IMPORTED_MODULE_1__.__DEV__) {
+  Center.displayName = "Center";
+}
+//# sourceMappingURL=center.js.map
+
+/***/ }),
+
 /***/ "./node_modules/@chakra-ui/portal/dist/esm/portal-manager.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/@chakra-ui/portal/dist/esm/portal-manager.js ***!
@@ -47242,11 +47279,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _apicalls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./apicalls */ "./src/apicalls.tsx");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/layout/dist/esm/box.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/form-control/dist/esm/form-label.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/input/dist/esm/input.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/button/dist/esm/button.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/chakra-provider.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/layout/dist/esm/center.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/layout/dist/esm/box.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/form-control/dist/esm/form-label.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/input/dist/esm/input.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/button/dist/esm/button.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/chakra-provider.js");
 
 
 
@@ -47254,17 +47292,22 @@ __webpack_require__.r(__webpack_exports__);
 var SignupPage = function (props) {
     var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""), name = _a[0], setName = _a[1];
     var _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""), password = _b[0], setPassword = _b[1];
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.FormLabel, null, "Input"),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Input, { type: "text", onChange: function (e) { return setName(e.target.value); } }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Input, { type: "password", onChange: function (e) { return setPassword(e.target.value); } }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { onClick: function (e) {
-                e.preventDefault();
-                (0,_apicalls__WEBPACK_IMPORTED_MODULE_1__.register)(name, password);
-            } }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Button, { size: "lg", border: "2px", borderColor: "green.500" }, "Signup")));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Center, { h: "100%" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Box, { style: {
+                width: "300px",
+                height: "100px",
+                padding: "20px",
+                position: "absolute",
+            }, w: "100%" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.FormLabel, null, "Sign-in"),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Input, { type: "text", placeholder: "Username", onChange: function (e) { return setName(e.target.value); } }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Input, { type: "password", placeholder: "Password", onChange: function (e) { return setPassword(e.target.value); } }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Button, { size: "lg", border: "2px", borderColor: "green.500", onClick: function (e) {
+                    e.preventDefault();
+                    (0,_apicalls__WEBPACK_IMPORTED_MODULE_1__.register)(name, password);
+                } }, "Signup"))));
 };
-react_dom__WEBPACK_IMPORTED_MODULE_2__.render(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.ChakraProvider, null,
+react_dom__WEBPACK_IMPORTED_MODULE_2__.render(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.ChakraProvider, null,
     react__WEBPACK_IMPORTED_MODULE_0__.createElement(SignupPage, null)), document.getElementById("root"));
 
 
