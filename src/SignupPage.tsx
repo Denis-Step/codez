@@ -1,59 +1,80 @@
-import React, { useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import { register } from "./apicalls";
 import ReactDOM from "react-dom";
 import {
   Box,
-  HStack,
+  VStack,
   FormControl,
   Square,
   Center,
   FormLabel,
   Input,
+  Divider,
   Button,
   ChakraProvider,
+  HStack,
 } from "@chakra-ui/react";
-
+import LoginButton from "./LoginButton";
+import SignupButton from "./SignupButton";
 interface SignupProps {}
+
+const style_elTypewriterSignupButton = {
+  borderRadius: "3.0px",
+  filter: "drop-shadow(0.0px 2.0px 3px rgba(0, 0, 0, 0.3000))",
+  overflow: "visible",
+};
+const style_elTypewriterLoginButton = {
+  borderRadius: "3.0%",
+  filter: "drop-shadow(0.0px 2.0px 3px rgba(0, 0, 0, 0.3000))",
+  overflow: "visible",
+};
+const style_title: CSSProperties = {
+  fontSize: 75,
+  color: "black",
+  textAlign: "center",
+};
+
+const style_SignIn: CSSProperties = {
+  fontSize: 60,
+  color: "black",
+  textAlign: "center",
+  display: "flex"
+};
 
 const SignupPage: React.FC = (props: SignupProps) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   return (
-    <Center h={"100%"}>
-        <Box
-          style={{
-            width: "300px",
-            height: "100px",
-            padding: "20px",
-            position: "absolute",
-          }}
-          w={"100%"}
-        >
-          <FormLabel>Sign-in</FormLabel>
-          <Input
-            type="text"
-            placeholder="Username"
-            onChange={(e) => setName(e.target.value)}
-          />
-          <Input
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
-            size="lg"
-            border="2px"
-            borderColor="green.500"
-            onClick={(e) => {
-              e.preventDefault();
-              register(name, password);
-            }}
-          >
-            Signup
-          </Button>
-        </Box>
-      </Center>
+    <div
+      className="login-grid-root login-background"
+    >
+      <div className="font-badlyStamped" style={style_title}>
+        <span>CODEZ</span>
+      </div>
+      <Divider />
+      <div className="font-n1942report ">
+      <VStack>
+        <span className="" style={style_SignIn}>
+          Sign In
+        </span>
+        <FormControl>
+          <VStack>
+        <Input style={{width: '50%'}} size="lg" type="username" placeholder="Username" onChange={(e) => setName(e.currentTarget.value)} />
+        <Input style={{width: '50%'}} size="lg" type="password" placeholder="password" onChange={(e) => setPassword(e.currentTarget.value)} />
+        </VStack>
+        </FormControl>
+        
+        <HStack>
+        <Button size="lg" className="font-n1942report login-button">LOGIN </Button>
+        <Button size="lg" className="font-n1942report signup-button">SIGNUP </Button>
+        </HStack>
+        </VStack>
+        <Divider/>
+      </div>
+
+      <div>Row3</div>
+    </div>
   );
 };
 ReactDOM.render(
