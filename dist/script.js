@@ -37649,6 +37649,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "get_State": () => /* binding */ get_State,
 /* harmony export */   "spymaster_Move": () => /* binding */ spymaster_Move,
 /* harmony export */   "revealWord": () => /* binding */ revealWord,
+/* harmony export */   "login": () => /* binding */ login,
 /* harmony export */   "register": () => /* binding */ register
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -37767,13 +37768,34 @@ function revealWord(word) {
         });
     });
 }
-function register(name, password) {
+function login(name, password) {
     return __awaiter(this, void 0, void 0, function () {
         var endpoint, response, results;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     endpoint = "/api/login";
+                    return [4 /*yield*/, axios__WEBPACK_IMPORTED_MODULE_0___default()({
+                            method: "post",
+                            url: BASE + endpoint,
+                            data: { username: name,
+                                password: password },
+                        })];
+                case 1:
+                    response = _a.sent();
+                    results = response.status;
+                    return [2 /*return*/, results];
+            }
+        });
+    });
+}
+function register(name, password) {
+    return __awaiter(this, void 0, void 0, function () {
+        var endpoint, response, results;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    endpoint = "/api/signup";
                     return [4 /*yield*/, axios__WEBPACK_IMPORTED_MODULE_0___default()({
                             method: "post",
                             url: BASE + endpoint,

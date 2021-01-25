@@ -21,7 +21,7 @@ class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
+    name = db.Column(db.String, nullable=False)
     email = db.Column(db.String)
     password = db.Column(db.String, nullable=False)
     salt = db.Column(db.String, nullable=False)
@@ -29,6 +29,11 @@ class User(db.Model):
     gamesWon = db.Column(db.Integer)
 
     class UserExistsError(Exception):
+        def __init__(self, message, username):
+            super().__init__(message)
+            self.username = username
+
+    class IncorrectLoginError(Exception):
         def __init__(self, message, username):
             super().__init__(message)
             self.username = username
@@ -44,7 +49,7 @@ class User(db.Model):
     @staticmethod
     def hash_password(password):
         salt = bcrypt.gensalt()
-        hashed_pw = bcrypt.hashpw(password, salt)
+        hashed_pw = bcrypt.hashpw(password.encode(), salt)
         return {"salt": salt, "hashed_pw": hashed_pw}
 
     @classmethod
@@ -59,7 +64,7 @@ class User(db.Model):
                 message="Username already exists", username=username
             )
 
-        pw_info = User.hash_password(password.encode())
+        pw_info = User.hash_password(password)
         new_user = User(
             id=User.generate_next_id(),
             name=username,
@@ -68,6 +73,22 @@ class User(db.Model):
         )
         db.session.add(new_user)
         db.session.commit()
+
+    @classmethod
+    def login(cls, username, password):
+        if not User.exists(username):
+            raise User.IncorrectLoginError(
+                message="Invalid Login Credentials", username=username
+            )
+        user = User.query.filter(User.name == username).scalar()
+        salted_credentials = bcrypt.hashpw(password.encode(), user.salt)
+
+        if salted_credentials == user.password:
+            return True
+        else:
+            raise User.IncorrectLoginError(
+                message="Invalid Login Credentials", username=username
+            )
 
 
 class GameHistory(db.Model):

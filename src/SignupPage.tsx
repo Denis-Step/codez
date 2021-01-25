@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from "react";
-import { register } from "./apicalls";
+import { login, register } from "./apicalls";
 import ReactDOM from "react-dom";
 import {
   Box,
@@ -66,8 +66,14 @@ const SignupPage: React.FC = (props: SignupProps) => {
         </FormControl>
         
         <HStack>
-        <Button size="lg" className="font-n1942report login-button">LOGIN </Button>
-        <Button size="lg" className="font-n1942report signup-button">SIGNUP </Button>
+        <Button size="lg" 
+                className="font-n1942report login-button"
+                onClick = {(e) => login (name, password)}
+                >LOGIN </Button>
+        <Button size="lg" 
+                className="font-n1942report signup-button"
+                onClick={(e) => register(name,password)}
+                >SIGNUP </Button>
         </HStack>
         </VStack>
         <Divider/>

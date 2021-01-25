@@ -13,8 +13,11 @@ from flask import (
 )
 import game_controller
 import models
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_url_path="/static")
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.db"
+db = SQLAlchemy(app)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
@@ -34,19 +37,21 @@ def signup():
     print(request.get_json())
     try:
         data = request.get_json()
+        print(data)
         models.User.create(data["username"], data["password"])
-        return redirect("/")
+        return make_response("Signed Up", 201)
     except models.User.UserExistsError:
         abort(400, "User Already Exists")
 
 
 @app.route("/api/login", methods=["POST"])
 def login():
-    print(request.get_json())
     data = request.get_json()
-    session["username"] = data["username"]
-    new_url = f"/{data['game_ID']}"
-    return redirect(new_url)
+    try:
+        models.User.login(data["username"], data["password"])
+        return make_response("Logged in", 200)
+    except models.User.IncorrectLoginError:
+        abort(400, "Incorrect Login Credentials")
 
 
 @app.route("/static/script.js")
