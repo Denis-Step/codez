@@ -116,7 +116,6 @@ def finish_turn(game_ID, team):
 
 
 def handle_turn(game_ID, team, action, payload):
-    state = r.hgetall("state:" + game_ID)
     if action == "spymaster":
         update = {b"hint": payload["hint"].encode()}
         if team == "blue":
