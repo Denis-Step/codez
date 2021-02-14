@@ -2,6 +2,7 @@ import os
 import pytest
 from flask import Flask
 from models.models import db as _db
+from factory import create_app
 
 TESTDB = "test_project.db"
 TESTDB_PATH = "/opt/project/data/{}".format(TESTDB)
@@ -29,7 +30,7 @@ def app(db):
     """
     Create a Flask app context for the tests.
     """
-    app = Flask(__name__)
+    app = create_app()
 
     app.config["SQLALCHEMY_DATABASE_URI"] = DB_CONN
 
