@@ -60,7 +60,7 @@ class User(db.Model):
         return bool(user)
 
     @classmethod
-    def create(cls, username, password):
+    def create(cls, username, password, **kwargs):
         if User.exists(username):
             raise User.UserExistsError(
                 message="Username already exists", username=username
@@ -72,6 +72,7 @@ class User(db.Model):
             name=username,
             password=pw_info["hashed_pw"],
             salt=pw_info["salt"],
+            **kwargs,
         )
         db.session.add(new_user)
         db.session.commit()
