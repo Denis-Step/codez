@@ -4,13 +4,30 @@ from flask import Flask
 from models.models import db as _db
 from factory import create_app
 
-TESTDB = "test_project.db"
-TESTDB_PATH = "/opt/project/data/{}".format(TESTDB)
+
+TESTDB = "test_db.db"
+TESTDB_PATH = "{}".format(TESTDB)
 TEST_DATABASE_URI = "sqlite:///" + TESTDB_PATH
 
 
 @pytest.fixture(scope="session")
-def db(request):
+def app(request):
+    """Session-wide test `Flask` application."""
+    app = create_app(db_path=TEST_DATABASE_URI)
+
+    # Establish an application context before running the tests.
+    ctx = app.app_context()
+    ctx.push()
+
+    def teardown():
+        ctx.pop()
+
+    request.addfinalizer(teardown)
+    return app
+
+
+@pytest.fixture(scope="session")
+def db(app, request):
     """Session-wide test database."""
     if os.path.exists(TESTDB_PATH):
         os.unlink(TESTDB_PATH)
@@ -19,22 +36,11 @@ def db(request):
         _db.drop_all()
         os.unlink(TESTDB_PATH)
 
+    _db.app = app
     _db.create_all()
 
     request.addfinalizer(teardown)
     return _db
-
-
-@pytest.fixture(scope="session")
-def app(db):
-    """
-    Create a Flask app context for the tests.
-    """
-    app = create_app()
-
-    app.config["SQLALCHEMY_DATABASE_URI"] = DB_CONN
-
-    return app
 
 
 @pytest.fixture(scope="function")
