@@ -1,7 +1,7 @@
 import random
 import redis
 import exceptions
-from models import Word
+from models.models import Word
 
 
 r = redis.Redis(host="localhost", port=6379, db=0)

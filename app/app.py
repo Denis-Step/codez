@@ -11,9 +11,9 @@ from flask import (
     session,
     redirect,
 )
-import game_controller
-import models
 from flask_sqlalchemy import SQLAlchemy
+from game import game_controller
+from models import models
 
 app = Flask(__name__, static_url_path="/static")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.db"
