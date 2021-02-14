@@ -43,6 +43,8 @@ class User(db.Model):
 
     @staticmethod
     def generate_next_id():
+        if User.query.count() == 0:
+            return 0
         highest_id = User.query.order_by(User.id.desc()).first().id
         return highest_id + 1
 
@@ -73,6 +75,7 @@ class User(db.Model):
         )
         db.session.add(new_user)
         db.session.commit()
+        return new_user
 
     @classmethod
     def login(cls, username, password):
