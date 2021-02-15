@@ -6,4 +6,4 @@ __pycache__
 *.rdb
 redisconf
 redis-start.zsh
-*.DS_Store
+.DS_Store
