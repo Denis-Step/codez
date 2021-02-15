@@ -2,5 +2,14 @@ import pytest
 
 
 def test_home_page(app, client):
-    print(app.url_map)
-    assert client.get("/hello").status_code == 200
+    assert client.get("/users/500").status_code == 200
+
+
+def test_user_signup(app, client, db):
+    assert (
+        client.post(
+            "/users",
+            data={"action": "signup", "username": "TestUser", "password": "TestPass"},
+        ).status_code
+        == 201
+    )
