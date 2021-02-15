@@ -12,10 +12,20 @@ class UserResource(Resource):
         return make_response("Working", 200)
 
     def post(self):
-        data = request.form
+        data = request.get_json()
         if data["action"] == "signup":
-            models.User.create(username=data["username"], password=data["password"])
-            return make_response("Created User", 201)
+            try:
+                models.User.create(username=data["username"], password=data["password"])
+                return make_response("Created User", 201)
+            except models.User.UserExistsError:
+                return make_response("User Exists", 400)
+
+        elif data["action"] == "login":
+            try:
+                models.User.login(username=data["username"], password=data["password"])
+                return make_response("Logged in", 200)
+            except models.User.IncorrectLoginError:
+                return make_response("Credentials not Found", 401)
 
 
 """
