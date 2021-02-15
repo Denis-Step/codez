@@ -29,7 +29,7 @@ def home():
 
 @app.route("/login")
 def login_page():
-    return send_from_directory("static", "login.html")
+    return send_from_directory("../static", "login.html")
 
 
 @app.route("/api/signup", methods=["POST"])
