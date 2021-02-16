@@ -1,6 +1,6 @@
 import random
 import redis
-import exceptions
+from game import exceptions
 from models.models import Word
 
 
@@ -11,11 +11,11 @@ NUM_WORDS = 5757
 # TODO: Make The Red/Blue/Neutral/Bomb Constants
 
 
-def get_state(game_ID: str) -> dict:
+def get_state(game_ID: str, r=r) -> dict:
     """Return player and word state"""
 
     if r.exists("state:" + game_ID) == 0:
-        raise exceptions.GameNotFoundError("Game not Found")
+        raise exceptions.GameNotFoundError(message="Game not Found")
 
     state = {
         "playerState": {
@@ -31,10 +31,13 @@ def get_state(game_ID: str) -> dict:
     return state
 
 
-def create_game(game_ID):
+def create_game(game_ID, r=r):
     """Takes a UUID and creates two hashes, one for the player state
     and a second for the words. Throws an exception if either table
     cannot be created. Returns the dict of words."""
+
+    if r.exists("state:" + game_ID) == 1:
+        raise Exception("Game exists already")
 
     new_game = {
         "winner": "none",
@@ -47,6 +50,7 @@ def create_game(game_ID):
     words = create_board()
     set_fields = r.hset("state:" + game_ID, mapping=new_game)
     set_fields += r.hset("words:" + game_ID, mapping=words)
+    print(set_fields)
 
     if set_fields == 31:
         return {"playerState": new_game, "wordsState": words}
@@ -97,11 +101,11 @@ def create_board():
     return shuffled_dict
 
 
-def set_winner(game_ID, team):
+def set_winner(game_ID, team, r=r):
     r.hset("state:" + game_ID, "winner", team)
 
 
-def finish_turn(game_ID, team):
+def finish_turn(game_ID, team, r=r):
     opposite = "blue" if team == "red" else "red"
     state = r.hgetall("state:" + game_ID)
     if state[b"redPoints"] == 9:
@@ -115,7 +119,7 @@ def finish_turn(game_ID, team):
     return 1
 
 
-def handle_turn(game_ID, team, action, payload):
+def handle_turn(game_ID, team, action, payload, r=r):
     if action == "spymaster":
         update = {b"hint": payload["hint"].encode()}
         if team == "blue":
@@ -128,10 +132,10 @@ def handle_turn(game_ID, team, action, payload):
         return 1
     elif action == "chooser":
         choose_word(game_ID, team, payload["choice"])
-        return finish_turn(game_ID, team)
+        return finish_turn(game_ID, team, r)
 
 
-def choose_word(game_ID, team, choice):
+def choose_word(game_ID, team, choice, r=r):
     opposite = "blue" if team == "red" else "red"
     if r.hget("words:" + game_ID, choice) == "bomb".encode():
         r.hset("words:" + game_ID, choice, "bomb-revealed-" + team)
@@ -151,6 +155,8 @@ def choose_word(game_ID, team, choice):
         print("Neutral")
         r.hset("state:" + game_ID, "attemptsLeft", 0)
         r.hset("words:" + game_ID, choice, "neutral" + "-revealed")
+    else:
+        r.hincrby("state:" + game_ID, "attemptsLeft", -1)
 
 
 # TODO

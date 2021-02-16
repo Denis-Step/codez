@@ -32,28 +32,6 @@ def login_page():
     return send_from_directory("../static", "login.html")
 
 
-@app.route("/api/signup", methods=["POST"])
-def signup():
-    print(request.get_json())
-    try:
-        data = request.get_json()
-        print(data)
-        models.User.create(data["username"], data["password"])
-        return make_response("Signed Up", 201)
-    except models.User.UserExistsError:
-        abort(400, "User Already Exists")
-
-
-@app.route("/api/login", methods=["POST"])
-def login():
-    data = request.get_json()
-    try:
-        models.User.login(data["username"], data["password"])
-        return make_response("Logged in", 200)
-    except models.User.IncorrectLoginError:
-        abort(400, "Incorrect Login Credentials")
-
-
 @app.route("/static/script.js")
 def main_script():
     return send_file("dist/script.js")

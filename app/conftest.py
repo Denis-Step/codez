@@ -1,7 +1,9 @@
 import os
 import pytest
+import fakeredis
 from flask import Flask
 from models.models import db as _db
+from models import setup
 from factory import create_app
 
 
@@ -38,6 +40,7 @@ def db(app, request):
 
     _db.app = app
     _db.create_all()
+    setup.setup_db()
 
     request.addfinalizer(teardown)
     return _db
@@ -67,3 +70,8 @@ def session(db, request):
 def client(app):
     client = app.test_client()
     return client
+
+
+@pytest.fixture(scope="session")
+def redis():
+    return fakeredis.FakeStrictRedis()

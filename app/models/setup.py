@@ -1,14 +1,13 @@
 from nltk.corpus import wordnet as wn
-import models
+from . import models
 
-if __name__ == "__main__":
-    models.db.create_all()
 
+def setup_db():
     test_user = models.User.create(
         username="Dummy", email="fake@gmail.com", password="TESTING"
     )
 
-    with open("5lenwords.txt") as f:
+    with open("models/5lenwords.txt") as f:
         counter = 0
         for line in f:
             counter += 1
@@ -20,3 +19,7 @@ if __name__ == "__main__":
             except Exception:
                 print("exception")
                 continue
+
+
+if __name__ == "__main__":
+    setup_db()
