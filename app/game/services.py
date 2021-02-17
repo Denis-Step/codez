@@ -23,12 +23,14 @@ def encode_dict(state):
 
 
 def decode_dict(state):
+    """Avoids a lot of annoying casts between int and str,
+    and bytes and str. CHANGE AT YOUR OWN PERIL"""
     new_state = dict()
     for k, v in state.items():
-        if isinstance(v, str):
-            new_state[k.decode()] = v.decode()
-        elif isinstance(v, int):
+        if isinstance(v, int):
             new_state[k.decode()] = v
+        else:
+            new_state[k.decode()] = v.decode()
     return new_state
 
 
@@ -112,11 +114,11 @@ def create_board():
     return shuffled_dict
 
 
-def set_winner(game_ID, team, r=r):
+def set_winner(game_ID, team):
     r.hset("state:" + game_ID, "winner", team)
 
 
-def finish_turn(game_ID, team, r=r):
+def finish_turn(game_ID, team):
     opposite = "blue" if team == "red" else "red"
     state = r.hgetall("state:" + game_ID)
     if state[b"redPoints"] == 9:

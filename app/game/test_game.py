@@ -49,16 +49,19 @@ class TestGame:
             b"bluePoints": 0,
         }
         decoded = services.decode_dict(new_game)
+        assert len(decoded) == 6
         for k, v in decoded.items():
             assert isinstance(k, str)
             assert isinstance(v, (str, int))
 
-    def test_game_not_exists(self, bad_game_ID):
+    def test_game_not_exists(self, bad_game_ID, redis):
+        services.r = redis
         with pytest.raises(Exception) as excinfo:
             services.create_game(bad_game_ID)
             assert "Game exists already" in excinfo
 
-    def test_create_board(self):
+    def test_create_board(self, redis):
+        services.r = redis
         words = services.create_board()
         assert len(words.keys()) == 25
         assert len([key for key, value in words.items() if value == "red"]) == 9
@@ -70,8 +73,21 @@ class TestGame:
         services.r = redis
         game = services.create_game(good_game_ID)
         assert "playerState" in game
+        assert "hint" in game["playerState"]
 
-    def test_get_state(self, good_game_ID):
+    def test_get_state(self, redis, good_game_ID):
+        services.r = redis
         state = services.get_state(good_game_ID)
         assert "playerState" in state
         assert "wordsState" in state
+
+    def test_set_winner(self, redis, good_game_ID):
+        services.r = redis
+        state = services.get_state(good_game_ID)
+        print(state)
+        assert "hint" in state["playerState"]
+        assert state["playerState"]["winner"] == "none"
+
+        services.set_winner(good_game_ID, "red")
+        state = services.get_state(good_game_ID)
+        assert state["playerState"]["winner"] == "red"
