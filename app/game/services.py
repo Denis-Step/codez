@@ -7,8 +7,19 @@ from models.models import Word
 r = redis.Redis(host="localhost", port=6379, db=0)
 
 NUM_WORDS = 5757
+MAX_ATTEMPTS = 3
 
 # TODO: Make The Red/Blue/Neutral/Bomb Constants
+
+
+def encode_all(state):
+    new_state = dict()
+    for k, v in state.items():
+        if isinstance(v, str):
+            new_state[k.encode()] = v.encode()
+        elif isinstance(v, int):
+            new_state[k.encode()] = v
+    return new_state
 
 
 def get_state(game_ID: str) -> dict:
@@ -55,9 +66,6 @@ def create_game(game_ID):
         return {"playerState": new_game, "wordsState": words}
     else:
         raise Exception("Could not make Game")
-
-
-# TODO: Refactor this!!
 
 
 def create_board():
@@ -132,6 +140,13 @@ def handle_turn(game_ID, team, action, payload, r=r):
     elif action == "chooser":
         choose_word(game_ID, team, payload["choice"])
         return finish_turn(game_ID, team, r)
+
+
+def spymaster_turn(game_ID, team, hint, attempts):
+    update = {
+        b"turn": f"{team}-chooser",
+        b"hint": hint.encode(),
+    }
 
 
 def choose_word(game_ID, team, choice, r=r):
