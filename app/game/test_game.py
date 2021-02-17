@@ -30,7 +30,20 @@ class TestGame:
             services.create_game(bad_game_ID)
             assert "Game exists already" in excinfo
 
-    def test_game_exists(self, good_game_ID, initial_word_states, turn_states, redis):
+    def test_create_board(self):
+        words = services.create_board()
+        assert len(words.keys()) == 25
+        assert len([key for key, value in words.items() if value == "red"]) == 9
+        assert len([key for key, value in words.items() if value == "blue"]) == 8
+        assert len([key for key, value in words.items() if value == "bomb"]) == 1
+        assert len([key for key, value in words.items() if value == "neutral"]) == 7
+
+    def test_create_game(self, redis, good_game_ID):
+        services.r = redis
+        game = services.create_game(good_game_ID)
+        assert "playerState" in game
+
+    """def test_game_exists(self, good_game_ID, initial_word_states, turn_states, redis):
         services.create_game(good_game_ID, r=redis)
         state = services.get_state(good_game_ID, r=redis)
 
@@ -57,9 +70,9 @@ class TestGame:
         pstate = services.get_state(good_game_ID, r=redis)["playerState"]
         assert pstate["turn"] == "blue-chooser"
         assert pstate["hint"] == spymaster_payload["hint"]
-        assert pstate["attemptsLeft"] == str(spymaster_payload["attempts"])
+        assert pstate["attemptsLeft"] == str(spymaster_payload["attempts"])"""
 
-    def test_chooser_turn(self, good_game_ID, redis):
+    """def test_chooser_turn(self, good_game_ID, redis):
         words_master = services.get_state(good_game_ID, r=redis)["wordsState"]
         blue_words = [word for word in words_master if "blue" in words_master[word]]
         assert len(blue_words) == 8
@@ -73,4 +86,4 @@ class TestGame:
         assert new_state["bluePoints"] == "3"
         assert new_state["redPoints"] == "0"
         assert new_state["attemptsLeft"] == "0"
-        assert new_state["hint"] == ""
+        assert new_state["hint"] == """

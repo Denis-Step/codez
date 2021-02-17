@@ -11,7 +11,7 @@ NUM_WORDS = 5757
 # TODO: Make The Red/Blue/Neutral/Bomb Constants
 
 
-def get_state(game_ID: str, r=r) -> dict:
+def get_state(game_ID: str) -> dict:
     """Return player and word state"""
 
     if r.exists("state:" + game_ID) == 0:
@@ -31,7 +31,7 @@ def get_state(game_ID: str, r=r) -> dict:
     return state
 
 
-def create_game(game_ID, r=r):
+def create_game(game_ID):
     """Takes a UUID and creates two hashes, one for the player state
     and a second for the words. Throws an exception if either table
     cannot be created. Returns the dict of words."""
@@ -50,7 +50,6 @@ def create_game(game_ID, r=r):
     words = create_board()
     set_fields = r.hset("state:" + game_ID, mapping=new_game)
     set_fields += r.hset("words:" + game_ID, mapping=words)
-    print(set_fields)
 
     if set_fields == 31:
         return {"playerState": new_game, "wordsState": words}
