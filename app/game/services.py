@@ -39,14 +39,8 @@ def get_state(game_ID: str) -> dict:
         raise exceptions.GameNotFoundError(message="Game not Found")
 
     state = {
-        "playerState": {
-            k.decode("utf-8"): v.decode("utf-8")
-            for k, v in r.hgetall("state:" + game_ID).items()
-        },
-        "wordsState": {
-            k.decode("utf-8"): v.decode("utf-8")
-            for k, v in r.hgetall("words:" + game_ID).items()
-        },
+        "playerState": decode_dict(r.hgetall("state:" + game_ID)),
+        "wordsState": decode_dict(r.hgetall("words:" + game_ID)),
     }
 
     return state

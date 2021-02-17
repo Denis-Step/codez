@@ -70,3 +70,8 @@ class TestGame:
         services.r = redis
         game = services.create_game(good_game_ID)
         assert "playerState" in game
+
+    def test_get_state(self, good_game_ID):
+        state = services.get_state(good_game_ID)
+        assert "playerState" in state
+        assert "wordsState" in state
