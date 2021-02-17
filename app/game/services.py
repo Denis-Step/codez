@@ -12,13 +12,23 @@ MAX_ATTEMPTS = 3
 # TODO: Make The Red/Blue/Neutral/Bomb Constants
 
 
-def encode_all(state):
+def encode_dict(state):
     new_state = dict()
     for k, v in state.items():
         if isinstance(v, str):
             new_state[k.encode()] = v.encode()
         elif isinstance(v, int):
             new_state[k.encode()] = v
+    return new_state
+
+
+def decode_dict(state):
+    new_state = dict()
+    for k, v in state.items():
+        if isinstance(v, str):
+            new_state[k.decode()] = v.decode()
+        elif isinstance(v, int):
+            new_state[k.decode()] = v
     return new_state
 
 

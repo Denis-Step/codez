@@ -34,10 +34,24 @@ class TestGame:
             "redPoints": 0,
             "bluePoints": 0,
         }
-        encoded = services.encode_all(new_game)
+        encoded = services.encode_dict(new_game)
         for k, v in encoded.items():
             assert isinstance(k, bytes)
             assert isinstance(v, (bytes, int))
+
+    def test_decode_all(self):
+        new_game = {
+            b"winner": b"none",
+            b"turn": b"blue-spymaster",
+            b"hint": b"",
+            b"attemptsLeft": 0,
+            b"redPoints": 0,
+            b"bluePoints": 0,
+        }
+        decoded = services.decode_dict(new_game)
+        for k, v in decoded.items():
+            assert isinstance(k, str)
+            assert isinstance(v, (str, int))
 
     def test_game_not_exists(self, bad_game_ID):
         with pytest.raises(Exception) as excinfo:
