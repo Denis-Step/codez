@@ -81,10 +81,18 @@ class TestGame:
         assert "playerState" in state
         assert "wordsState" in state
 
+    def test_spymaster_move(self, redis, good_game_ID):
+        services.r = redis
+        services.spymaster_move(good_game_ID, "test", 3)
+
+        state = services.get_state(good_game_ID)
+        assert state["playerState"]["turn"] == "blue"
+        assert state["playerState"]["action"] == "chooser"
+        assert state["playerState"]["hint"] == "test"
+
     def test_set_winner(self, redis, good_game_ID):
         services.r = redis
         state = services.get_state(good_game_ID)
-        print(state)
         assert "hint" in state["playerState"]
         assert state["playerState"]["winner"] == "none"
 

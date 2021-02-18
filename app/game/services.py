@@ -12,6 +12,13 @@ MAX_ATTEMPTS = 3
 # TODO: Make The Red/Blue/Neutral/Bomb Constants
 
 
+def opposite(team):
+    if team not in ("red", "blue"):
+        raise Exception("Team must be red or blue")
+
+    return "blue" if team == "red" else "red"
+
+
 def encode_dict(state):
     new_state = dict()
     for k, v in state.items():
@@ -58,7 +65,8 @@ def create_game(game_ID):
 
     new_game = {
         "winner": "none",
-        "turn": "blue-spymaster",
+        "turn": "blue",
+        "action": "spymaster",
         "hint": "",
         "attemptsLeft": 0,
         "redPoints": 0,
@@ -68,7 +76,7 @@ def create_game(game_ID):
     set_fields = r.hset("state:" + game_ID, mapping=new_game)
     set_fields += r.hset("words:" + game_ID, mapping=words)
 
-    if set_fields == 31:
+    if set_fields == 32:
         return {"playerState": new_game, "wordsState": words}
     else:
         raise Exception("Could not make Game")
@@ -114,10 +122,19 @@ def create_board():
     return shuffled_dict
 
 
+def spymaster_move(game_ID, hint, attempts):
+    if attempts > MAX_ATTEMPTS:
+        raise Exception("Cannot select more than 3 words")
+    update = {"hint": hint, "attemptsLeft": attempts, "action": "chooser"}
+
+    r.hset("state:" + game_ID, mapping=update)
+
+
 def set_winner(game_ID, team):
     r.hset("state:" + game_ID, "winner", team)
 
 
+# DELETE
 def finish_turn(game_ID, team):
     opposite = "blue" if team == "red" else "red"
     state = r.hgetall("state:" + game_ID)
@@ -132,6 +149,7 @@ def finish_turn(game_ID, team):
     return 1
 
 
+# DELETE
 def handle_turn(game_ID, team, action, payload, r=r):
     if action == "spymaster":
         update = {b"hint": payload["hint"].encode()}
@@ -148,6 +166,7 @@ def handle_turn(game_ID, team, action, payload, r=r):
         return finish_turn(game_ID, team, r)
 
 
+# DELETE
 def spymaster_turn(game_ID, team, hint, attempts):
     update = {
         b"turn": f"{team}-chooser",
@@ -155,6 +174,7 @@ def spymaster_turn(game_ID, team, hint, attempts):
     }
 
 
+# DELETE
 def choose_word(game_ID, team, choice, r=r):
     opposite = "blue" if team == "red" else "red"
     if r.hget("words:" + game_ID, choice) == "bomb".encode():
