@@ -39,3 +39,17 @@ def test_user_login(app, client, db):
         ).status_code
         == 401
     )
+
+
+def test_get_game(app, client, redis, sample_game_id):
+    response = client.get("/games/0000")
+    assert response.status_code == 200
+    assert response.mimetype == "application/json"
+
+
+def test_create_game(app, client, redis):
+    response = client.post(
+        "/games", json={"action": "create", "payload": {"ID": "0001"}}
+    )
+    assert response.status_code == 200
+    assert response.mimetype == "application/json"

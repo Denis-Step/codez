@@ -4,6 +4,7 @@ import fakeredis
 from flask import Flask
 from models.models import db as _db
 from models import setup
+from game import services
 from factory import create_app
 
 
@@ -74,4 +75,13 @@ def client(app):
 
 @pytest.fixture(scope="session")
 def redis():
-    return fakeredis.FakeStrictRedis()
+    r = fakeredis.FakeStrictRedis()
+    services.r = r
+    return r
+
+
+@pytest.fixture(scope="session")
+def sample_game_id(redis):
+    services.r = redis
+    services.create_game("0000")
+    return "0000"
