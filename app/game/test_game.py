@@ -133,6 +133,8 @@ class TestGame:
         assert updatedState["playerState"]["bluePoints"] == 1
         assert updatedState["playerState"]["redPoints"] == 1
         assert updatedState["playerState"]["attemptsLeft"] == 0
+        assert updatedState["playerState"]["turn"] == "red"
+        assert updatedState["playerState"]["action"] == "spymaster"
 
         # RED CHOOSES BOMB
         services.spymaster_move(good_game_ID, "secondTest", 3)

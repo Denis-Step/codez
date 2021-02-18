@@ -46,6 +46,7 @@ def decode_dict(state):
 
 def get_state(game_ID: str) -> dict:
     """Return player and word state"""
+    print(game_ID)
 
     if r.exists("state:" + game_ID) == 0:
         raise exceptions.GameNotFoundError(message="Game not Found")
@@ -134,14 +135,14 @@ def spymaster_move(game_ID, hint, attempts):
 
 
 def chooser_move(game_ID, words, guess, team):
-    if words[guess] == team:
+    if words[guess] == "bomb":
+        r.hincrby("state:" + game_ID, "attemptsLeft", -1)
+        return set_winner(game_ID, opposite(team))
+
+    elif words[guess] == team:
         r.hincrby("state:" + game_ID, team + "Points", 1)
         r.hincrby("state:" + game_ID, "attemptsLeft", -1)
         r.hset("words:" + game_ID, guess, team + "-revealed")
-
-    elif words[guess] == "bomb":
-        r.hincrby("state:" + game_ID, "attemptsLeft", -1)
-        return set_winner(game_ID, opposite(team))
 
     elif words[guess] == opposite(team):
         r.hincrby("state:" + game_ID, opposite(team) + "Points", 1)
@@ -152,9 +153,29 @@ def chooser_move(game_ID, words, guess, team):
         r.hset("state:" + game_ID, "attemptsLeft", 0)
         r.hset("words:" + game_ID, guess, opposite(team) + "-revealed")
 
+    return finish_turn(game_ID)
+
+
+def finish_turn(game_ID):
+    """Return None or the winning team String"""
+    state = get_state(game_ID)["playerState"]
+
+    if state["redPoints"] == NUM_RED_WORDS:
+        return set_winner(game_ID, "red")
+    elif state["bluePoints"] == NUM_BLUE_WORDS:
+        return set_winner(game_ID, "blue")
+
+    if state["attemptsLeft"] == 0 and state["action"] == "chooser":
+        r.hset(
+            "state:" + game_ID,
+            mapping={"turn": opposite(state["turn"]), "action": "spymaster"},
+        )
+
 
 def set_winner(game_ID, team):
+    """Set Winner and if no exception, return winning team"""
     r.hset("state:" + game_ID, "winner", team)
+    return team
 
 
 # TODO
