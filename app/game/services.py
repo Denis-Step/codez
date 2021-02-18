@@ -7,6 +7,9 @@ from models.models import Word
 r = redis.Redis(host="localhost", port=6379, db=0)
 
 NUM_WORDS = 5757
+NUM_BLUE_WORDS = 8
+NUM_RED_WORDS = 9
+NUM_BOMB_WORDS = 1
 MAX_ATTEMPTS = 3
 
 # TODO: Make The Red/Blue/Neutral/Bomb Constants
@@ -96,11 +99,11 @@ def create_board():
         if word in words:
             continue
 
-        if Red < 9:
+        if Red < NUM_RED_WORDS:
             words[word] = "red"
             Red += 1
             i += 1
-        elif Blue < 8:
+        elif Blue < NUM_BLUE_WORDS:
             words[word] = "blue"
             Blue += 1
             i += 1
@@ -108,7 +111,7 @@ def create_board():
             words[word] = "neutral"
             Neutral += 1
             i += 1
-        elif Bomb < 1:
+        elif Bomb < NUM_BOMB_WORDS:
             words[word] = "bomb"
             Bomb += 1
             i += 1
@@ -128,6 +131,18 @@ def spymaster_move(game_ID, hint, attempts):
     update = {"hint": hint, "attemptsLeft": attempts, "action": "chooser"}
 
     r.hset("state:" + game_ID, mapping=update)
+
+
+def chooser_move(game_ID, words, guess, team):
+    if words[guess] == team:
+        r.hincrby("state:" + game_ID, team + "Points", 1)
+        r.hincrby("state:" + game_ID, "attemptsLeft", -1)
+
+    elif words[guess] == "bomb":
+        set_winner(game_ID, opposite(team))
+
+    elif words[guess] == opposite(team):
+        r.hincrby("state:" + game_ID, opposite(team) + "Points", 1)
 
 
 def set_winner(game_ID, team):
