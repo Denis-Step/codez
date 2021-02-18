@@ -64,12 +64,14 @@ class TestGame:
 
     def test_game_not_exists(self, bad_game_ID, redis):
         services.r = redis
+
         with pytest.raises(Exception) as excinfo:
             services.create_game(bad_game_ID)
             assert "Game exists already" in excinfo
 
     def test_create_board(self, redis):
         services.r = redis
+
         words = services.create_board()
         assert len(words.keys()) == 25
         assert (
@@ -88,20 +90,22 @@ class TestGame:
 
     def test_create_game(self, redis, good_game_ID):
         services.r = redis
+
         game = services.create_game(good_game_ID)
         assert "playerState" in game
         assert "hint" in game["playerState"]
 
     def test_get_state(self, redis, good_game_ID):
         services.r = redis
+
         state = services.get_state(good_game_ID)
         assert "playerState" in state
         assert "wordsState" in state
 
     def test_spymaster_move(self, redis, good_game_ID):
         services.r = redis
-        services.spymaster_move(good_game_ID, "test", 3)
 
+        services.spymaster_move(good_game_ID, "test", 3)
         state = services.get_state(good_game_ID)
         assert state["playerState"]["turn"] == "blue"
         assert state["playerState"]["action"] == "chooser"
@@ -113,18 +117,33 @@ class TestGame:
         words = services.get_state(good_game_ID)["wordsState"]
         blueWords = [word for word in words if words[word] == "blue"]
         redWords = [word for word in words if words[word] == "red"]
+        bombWords = [word for word in words if words[word] == "bomb"]
 
+        # BLUE CHOOSES BLUE WORD
         services.chooser_move(good_game_ID, words, blueWords[0], "blue")
         updatedState = services.get_state(good_game_ID)
         assert updatedState["wordsState"][blueWords[0]] == "blue-revealed"
         assert updatedState["playerState"]["bluePoints"] == 1
         assert updatedState["playerState"]["attemptsLeft"] == 2
 
+        # BLUE CHOOSES RED WORD
+        services.chooser_move(good_game_ID, words, redWords[0], "blue")
+        updatedState = services.get_state(good_game_ID)
+        assert updatedState["wordsState"][redWords[0]] == "red-revealed"
+        assert updatedState["playerState"]["bluePoints"] == 1
+        assert updatedState["playerState"]["redPoints"] == 1
+        assert updatedState["playerState"]["attemptsLeft"] == 0
+
+        # RED CHOOSES BOMB
+        services.spymaster_move(good_game_ID, "secondTest", 3)
+        print(bombWords)
+        services.chooser_move(good_game_ID, words, bombWords[0], "red")
+        updatedState = services.get_state(good_game_ID)
+        assert updatedState["playerState"]["winner"] == "blue"
+
     def test_set_winner(self, redis, good_game_ID):
         services.r = redis
         state = services.get_state(good_game_ID)
-        assert "hint" in state["playerState"]
-        assert state["playerState"]["winner"] == "none"
 
         services.set_winner(good_game_ID, "red")
         state = services.get_state(good_game_ID)

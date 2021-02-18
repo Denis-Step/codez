@@ -36,13 +36,9 @@ def encode_dict(state):
 def decode_dict(state):
     """Avoids a lot of annoying casts between int and str,
     and bytes and str. CHANGE AT YOUR OWN PERIL"""
-    print(state)
     new_state = dict()
     for k, v in state.items():
-        print(v)
-        print(v.decode())
         if v.decode().isnumeric():
-            print(f"{v} is numeric")
             new_state[k.decode()] = int(v)
         else:
             new_state[k.decode()] = v.decode()
@@ -60,7 +56,6 @@ def get_state(game_ID: str) -> dict:
         "wordsState": decode_dict(r.hgetall("words:" + game_ID)),
     }
 
-    print(state)
     return state
 
 
@@ -147,11 +142,16 @@ def chooser_move(game_ID, words, guess, team):
         r.hset("words:" + game_ID, guess, team + "-revealed")
 
     elif words[guess] == "bomb":
+        print("bomba")
         r.hincrby("state:" + game_ID, "attemptsLeft", -1)
         return set_winner(game_ID, opposite(team))
 
     elif words[guess] == opposite(team):
         r.hincrby("state:" + game_ID, opposite(team) + "Points", 1)
+        r.hset("state:" + game_ID, "attemptsLeft", 0)
+        r.hset("words:" + game_ID, guess, opposite(team) + "-revealed")
+
+    elif words[guess] == "neutral":
         r.hset("state:" + game_ID, "attemptsLeft", 0)
         r.hset("words:" + game_ID, guess, opposite(team) + "-revealed")
 
@@ -190,14 +190,6 @@ def handle_turn(game_ID, team, action, payload, r=r):
     elif action == "chooser":
         choose_word(game_ID, team, payload["choice"])
         return finish_turn(game_ID, team, r)
-
-
-# DELETE
-def spymaster_turn(game_ID, team, hint, attempts):
-    update = {
-        b"turn": f"{team}-chooser",
-        b"hint": hint.encode(),
-    }
 
 
 # DELETE
