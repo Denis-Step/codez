@@ -1,7 +1,8 @@
 from flask import Flask, Blueprint, make_response, request
 from flask_sqlalchemy import SQLAlchemy
-from models import models
 from flask_restful import Api, Resource
+from models import models
+from game import services
 
 codez_bp = Blueprint("codez_bp", __name__)
 api = Api(codez_bp)
@@ -29,8 +30,9 @@ class UserResource(Resource):
 
 
 class GameResource(Resource):
-    def get(self, id):
-        pass
+    def get(self, game_id):
+        try:
+            return jsonify(services.get_state(game_id))
 
 
 def create_app(db_path=None):

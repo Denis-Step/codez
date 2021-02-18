@@ -12,7 +12,7 @@ NUM_RED_WORDS = 9
 NUM_BOMB_WORDS = 1
 MAX_ATTEMPTS = 3
 
-# TODO: Make The Red/Blue/Neutral/Bomb Constants
+# TODO: Add dunders to annotate private methods
 
 
 class InvalidTurnError(Exception):

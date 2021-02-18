@@ -171,8 +171,6 @@ class TestGame:
 
         words = services.get_state(good_game_ID_2)["wordsState"]
         blueWords = [word for word in words if words[word] == "blue"]
-        redWords = [word for word in words if words[word] == "red"]
-        bombWords = [word for word in words if words[word] == "bomb"]
 
         services.handle_turn(good_game_ID_2, "blue", "chooser", {"guess": blueWords[0]})
         state = services.get_state(good_game_ID_2)
