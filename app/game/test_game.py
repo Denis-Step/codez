@@ -52,9 +52,9 @@ class TestGame:
             b"winner": b"none",
             b"turn": b"blue-spymaster",
             b"hint": b"",
-            b"attemptsLeft": 0,
-            b"redPoints": 0,
-            b"bluePoints": 0,
+            b"attemptsLeft": b"0",
+            b"redPoints": b"0",
+            b"bluePoints": b"0",
         }
         decoded = services.decode_dict(new_game)
         assert len(decoded) == 6
@@ -72,9 +72,18 @@ class TestGame:
         services.r = redis
         words = services.create_board()
         assert len(words.keys()) == 25
-        assert len([key for key, value in words.items() if value == "red"]) == 9
-        assert len([key for key, value in words.items() if value == "blue"]) == 8
-        assert len([key for key, value in words.items() if value == "bomb"]) == 1
+        assert (
+            len([key for key, value in words.items() if value == "red"])
+            == services.NUM_RED_WORDS
+        )
+        assert (
+            len([key for key, value in words.items() if value == "blue"])
+            == services.NUM_BLUE_WORDS
+        )
+        assert (
+            len([key for key, value in words.items() if value == "bomb"])
+            == services.NUM_BOMB_WORDS
+        )
         assert len([key for key, value in words.items() if value == "neutral"]) == 7
 
     def test_create_game(self, redis, good_game_ID):
@@ -97,6 +106,19 @@ class TestGame:
         assert state["playerState"]["turn"] == "blue"
         assert state["playerState"]["action"] == "chooser"
         assert state["playerState"]["hint"] == "test"
+
+    def test_chooser_move(self, redis, good_game_ID):
+        services.r = redis
+
+        words = services.get_state(good_game_ID)["wordsState"]
+        blueWords = [word for word in words if words[word] == "blue"]
+        redWords = [word for word in words if words[word] == "red"]
+
+        services.chooser_move(good_game_ID, words, blueWords[0], "blue")
+        updatedState = services.get_state(good_game_ID)
+        assert updatedState["wordsState"][blueWords[0]] == "blue-revealed"
+        assert updatedState["playerState"]["bluePoints"] == 1
+        assert updatedState["playerState"]["attemptsLeft"] == 2
 
     def test_set_winner(self, redis, good_game_ID):
         services.r = redis

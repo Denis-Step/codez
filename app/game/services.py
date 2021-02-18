@@ -29,16 +29,21 @@ def encode_dict(state):
             new_state[k.encode()] = v.encode()
         elif isinstance(v, int):
             new_state[k.encode()] = v
+    print(new_state)
     return new_state
 
 
 def decode_dict(state):
     """Avoids a lot of annoying casts between int and str,
     and bytes and str. CHANGE AT YOUR OWN PERIL"""
+    print(state)
     new_state = dict()
     for k, v in state.items():
-        if isinstance(v, int):
-            new_state[k.decode()] = v
+        print(v)
+        print(v.decode())
+        if v.decode().isnumeric():
+            print(f"{v} is numeric")
+            new_state[k.decode()] = int(v)
         else:
             new_state[k.decode()] = v.decode()
     return new_state
@@ -55,6 +60,7 @@ def get_state(game_ID: str) -> dict:
         "wordsState": decode_dict(r.hgetall("words:" + game_ID)),
     }
 
+    print(state)
     return state
 
 
@@ -78,6 +84,7 @@ def create_game(game_ID):
     words = create_board()
     set_fields = r.hset("state:" + game_ID, mapping=new_game)
     set_fields += r.hset("words:" + game_ID, mapping=words)
+    print(r.hgetall("state:" + game_ID))
 
     if set_fields == 32:
         return {"playerState": new_game, "wordsState": words}
@@ -137,12 +144,16 @@ def chooser_move(game_ID, words, guess, team):
     if words[guess] == team:
         r.hincrby("state:" + game_ID, team + "Points", 1)
         r.hincrby("state:" + game_ID, "attemptsLeft", -1)
+        r.hset("words:" + game_ID, guess, team + "-revealed")
 
     elif words[guess] == "bomb":
-        set_winner(game_ID, opposite(team))
+        r.hincrby("state:" + game_ID, "attemptsLeft", -1)
+        return set_winner(game_ID, opposite(team))
 
     elif words[guess] == opposite(team):
         r.hincrby("state:" + game_ID, opposite(team) + "Points", 1)
+        r.hset("state:" + game_ID, "attemptsLeft", 0)
+        r.hset("words:" + game_ID, guess, opposite(team) + "-revealed")
 
 
 def set_winner(game_ID, team):
