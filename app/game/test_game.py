@@ -25,6 +25,14 @@ class TestGame:
     def spymaster_payload(self):
         return {"attempts": 3, "hint": "Test"}
 
+    def test_opposite(self):
+        assert services.opposite("blue") == "red"
+        assert services.opposite("red") == "blue"
+
+        with pytest.raises(Exception) as excinfo:
+            services.opposite("Red")
+            assert "Could not make Game" in excinfo
+
     def test_encode_all(self):
         new_game = {
             "winner": "none",
