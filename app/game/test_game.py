@@ -136,7 +136,6 @@ class TestGame:
 
         # RED CHOOSES BOMB
         services.spymaster_move(good_game_ID, "secondTest", 3)
-        print(bombWords)
         services.chooser_move(good_game_ID, words, bombWords[0], "red")
         updatedState = services.get_state(good_game_ID)
         assert updatedState["playerState"]["winner"] == "blue"

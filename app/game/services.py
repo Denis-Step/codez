@@ -29,7 +29,6 @@ def encode_dict(state):
             new_state[k.encode()] = v.encode()
         elif isinstance(v, int):
             new_state[k.encode()] = v
-    print(new_state)
     return new_state
 
 
@@ -79,7 +78,6 @@ def create_game(game_ID):
     words = create_board()
     set_fields = r.hset("state:" + game_ID, mapping=new_game)
     set_fields += r.hset("words:" + game_ID, mapping=words)
-    print(r.hgetall("state:" + game_ID))
 
     if set_fields == 32:
         return {"playerState": new_game, "wordsState": words}
@@ -142,7 +140,6 @@ def chooser_move(game_ID, words, guess, team):
         r.hset("words:" + game_ID, guess, team + "-revealed")
 
     elif words[guess] == "bomb":
-        print("bomba")
         r.hincrby("state:" + game_ID, "attemptsLeft", -1)
         return set_winner(game_ID, opposite(team))
 
@@ -158,63 +155,6 @@ def chooser_move(game_ID, words, guess, team):
 
 def set_winner(game_ID, team):
     r.hset("state:" + game_ID, "winner", team)
-
-
-# DELETE
-def finish_turn(game_ID, team):
-    opposite = "blue" if team == "red" else "red"
-    state = r.hgetall("state:" + game_ID)
-    if state[b"redPoints"] == 9:
-        set_winner(game_ID, "red")
-    elif state[b"bluePoints"] == 8:
-        set_winner(game_ID, "blue")
-
-    if int(state[b"attemptsLeft"]) == 0:
-        update = {b"turn": opposite + "-" + "spymaster", b"hint": ""}
-        r.hset("state:" + game_ID, mapping=update)
-    return 1
-
-
-# DELETE
-def handle_turn(game_ID, team, action, payload, r=r):
-    if action == "spymaster":
-        update = {b"hint": payload["hint"].encode()}
-        if team == "blue":
-            update[b"turn"] = "blue-chooser"
-            update[b"attemptsLeft"] = payload["attempts"]
-        else:
-            update[b"turn"] = "red-chooser"
-            update[b"attemptsLeft"] = payload["attempts"]
-        r.hset("state:" + game_ID, mapping=update)
-        return 1
-    elif action == "chooser":
-        choose_word(game_ID, team, payload["choice"])
-        return finish_turn(game_ID, team, r)
-
-
-# DELETE
-def choose_word(game_ID, team, choice, r=r):
-    opposite = "blue" if team == "red" else "red"
-    if r.hget("words:" + game_ID, choice) == "bomb".encode():
-        r.hset("words:" + game_ID, choice, "bomb-revealed-" + team)
-        set_winner(game_ID, "red") if team == "blue" else set_winner(game_ID, "blue")
-
-    elif r.hget("words:" + game_ID, choice) == team.encode():
-        r.hincrby("state:" + game_ID, team + "Points", 1)
-        r.hincrby("state:" + game_ID, "attemptsLeft", -1)
-        r.hset("words:" + game_ID, choice, team + "-revealed")
-
-    elif r.hget("words:" + game_ID, choice) == opposite.encode():
-        r.hincrby("state:" + game_ID, opposite + "Points", 1)
-        r.hset("state:" + game_ID, "attemptsLeft", 0)
-        r.hset("words:" + game_ID, choice, opposite + "-revealed")
-
-    elif r.hget("words:" + game_ID, choice) == b"neutral":
-        print("Neutral")
-        r.hset("state:" + game_ID, "attemptsLeft", 0)
-        r.hset("words:" + game_ID, choice, "neutral" + "-revealed")
-    else:
-        r.hincrby("state:" + game_ID, "attemptsLeft", -1)
 
 
 # TODO
