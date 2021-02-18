@@ -15,6 +15,21 @@ MAX_ATTEMPTS = 3
 # TODO: Make The Red/Blue/Neutral/Bomb Constants
 
 
+class InvalidTurnError(Exception):
+    def __init__(self, message):
+        super().__init__(message)
+        self.message = message
+
+
+class ValidationError(Exception):
+    """Unused for now, bubbling exceptions up the stack
+    instead"""
+
+    def __init__(self, message):
+        super().__init__(message)
+        self.message = message
+
+
 def opposite(team):
     if team not in ("red", "blue"):
         raise Exception("Team must be red or blue")
@@ -46,8 +61,6 @@ def decode_dict(state):
 
 def get_state(game_ID: str) -> dict:
     """Return player and word state"""
-    print(game_ID)
-
     if r.exists("state:" + game_ID) == 0:
         raise exceptions.GameNotFoundError(message="Game not Found")
 
@@ -57,6 +70,22 @@ def get_state(game_ID: str) -> dict:
     }
 
     return state
+
+
+def handle_turn(game_ID, team, action, payload):
+    """Make sure Only Valid Moves Work"""
+
+    state = get_state(game_ID)
+    if state["playerState"]["turn"] != team or state["playerState"]["action"] != action:
+        raise InvalidTurnError(
+            f'{state["playerState"]["action"]} for {state["playerState"]["turn"]} goes now'
+        )
+    if action == "spymaster":
+        return spymaster_move(game_ID, payload["hint"], payload["attempts"])
+    elif action == "chooser":
+        return chooser_move(
+            game_ID, state["wordsState"], payload["guess"], state["playerState"]["turn"]
+        )
 
 
 def create_game(game_ID):

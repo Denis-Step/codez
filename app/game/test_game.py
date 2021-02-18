@@ -14,6 +14,10 @@ class TestGame:
         return "92910"
 
     @pytest.fixture
+    def good_game_ID_2(self):
+        return "9999"
+
+    @pytest.fixture
     def initial_word_states(self):
         return ("red", "blue", "bomb", "neutral")
 
@@ -149,3 +153,27 @@ class TestGame:
         services.set_winner(good_game_ID, "red")
         state = services.get_state(good_game_ID)
         assert state["playerState"]["winner"] == "red"
+
+    def test_handle_turn(self, redis, good_game_ID_2):
+        services.r = redis
+        services.create_game(good_game_ID_2)
+
+        payload = {"hint": "test", "attempts": 3}
+        services.handle_turn(good_game_ID_2, "blue", "spymaster", payload)
+        state = services.get_state(good_game_ID_2)["playerState"]
+        assert state["turn"] == "blue"
+        assert state["action"] == "chooser"
+        assert state["attemptsLeft"] == 3
+
+        with pytest.raises(services.InvalidTurnError) as excinfo:
+            services.handle_turn(good_game_ID_2, "blue", "spymaster", {})
+            assert "chooser" in excinfo
+
+        words = services.get_state(good_game_ID_2)["wordsState"]
+        blueWords = [word for word in words if words[word] == "blue"]
+        redWords = [word for word in words if words[word] == "red"]
+        bombWords = [word for word in words if words[word] == "bomb"]
+
+        services.handle_turn(good_game_ID_2, "blue", "chooser", {"guess": blueWords[0]})
+        state = services.get_state(good_game_ID_2)
+        assert state["wordsState"][blueWords[0]] == "blue-revealed"
