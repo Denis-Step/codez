@@ -52,6 +52,11 @@ def test_create_game(app, client, redis):
     assert response.status_code == 201
     assert response.mimetype == "application/json"
 
+    state = client.get("/games/0000").get_json()
+    assert [word == "hidden" for word in state["wordsState"].values()]
+    assert state["playerState"]["turn"] == "blue"
+    assert state["playerState"]["action"] == "spymaster"
+
 
 def test_submit_turn(app, client, redis):
     data = {
@@ -62,5 +67,7 @@ def test_submit_turn(app, client, redis):
     response = client.post("/games/0001", json=data)
     assert response.status_code == 201
 
-    update = client.get("/games/0000")
-    data = update.get_json()
+    update = client.get("/games/0001").get_json()
+    assert update["playerState"]["turn"] == "blue"
+    assert update["playerState"]["action"] == "chooser"
+    assert update["playerState"]["attemptsLeft"] == 3
