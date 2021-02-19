@@ -33,15 +33,22 @@ class UserResource(Resource):
 class GameResource(Resource):
     def get(self, game_id):
         try:
-            jsonify(services.get_state(game_id))
+            state = services.get_state(game_id)
+            for word, value in state["wordsState"].items():
+                if value not in ("blue-revealed", "red-revealed"):
+                    state["wordsState"][word] = "hidden"
+            return jsonify(state)
         except exceptions.GameNotFoundError:
-            make_response("Game Not Found", 404)
+            return make_response("Game Not Found", 404)
 
-    def post(self):
+    def post(self, game_id=None):
         data = request.get_json()
-        if data["action"] == "create":
-            state = services.create_game(data["payload"]["ID"])
-            jsonify(state)
+        if not game_id:
+            state = services.create_game(data["ID"])
+            return make_response(state, 201)
+
+        services.handle_turn(game_id, data["team"], data["action"], data["payload"])
+        return (None, 201)
 
 
 def create_app(db_path=None):

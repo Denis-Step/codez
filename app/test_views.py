@@ -48,8 +48,19 @@ def test_get_game(app, client, redis, sample_game_id):
 
 
 def test_create_game(app, client, redis):
-    response = client.post(
-        "/games", json={"action": "create", "payload": {"ID": "0001"}}
-    )
-    assert response.status_code == 200
+    response = client.post("/games", json={"ID": "0001"})
+    assert response.status_code == 201
     assert response.mimetype == "application/json"
+
+
+def test_submit_turn(app, client, redis):
+    data = {
+        "action": "spymaster",
+        "team": "blue",
+        "payload": {"hint": "TestHint", "attempts": 3},
+    }
+    response = client.post("/games/0001", json=data)
+    assert response.status_code == 201
+
+    update = client.get("/games/0000")
+    data = update.get_json()
