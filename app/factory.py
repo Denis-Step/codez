@@ -52,7 +52,7 @@ class GameResource(Resource):
 
 
 def create_app(db_path=None):
-    app = Flask(__name__, static_url_path="/static")
+    app = Flask("Codez", static_folder="../static")
     api.add_resource(UserResource, "/users/<int:user_id>", "/users")
     api.add_resource(GameResource, "/games/<string:game_id>", "/games")
     app.register_blueprint(codez_bp)
