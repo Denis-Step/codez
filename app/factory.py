@@ -62,7 +62,7 @@ def authenticate(username, password):
 def identity(payload):
     user_id = payload["identity"]
     try:
-        models.User.query.filter(models.User.id == user_id).scalar().id
+        return models.User.query.filter(models.User.id == user_id).scalar().id
     except Exception:
         return None
 
@@ -73,11 +73,13 @@ def create_app(db_path=None):
     api.add_resource(UserResource, "/users/<int:user_id>", "/users")
     api.add_resource(GameResource, "/games/<string:game_id>", "/games")
     app.register_blueprint(codez_bp)
-    jwt = JWT(app, authenticate, identity)
     if db_path == None:
         db_path = "sqlite:///:memory"
     app.config["SQLALCHEMY_DATABASE_URI"] = db_path
-    app.config["SECRET_KEY"] = "super-secret"
+    app.config[
+        "SECRET_KEY"
+    ] = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
     db = SQLAlchemy(app)
     db.init_app(app)
+    jwt = JWT(app, authenticate, identity)
     return app

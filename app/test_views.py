@@ -23,10 +23,6 @@ def test_user_signup(app, client, db):
     )
 
 
-def test_get_jwt(app, client, db):
-    jwt = client.post("/auth", json={"TestUser": "TestPass"})
-
-
 def test_user_login(app, client, db):
     assert (
         client.post(
@@ -43,6 +39,17 @@ def test_user_login(app, client, db):
         ).status_code
         == 401
     )
+
+
+def test_get_jwt(app, client, db):
+    response = client.post(
+        "/auth",
+        content_type="application/json",
+        json={"username": "TestUser", "password": "TestPass"},
+    )
+    assert response.status_code == 200
+    jwt = response.get_json()
+    assert jwt.get("access_token", None)
 
 
 def test_get_game(app, client, redis, sample_game_id):
