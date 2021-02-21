@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, make_response, request, jsonify
+from flask import Flask, Blueprint, make_response, request, jsonify, send_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api, Resource
 from flask_jwt import JWT, jwt_required, current_identity
@@ -52,6 +52,16 @@ class GameResource(Resource):
         return (None, 201)
 
 
+@codez_bp.route("/")
+def home_page():
+    return send_file("../static/index.html")
+
+
+@codez_bp.route("/static/script.js")
+def dev_spa_script():
+    return send_file("../client/dist/script.js")
+
+
 def authenticate(username, password):
     try:
         return models.User.login(username, password)
@@ -82,4 +92,5 @@ def create_app(db_path=None):
     db = SQLAlchemy(app)
     db.init_app(app)
     jwt = JWT(app, authenticate, identity)
+    jwt.JWT_EXPIRATION_DELTA = 3600
     return app
