@@ -1,4 +1,6 @@
 import bcrypt
+import datetime
+import jwt
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 
@@ -88,7 +90,7 @@ class User(db.Model):
         salted_credentials = bcrypt.hashpw(password.encode(), user.salt)
 
         if salted_credentials == user.password:
-            return True
+            return user
         else:
             raise User.IncorrectLoginError(
                 message="Invalid Login Credentials", username=username

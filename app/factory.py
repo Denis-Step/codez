@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint, make_response, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api, Resource
+from flask_jwt import JWT, jwt_required, current_identity
 from models import models
 from game import services, exceptions
 
@@ -41,6 +42,7 @@ class GameResource(Resource):
         except exceptions.GameNotFoundError:
             return make_response("Game Not Found", 404)
 
+    @jwt_required()
     def post(self, game_id=None):
         data = request.get_json()
         if not game_id:
@@ -51,11 +53,28 @@ class GameResource(Resource):
         return (None, 201)
 
 
+def authenticate(username, password):
+    try:
+        return models.User.login(username, password)
+    except Exception:
+        return None
+
+
+def identity(payload):
+    user_id = payload["identity"]
+    try:
+        models.User.query.filter(models.User.id == user_id).scalar().id
+    except Exception:
+        return None
+
+
 def create_app(db_path=None):
     app = Flask("Codez", static_folder="../static")
+    app.debug = True
     api.add_resource(UserResource, "/users/<int:user_id>", "/users")
     api.add_resource(GameResource, "/games/<string:game_id>", "/games")
     app.register_blueprint(codez_bp)
+    jwt = JWT(app, authenticate, identity)
     if db_path == None:
         db_path = "sqlite:///:memory"
     app.config["SQLALCHEMY_DATABASE_URI"] = db_path
