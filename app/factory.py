@@ -78,13 +78,16 @@ def identity(payload):
 
 
 def create_app(db_path=None):
+    print(db_path)
     app = Flask("Codez", static_folder="../static")
     app.debug = True
     api.add_resource(UserResource, "/users/<int:user_id>", "/users")
     api.add_resource(GameResource, "/games/<string:game_id>", "/games")
     app.register_blueprint(codez_bp)
-    if db_path == None:
-        db_path = "sqlite:///:memory"
+    if db_path is None:
+        db_path = "sqlite:///db.db"
+    else:
+        db_path = "sqlite:///" + db_path
     app.config["SQLALCHEMY_DATABASE_URI"] = db_path
     app.config[
         "SECRET_KEY"

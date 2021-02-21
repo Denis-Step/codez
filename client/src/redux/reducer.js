@@ -4,9 +4,14 @@ import {
   CALL_WORDS,
   REVEAL_WORD,
   RECEIVE_GAME_STATE,
+  AUTHENTICATED,
 } from "./actionTypes";
 
 const initialState = {
+  auth: {
+    authenticated: false,
+    token: null,
+  },
   winner: null,
   turn: "",
   attemptsLeft: 0,
@@ -19,6 +24,14 @@ const initialState = {
 
 export function clickApp(state = initialState, action) {
   switch (action.type) {
+    case RECEIVE_TOKEN:
+      return Object.assign({}, state, {
+        auth: {
+          authenticated: true,
+          token: action.token,
+        },
+      });
+
     case ADD_WORD:
       return Object.assign({}, state, {
         words: [...state.words, action.word],

@@ -77,8 +77,8 @@ export async function revealWord(word) {
   return results
 }
 
-export async function login(name: string, password: string): Promise<number> {
-  const endpoint = "/api/login";
+export async function login(name: string, password: string): Promise<string> {
+  const endpoint = "/auth";
 
   const response = await axios({
     method: "post",
@@ -87,17 +87,18 @@ export async function login(name: string, password: string): Promise<number> {
            password: password},
   });
 
-  const results = response.status;
-  return results
+  
+  return response["access_token"]
 }
 
 export async function register(name: string, password: string): Promise<number> {
-  const endpoint = "/api/signup";
+  const endpoint = "/users";
 
   const response = await axios({
     method: "post",
     url: BASE + endpoint,
-    data: {username: name,
+    data: { action: "signup",
+          username: name,
            password: password},
   });
 

@@ -4,7 +4,7 @@ import StateBox from "./containers/StateBox";
 import FullBoard from "./containers/FullBoard";
 import { useRouteMatch } from "react-router-dom";
 
-export default function Game() {
+const Game = (): JSX.Element => {
   const game_ID = useRouteMatch("/:id").params.id;
   return (
     <div className={"main"}>
@@ -14,3 +14,5 @@ export default function Game() {
     </div>
   );
 }
+
+export default Game;

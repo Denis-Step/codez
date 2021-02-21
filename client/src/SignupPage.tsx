@@ -1,6 +1,5 @@
 import React, { CSSProperties, useState } from "react";
 import { login, register } from "./apicalls";
-import ReactDOM from "react-dom";
 import {
   Box,
   VStack,
@@ -14,8 +13,6 @@ import {
   ChakraProvider,
   HStack,
 } from "@chakra-ui/react";
-import LoginButton from "./LoginButton";
-import SignupButton from "./SignupButton";
 interface SignupProps {}
 
 const style_elTypewriterSignupButton = {
@@ -41,7 +38,7 @@ const style_SignIn: CSSProperties = {
   display: "flex"
 };
 
-const SignupPage: React.FC = (props: SignupProps) => {
+const SignupPage = (props: SignupProps) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -78,14 +75,8 @@ const SignupPage: React.FC = (props: SignupProps) => {
         </VStack>
         <Divider/>
       </div>
-
-      <div>Row3</div>
     </div>
   );
 };
-ReactDOM.render(
-  <ChakraProvider>
-    <SignupPage />
-  </ChakraProvider>,
-  document.getElementById("root")
-);
+
+export default SignupPage;

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { clickApp } from "./reducer";
 
 const initialState = { vords: [] };
 
