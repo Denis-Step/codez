@@ -23,6 +23,10 @@ def test_user_signup(app, client, db):
     )
 
 
+def test_get_jwt(app, client, db):
+    jwt = client.post("/auth", json={"TestUser": "TestPass"})
+
+
 def test_user_login(app, client, db):
     assert (
         client.post(

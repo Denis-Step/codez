@@ -42,7 +42,6 @@ class GameResource(Resource):
         except exceptions.GameNotFoundError:
             return make_response("Game Not Found", 404)
 
-    @jwt_required()
     def post(self, game_id=None):
         data = request.get_json()
         if not game_id:
@@ -78,6 +77,7 @@ def create_app(db_path=None):
     if db_path == None:
         db_path = "sqlite:///:memory"
     app.config["SQLALCHEMY_DATABASE_URI"] = db_path
+    app.config["SECRET_KEY"] = "super-secret"
     db = SQLAlchemy(app)
     db.init_app(app)
     return app
