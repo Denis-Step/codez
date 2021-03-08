@@ -9,7 +9,6 @@ from flask_login import (
     login_user,
     logout_user,
 )
-from oauthlib.oauth2 import WebApplicationClient
 from models import models
 from game import services, exceptions
 
@@ -77,27 +76,18 @@ def home_page():
 def dev_spa_script():
     return send_file("../client/dist/script.js")
 
+# Catch-all
+@codez_bp.route("/", defaults={"path": ""})
+@codez_bp.route("/<path:path>")
+def index(path):
+    return send_file("../static/index.html")
+
 
 def authenticate(username, password):
     try:
         return models.User.login(username, password)
     except Exception:
         return None
-
-
-def identity(payload):
-    user_id = payload["identity"]
-    try:
-        return models.User.query.filter(models.User.id == user_id).scalar().id
-    except Exception:
-        return None
-
-
-# Flask-Login helper to retrieve a user from our db
-@login_manager.user_loader
-def load_user(user_id):
-    return models.User.get(user_id)
-
 
 def create_app(db_path=None):
     app = Flask("Codez", static_folder="../static")
@@ -115,6 +105,4 @@ def create_app(db_path=None):
     ] = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
     db = SQLAlchemy(app)
     db.init_app(app)
-    client = WebApplicationClient(GOOGLE_CLIENT_ID)
-    login_manager.init_app(app)
     return app

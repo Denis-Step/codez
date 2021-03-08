@@ -7,8 +7,8 @@ const Routes = (): JSX.Element => {
     
     return (
         <Switch>
+            <Route path = "/:id" component={Game} />
             <Route path = "/" component={SignupPage} />
-            <Route path = "/games/:id" component={Game} />
         </Switch>
     )
 }

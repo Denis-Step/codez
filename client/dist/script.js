@@ -49700,26 +49700,6 @@ function warning(condition, message) {
 
 /***/ }),
 
-/***/ "./src/Title.js":
-/*!**********************!*\
-  !*** ./src/Title.js ***!
-  \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Title)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-function Title() {
-    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "topbar" }, "Codenames");
-}
-
-
-/***/ }),
-
 /***/ "./src/containers/StateBox.js":
 /*!************************************!*\
   !*** ./src/containers/StateBox.js ***!
@@ -49729,7 +49709,7 @@ function Title() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ StateBox)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
@@ -49737,7 +49717,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function StateBox(props) {
+var StateBox = function (props) {
     var StateBox = function (props) {
         var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0), attempts = _a[0], setAttempts = _a[1];
         var _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""), hint = _b[0], setHint = _b[1];
@@ -49790,7 +49770,8 @@ function StateBox(props) {
     }); };
     StateBox = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(StateBox);
     return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
-}
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StateBox);
 
 
 /***/ }),
@@ -49958,7 +49939,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Title */ "./src/Title.js");
+/* harmony import */ var _Title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Title */ "./src/Title.tsx");
 /* harmony import */ var _containers_StateBox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./containers/StateBox */ "./src/containers/StateBox.js");
 /* harmony import */ var _containers_FullBoard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./containers/FullBoard */ "./src/containers/FullBoard.tsx");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
@@ -50001,7 +49982,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/input/dist/esm/input.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/button/dist/esm/button.js");
 /* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/actions */ "./src/redux/actions.tsx");
-/* harmony import */ var _apicalls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../apicalls */ "./src/apicalls.tsx");
+/* harmony import */ var _apicalls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../apicalls */ "./src/apicalls.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -50121,18 +50102,39 @@ __webpack_require__.r(__webpack_exports__);
 
 var Routes = function () {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_3__.Switch, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_3__.Route, { path: "/", component: _Login_SignupPage__WEBPACK_IMPORTED_MODULE_2__.default }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_3__.Route, { path: "/games/:id", component: _Game__WEBPACK_IMPORTED_MODULE_1__.default })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_3__.Route, { path: "/:id", component: _Game__WEBPACK_IMPORTED_MODULE_1__.default }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router__WEBPACK_IMPORTED_MODULE_3__.Route, { path: "/", component: _Login_SignupPage__WEBPACK_IMPORTED_MODULE_2__.default })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Routes);
 
 
 /***/ }),
 
-/***/ "./src/apicalls.tsx":
-/*!**************************!*\
-  !*** ./src/apicalls.tsx ***!
-  \**************************/
+/***/ "./src/Title.tsx":
+/*!***********************!*\
+  !*** ./src/Title.tsx ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var Title = function () {
+    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "topbar" }, "Codenames");
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Title);
+
+
+/***/ }),
+
+/***/ "./src/apicalls.ts":
+/*!*************************!*\
+  !*** ./src/apicalls.ts ***!
+  \*************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50203,7 +50205,7 @@ function get_State(game_ID) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    endpoint = "/" + game_ID + "/loadwords";
+                    endpoint = "/games/" + game_ID;
                     console.log(BASE + endpoint);
                     return [4 /*yield*/, axios__WEBPACK_IMPORTED_MODULE_0___default()({
                             method: "get",
@@ -50224,7 +50226,7 @@ function spymaster_Move(game_ID, hint, attempts) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    endpoint = "/" + game_ID + "/spymaster";
+                    endpoint = "/games/" + game_ID + "/spymaster";
                     console.log(hint);
                     console.log(attempts);
                     return [4 /*yield*/, axios__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -50320,7 +50322,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Board__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Board */ "./src/Board.tsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/actions */ "./src/redux/actions.tsx");
-/* harmony import */ var _apicalls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../apicalls */ "./src/apicalls.tsx");
+/* harmony import */ var _apicalls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../apicalls */ "./src/apicalls.ts");
 
 
 
@@ -50391,7 +50393,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "clickWord": () => (/* binding */ clickWord)
 /* harmony export */ });
 /* harmony import */ var _actionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actionTypes */ "./src/redux/actionTypes.ts");
-/* harmony import */ var _apicalls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../apicalls */ "./src/apicalls.tsx");
+/* harmony import */ var _apicalls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../apicalls */ "./src/apicalls.ts");
 
 
 function receiveToken(token) {

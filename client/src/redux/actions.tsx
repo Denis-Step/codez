@@ -5,7 +5,6 @@ import {
   CALL_WORDS,
   REVEAL_WORD,
   RECEIVE_GAME_STATE,
-  SPYMASTER_MOVE,
 } from "./actionTypes";
 import {get_State, spymaster_Move} from "../apicalls"
 

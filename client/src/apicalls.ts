@@ -16,11 +16,11 @@ enum Turn {
 }
 
 interface GameState {
-  attemptsLeft: Number,
-  bluePoints: Number,
-  redPoints: Number,
+  attemptsLeft: number,
+  bluePoints: number,
+  redPoints: number,
   turn: Turn,
-  hint: String,
+  hint: string,
   winner: "red" | "blue" | "none"
 }
 
@@ -35,7 +35,7 @@ interface StateResponse {
 
 
 export async function get_State(game_ID: string): Promise<StateResponse> {
-  const endpoint = `/${game_ID}/loadwords`;
+  const endpoint = `/games/${game_ID}`;
   console.log(BASE + endpoint);
 
   const response = await axios({
@@ -50,7 +50,7 @@ export async function get_State(game_ID: string): Promise<StateResponse> {
 
 
 export async function spymaster_Move(game_ID: string, hint: string, attempts: number): Promise<number> {
-  const endpoint = `/${game_ID}/spymaster`
+  const endpoint = `/games/${game_ID}/spymaster`
   console.log(hint)
   console.log(attempts)
   
@@ -64,7 +64,7 @@ export async function spymaster_Move(game_ID: string, hint: string, attempts: nu
   return response.status
 }
 
-export async function revealWord(word) {
+export async function revealWord(word: string): Promise<number> {
   const endpoint = "/api/revealword";
 
   const response = await axios({
