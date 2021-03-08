@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { makeSpymasterMove } from "../redux/actions";
 
-export default function StateBox(props) {
+const StateBox = (props): JSX.Element => {
   let StateBox = (props) => {
     const [attempts, setAttempts] = useState(0);
     const [hint, setHint] = useState("");
@@ -75,3 +75,5 @@ export default function StateBox(props) {
 
   return <div />;
 }
+
+export default StateBox;

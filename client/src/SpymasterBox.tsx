@@ -7,3 +7,5 @@ const SpymasterBox = (): JSX.Element => {
     </div>
   );
 };
+
+export default SpymasterBox;
