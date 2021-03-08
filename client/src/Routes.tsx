@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Route, Switch} from "react-router";
 import Game from "./Game";
-import SignupPage from "./SignupPage";
+import SignupPage from "./Login/SignupPage";
 
-const Routes = () => {
+const Routes = (): JSX.Element => {
     
     return (
         <Switch>

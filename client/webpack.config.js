@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   entry: {
-    script: "./src/main.js",
+    script: "./src/main.tsx",
   },
   output: {
     filename: "./dist/[name].js",

@@ -1,5 +1,7 @@
 import React from "react";
 
-export default function Title() {
+const Title = (): JSX.Element => {
   return <div id="topbar">Codenames</div>;
-}
+};
+
+export default Title;

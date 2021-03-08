@@ -1,12 +1,17 @@
 import {
+  RECEIVE_TOKEN,
   ADD_WORD,
   RECEIVE_WORDS,
   CALL_WORDS,
   REVEAL_WORD,
   RECEIVE_GAME_STATE,
-  SPYMASTER_MOVE
+  SPYMASTER_MOVE,
 } from "./actionTypes";
 import {get_State, spymaster_Move} from "../apicalls"
+
+export function receiveToken(token){
+  return {type: RECEIVE_TOKEN, 'token': token }
+}
 
 export function addWord(word) {
   return { type: ADD_WORD, word };

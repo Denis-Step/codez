@@ -6,7 +6,7 @@ interface CellProps {
   onClick: React.MouseEventHandler<HTMLElement>;
 }
 
-const Cell : React.FC<CellProps> = (props: CellProps) => {
+const Cell = (props: CellProps): JSX.Element => {
   let revealed = "";
   if (props.seen == false) {
     revealed = "cell not-revealed";

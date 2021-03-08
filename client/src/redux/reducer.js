@@ -1,4 +1,5 @@
 import {
+  RECEIVE_TOKEN,
   ADD_WORD,
   RECEIVE_WORDS,
   CALL_WORDS,

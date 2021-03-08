@@ -1,11 +1,17 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Title from "./Title";
 import StateBox from "./containers/StateBox";
 import FullBoard from "./containers/FullBoard";
 import { useRouteMatch } from "react-router-dom";
 
+export interface MatchParams {
+  id: string;
+}
+
 const Game = (): JSX.Element => {
-  const game_ID = useRouteMatch("/:id").params.id;
+  const match = useRouteMatch<MatchParams>("/:id")
+  const game_ID = match?.params?.id;
+  
   return (
     <div className={"main"}>
       <Title />

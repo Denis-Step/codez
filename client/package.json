@@ -1,11 +1,11 @@
 {
-  "name": "Codenames",
+  "name": "codenames",
   "version": "1.0.0",
   "description": "",
   "main": "script.js",
   "scripts": {
     "dev": "webpack --mode development",
-    "build": "webpack --mode production ./src/main.js --output ./dist/script.js",
+    "build": "webpack --mode production ./src/main --output ./dist/script.js",
     "test": "jest"
   },
   "keywords": [],
@@ -13,6 +13,10 @@
   "license": "ISC",
   "devDependencies": {
     "@svgr/webpack": "^5.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
+    "eslint": "^7.21.0",
+    "eslint-plugin-react": "^7.22.0",
     "jest": "^26.5.2",
     "react-dom": "^17.0.0",
     "react-router": "*",
@@ -25,6 +29,8 @@
     "webpack-cli": "*"
   },
   "dependencies": {
+    "@babel/core": "^7.12.17",
+    "@babel/runtime": "^7.12.0",
     "@chakra-ui/react": "^1.1.4",
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
@@ -32,7 +38,10 @@
     "@types/lodash": "^4.14.167",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/react-router": "^5.1.12",
+    "@types/react-router-dom": "^5.1.7",
     "axios": "^0.19.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "framer-motion": "^3.2.1",
     "react": "*",
     "react-dnd": "*",
@@ -40,7 +49,9 @@
     "react-redux": "^7.2.1",
     "react-test-renderer": "*",
     "redux-thunk": "^2.3.0",
-    "save-dev": "0.0.1-security"
+    "save-dev": "0.0.1-security",
+    "set-value": "^2.0.1",
+    "update": "^0.7.4"
   },
   "browserslist": [
     "last 3 Chrome versions"

@@ -1,12 +1,28 @@
+import os
 from flask import Flask, Blueprint, make_response, request, jsonify, send_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api, Resource
-from flask_jwt import JWT, jwt_required, current_identity
+from flask_login import (
+    LoginManager,
+    current_user,
+    login_required,
+    login_user,
+    logout_user,
+)
+from oauthlib.oauth2 import WebApplicationClient
 from models import models
 from game import services, exceptions
 
+# Configuration
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
+GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
+
+login_manager = LoginManager()
+
 codez_bp = Blueprint("codez_bp", __name__)
 api = Api(codez_bp)
+login_manager = LoginManager()
 
 
 class UserResource(Resource):
@@ -77,8 +93,13 @@ def identity(payload):
         return None
 
 
+# Flask-Login helper to retrieve a user from our db
+@login_manager.user_loader
+def load_user(user_id):
+    return models.User.get(user_id)
+
+
 def create_app(db_path=None):
-    print(db_path)
     app = Flask("Codez", static_folder="../static")
     app.debug = True
     api.add_resource(UserResource, "/users/<int:user_id>", "/users")
@@ -94,6 +115,6 @@ def create_app(db_path=None):
     ] = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
     db = SQLAlchemy(app)
     db.init_app(app)
-    jwt = JWT(app, authenticate, identity)
-    jwt.JWT_EXPIRATION_DELTA = 3600
+    client = WebApplicationClient(GOOGLE_CLIENT_ID)
+    login_manager.init_app(app)
     return app

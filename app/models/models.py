@@ -44,6 +44,11 @@ class User(db.Model):
         return f"User {self.name}"
 
     @staticmethod
+    def get(ID):
+        user = User.query.filter(User.id == ID).scalar()
+        return user
+
+    @staticmethod
     def generate_next_id():
         if User.query.count() == 0:
             return 0

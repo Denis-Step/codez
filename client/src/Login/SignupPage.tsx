@@ -1,5 +1,6 @@
 import React, { CSSProperties, useState } from "react";
-import { login, register } from "./apicalls";
+import { connect } from "react-redux";
+import {useHistory} from "react-router";
 import {
   Box,
   VStack,
@@ -13,6 +14,10 @@ import {
   ChakraProvider,
   HStack,
 } from "@chakra-ui/react";
+import { receiveToken} from "../redux/actions";
+import { login, register } from "../apicalls";
+
+
 interface SignupProps {}
 
 const style_elTypewriterSignupButton = {
@@ -41,6 +46,11 @@ const style_SignIn: CSSProperties = {
 const SignupPage = (props: SignupProps) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
+  
+  const authenticate = async (username, password) => {
+    const token = login(username, password)
+  }
 
   return (
     <div
@@ -65,7 +75,7 @@ const SignupPage = (props: SignupProps) => {
         <HStack>
         <Button size="lg" 
                 className="font-n1942report login-button"
-                onClick = {(e) => login (name, password)}
+                onClick = {(e) => authenticate(name, password)}
                 >LOGIN </Button>
         <Button size="lg" 
                 className="font-n1942report signup-button"
@@ -79,4 +89,9 @@ const SignupPage = (props: SignupProps) => {
   );
 };
 
-export default SignupPage;
+const mapDispatchToProps = (dispatch) => ({
+  receiveToken: (token) => dispatch(receiveToken(token)),
+});
+
+export default connect(mapDispatchToProps)(SignupPage);
+
