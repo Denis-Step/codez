@@ -1,35 +1,10 @@
 import axios from "axios";
+import {TEAM, TURN, CURR_TURN, WordsState, PlayerState} from "./types/types";
 
 const BASE = "http://127.0.0.1:5000";
 
-enum Word {
-  "red",
-  "blue",
-  "neutral"
-}
-
-enum Turn {
-  "blue-spymaster",
-  "red-spymaster",
-  "blue-chooser",
-  "red-chooser"
-}
-
-interface GameState {
-  attemptsLeft: number,
-  bluePoints: number,
-  redPoints: number,
-  turn: Turn,
-  hint: string,
-  winner: "red" | "blue" | "none"
-}
-
-interface WordsState {
-  [index: string]: Word
-}
-
 interface StateResponse {
-  playerState: GameState,
+  playerState: PlayerState,
   wordsState: WordsState
 }
 

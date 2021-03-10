@@ -1,5 +1,4 @@
 import Board from "../Board";
-import React from "react";
 import { connect } from "react-redux";
 import { addWord, refreshState, clickWord } from "../redux/actions";
 import { get_State } from "../apicalls";
