@@ -4,17 +4,27 @@ import {
   RECEIVE_WORDS,
   CALL_WORDS,
   REVEAL_WORD,
-  RECEIVE_GAME_STATE,
-  AUTHENTICATED,
+  RECEIVE_GAME_STATE
 } from "./actionTypes";
+import {PlayerState, WordsState} from "../types/types";
 
-const initialState = {
+export interface WordsStore extends PlayerState {
+  auth: {
+    authenticated: boolean;
+    token: null | string;
+  },
+  words: WordsState;
+  isFetching: boolean;
+}
+
+const initialState: WordsStore = {
   auth: {
     authenticated: false,
     token: null,
   },
-  winner: null,
-  turn: "",
+  winner: "none",
+  team: "red",
+  turn: "spymaster",
   attemptsLeft: 0,
   redPoints: 0,
   bluePoints: 0,
@@ -23,7 +33,7 @@ const initialState = {
   isFetching: false,
 };
 
-export function clickApp(state = initialState, action) {
+export function words_reducer(state = initialState, action): WordsStore {
   switch (action.type) {
     case RECEIVE_TOKEN:
       return Object.assign({}, state, {
@@ -33,10 +43,6 @@ export function clickApp(state = initialState, action) {
         },
       });
 
-    case ADD_WORD:
-      return Object.assign({}, state, {
-        words: [...state.words, action.word],
-      });
     case RECEIVE_WORDS:
       console.log(action.words);
       return Object.assign({}, state, {
@@ -47,6 +53,7 @@ export function clickApp(state = initialState, action) {
       console.log(action.gameInfo);
       return Object.assign({}, state, {
         winner: action.gameInfo.winner,
+        team: action.gameInfo.team,
         turn: action.gameInfo.turn,
         attemptsLeft: action.gameInfo.attemptsLeft,
         redPoints: action.gameInfo.redPoints,

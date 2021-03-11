@@ -1,10 +1,9 @@
 import { createStore, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk";
-import { configureStore } from "@reduxjs/toolkit";
-import { clickApp } from "./reducer";
+import { words_reducer } from "./reducer";
 
 const store = createStore(
-  clickApp,
+  words_reducer,
   applyMiddleware(
     thunkMiddleware // lets us dispatch() functions
   )

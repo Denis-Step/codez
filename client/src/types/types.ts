@@ -1,7 +1,7 @@
 
-export type TEAM = "red" | "blue" | "neutral";
-export type TURN = "chooser" | "spymaster"
-export type CURR_TURN = "blue-spymaster" | "blue-chooser" | "red-spymaster" | "red-chooser";
+export type Team = "red" | "blue" | "neutral";
+export type Turn = "chooser" | "spymaster"
+export type CurrTurn = "blue-spymaster" | "blue-chooser" | "red-spymaster" | "red-chooser";
 
 export interface WordsState {
     [key: string]: "hidden" | "blue-revealed" | "red-revealed";
@@ -12,7 +12,7 @@ export interface PlayerState {
     bluePoints: number;
     redPoints: number;
     hint: string;
-    turn: CURR_TURN;
-    winner: TEAM | "none";
-    words: WordsState;
+    turn: Turn;
+    team: Team;
+    winner: Team | "none";
 }

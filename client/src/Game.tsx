@@ -1,7 +1,6 @@
 import React from "react";
 import Title from "./Title";
-import StateBox from "./containers/StateBox";
-import FullBoard from "./containers/FullBoard";
+import Board from "./Board";
 import { useRouteMatch } from "react-router-dom";
 
 export interface MatchParams {
@@ -9,14 +8,13 @@ export interface MatchParams {
 }
 
 const Game = (): JSX.Element => {
-  const match = useRouteMatch<MatchParams>("/:id")
-  const game_ID = match?.params?.id;
+  const match = useRouteMatch<MatchParams>("/:id") as {params: MatchParams};
+  const game_ID = match.params.id;
   
   return (
     <div className={"main"}>
       <Title />
-      <StateBox game_ID={game_ID} />
-      <FullBoard game_ID={game_ID} />
+      <Board game_ID={game_ID} />
     </div>
   );
 }

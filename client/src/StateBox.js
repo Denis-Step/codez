@@ -1,32 +1,49 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { makeSpymasterMove } from "../redux/actions";
+import {Text} from "chakra-ui"
+import { useSelector, useDispatch } from "react-redux";
+import { makeSpymasterMove } from "./redux/actions";
+
+const mapStateToProps = (state) => {
+  return {
+    winner: state.winner,
+    turn: state.turn,
+    attemptsLeft: state.attemptsLeft,
+    redPoints: state.redPoints,
+    bluePoints: state.bluePoints,
+    hint: state.hint,
+  };
+};
 
 const StateBox = (props) => {
-  let StateBox = (props) => {
+    const gameInfo = useSelector ((state) => {return ({
+      winner: state.winner,
+      team: state.team,
+      turn: state.turn,
+      attemptsLeft: state.attemptsLeft,
+      redPoints: state.redPoints,
+      bluePoints: state.bluePoints,
+      hint: state.hint,
+    })});
     const [attempts, setAttempts] = useState(0);
     const [hint, setHint] = useState("");
 
-    const DecisionBox = (turn = props.turn) => {
-      if (props.turn.split("-")[1] == "spymaster") {
+    const DecisionBox = (turn = gameInfo.turn) => {
+      if (gameInfo.turn == "spymaster") {
         return (
           <div>
-            <span
+            <input
+              type="text"
               id="outlined-basic-attempts"
-              label="Attempts Left"
-              variant="outlined"
+              label-text="Attempts Left"
               default={props.attemptsLeft}
               onChange={(e) => setAttempts(e.target.value)}
             />
-            <span
+            <input
               id="outlined-hint"
-              label="Spymaster Hint"
-              variant="outlined"
-              default={props.hint}
+              label-text="Spymaster Hint"
               onChange={(e) => setHint(e.target.value)}
             />
             <button
-              variant="contained"
               onClick={(e) =>
                 props.spymasterMove(props.game_ID, hint, attempts)
               }
@@ -55,25 +72,11 @@ const StateBox = (props) => {
     );
   };
 
-  const mapStateToProps = (state) => {
-    return {
-      winner: state.winner,
-      turn: state.turn,
-      attemptsLeft: state.attemptsLeft,
-      redPoints: state.redPoints,
-      bluePoints: state.bluePoints,
-      hint: state.hint,
-    };
-  };
+
 
   const mapDispatchToProps = (dispatch) => ({
     spymasterMove: (game_ID, hint, attempts) =>
       dispatch(makeSpymasterMove(game_ID, hint, attempts)),
   });
-
-  StateBox = connect(mapStateToProps, mapDispatchToProps)(StateBox);
-
-  return <div />;
-};
 
 export default StateBox;
