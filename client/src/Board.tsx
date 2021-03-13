@@ -10,14 +10,16 @@ interface BoardProps {
 
 const Board = (props: BoardProps): JSX.Element => {
   const words = useSelector(state => state.words );
+  console.log("These are the words");
+  console.log(words);
   const dispatch = useDispatch();
 
-  const handleClick = useCallback ( (word) => {
+  const handleClick = (word) => {
     dispatch(clickWord(props.game_ID, word));
     dispatch(refreshState(props.game_ID));
-  },[dispatch])
+  }
   
-  if (Object.getOwnPropertyNames(words.length < 1)) {
+  if (words.length < 1) {
     dispatch(refreshState(props.game_ID));
     return <></>
   }

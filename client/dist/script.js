@@ -14901,12 +14901,14 @@ function clickWord(game_ID, word) {
 
 var Board = function (props) {
     var words = useSelector(function (state) { return state.words; });
+    console.log("These are the words");
+    console.log(words);
     var dispatch = useDispatch();
-    var handleClick = (0,react.useCallback)(function (word) {
+    var handleClick = function (word) {
         dispatch(clickWord(props.game_ID, word));
         dispatch(refreshState(props.game_ID));
-    }, [dispatch]);
-    if (Object.getOwnPropertyNames(words.length < 1)) {
+    };
+    if (words.length < 1) {
         dispatch(refreshState(props.game_ID));
         return react.createElement(react.Fragment, null);
     }
