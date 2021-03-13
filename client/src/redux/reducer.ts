@@ -28,7 +28,7 @@ const initialState: WordsStore = {
   attemptsLeft: 0,
   redPoints: 0,
   bluePoints: 0,
-  words: {},
+  words: [],
   hint: "",
   isFetching: false,
 };

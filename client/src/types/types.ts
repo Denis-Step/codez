@@ -3,9 +3,11 @@ export type Team = "red" | "blue" | "neutral";
 export type Turn = "chooser" | "spymaster"
 export type CurrTurn = "blue-spymaster" | "blue-chooser" | "red-spymaster" | "red-chooser";
 
-export interface WordsState {
-    [key: string]: "hidden" | "blue-revealed" | "red-revealed";
+export type Word = {
+    [key: string]: "hidden" | "blue-revealed" | "red-revealed" | "bomb-revealed" | "neutral-revealed";
 }
+
+export type WordsState = Word[];
 
 export interface PlayerState {
     attemptsLeft: number;

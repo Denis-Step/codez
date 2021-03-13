@@ -20,6 +20,7 @@ const Board = (props: BoardProps): JSX.Element => {
   }
   
   if (words.length < 1) {
+    console.log('empty');
     dispatch(refreshState(props.game_ID));
     return <></>
   }

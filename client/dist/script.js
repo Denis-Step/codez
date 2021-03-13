@@ -12687,7 +12687,7 @@ var initialState = {
     attemptsLeft: 0,
     redPoints: 0,
     bluePoints: 0,
-    words: {},
+    words: [],
     hint: "",
     isFetching: false,
 };
@@ -14909,6 +14909,7 @@ var Board = function (props) {
         dispatch(refreshState(props.game_ID));
     };
     if (words.length < 1) {
+        console.log('empty');
         dispatch(refreshState(props.game_ID));
         return react.createElement(react.Fragment, null);
     }
