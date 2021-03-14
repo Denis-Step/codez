@@ -1,6 +1,6 @@
 
 export type Team = "red" | "blue" | "neutral";
-export type Turn = "chooser" | "spymaster"
+export type Action = "chooser" | "spymaster"
 export type CurrTurn = "blue-spymaster" | "blue-chooser" | "red-spymaster" | "red-chooser";
 
 export type Word = {
@@ -14,7 +14,7 @@ export interface PlayerState {
     bluePoints: number;
     redPoints: number;
     hint: string;
-    turn: Turn;
-    team: Team;
+    action: Action;
+    turn: Team;
     winner: Team | "none";
 }

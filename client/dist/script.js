@@ -12682,8 +12682,8 @@ var initialState = {
         token: null,
     },
     winner: "none",
-    team: "red",
-    turn: "spymaster",
+    turn: "red",
+    action: "spymaster",
     attemptsLeft: 0,
     redPoints: 0,
     bluePoints: 0,
@@ -14633,10 +14633,81 @@ if (false) { var secondaryBuildName, initialBuildName, buildNames, key, global; 
 
 //# sourceMappingURL=react-router.js.map
 
+// EXTERNAL MODULE: ./node_modules/@chakra-ui/system/dist/esm/index.js
+var dist_esm = __webpack_require__(1180);
+// EXTERNAL MODULE: ./node_modules/@chakra-ui/utils/dist/esm/index.js
+var utils_dist_esm = __webpack_require__(4686);
+;// CONCATENATED MODULE: ./node_modules/@chakra-ui/layout/dist/esm/center.js
+function center_extends() { center_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return center_extends.apply(this, arguments); }
+
+function center_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+
+/**
+ * React component used to horizontally and vertically center its child.
+ * It uses the popular `display: flex` centering technique.
+ *
+ * @see Docs https://chakra-ui.com/docs/layout/center
+ */
+var Center = (0,dist_esm.chakra)("div", {
+  baseStyle: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});
+
+if (utils_dist_esm.__DEV__) {
+  Center.displayName = "Center";
+}
+
+var centerStyles = {
+  horizontal: {
+    insetStart: "50%",
+    transform: "translateX(-50%)"
+  },
+  vertical: {
+    top: "50%",
+    transform: "translateY(-50%)"
+  },
+  both: {
+    insetStart: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)"
+  }
+};
+/**
+ * React component used to horizontally and vertically center an element
+ * relative to its parent dimensions.
+ *
+ * It uses the `position: absolute` strategy.
+ *
+ * @see Docs https://chakra-ui.com/docs/layout/center
+ * @see WebDev https://web.dev/centering-in-css/#5.-pop-and-plop
+ */
+
+var AbsoluteCenter = /*#__PURE__*/(/* unused pure expression or super */ null && (forwardRef((props, ref) => {
+  var {
+    axis = "both"
+  } = props,
+      rest = center_objectWithoutPropertiesLoose(props, ["axis"]);
+
+  return /*#__PURE__*/React.createElement(chakra.div, center_extends({
+    ref: ref,
+    __css: centerStyles[axis]
+  }, rest));
+})));
+//# sourceMappingURL=center.js.map
 ;// CONCATENATED MODULE: ./src/Title.tsx
 
+
 var Title = function () {
-    return react.createElement("div", { id: "topbar" }, "Codenames");
+    return (react.createElement(Center, null,
+        react.createElement("div", { id: "topbar" },
+            react.createElement("h1", null, "CODEZ"))));
 };
 /* harmony default export */ const src_Title = (Title);
 
@@ -14928,90 +14999,6 @@ var Board = function (props) {
 };
 /* harmony default export */ const src_Board = (Board);
 
-;// CONCATENATED MODULE: ./src/Game.tsx
-
-
-
-
-var Game = function () {
-    var match = useRouteMatch("/:id");
-    var game_ID = match.params.id;
-    return (react.createElement("div", { className: "main" },
-        react.createElement(src_Title, null),
-        react.createElement(src_Board, { game_ID: game_ID })));
-};
-/* harmony default export */ const src_Game = (Game);
-
-// EXTERNAL MODULE: ./node_modules/@chakra-ui/system/dist/esm/index.js
-var dist_esm = __webpack_require__(1180);
-// EXTERNAL MODULE: ./node_modules/@chakra-ui/system/dist/esm/system.utils.js
-var system_utils = __webpack_require__(5284);
-// EXTERNAL MODULE: ./node_modules/@chakra-ui/utils/dist/esm/index.js
-var utils_dist_esm = __webpack_require__(4686);
-;// CONCATENATED MODULE: ./node_modules/@chakra-ui/layout/dist/esm/divider.js
-function divider_extends() { divider_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return divider_extends.apply(this, arguments); }
-
-function divider_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
-
-
-/**
- * Layout component used to visually separate content in a list or group.
- * It display a thin horizontal or vertical line, and renders a `hr` tag.
- *
- * @see Docs https://chakra-ui.com/docs/data-display/divider
- */
-
-var Divider = /*#__PURE__*/(0,dist_esm.forwardRef)((props, ref) => {
-  var _useStyleConfig = (0,dist_esm.useStyleConfig)("Divider", props),
-      {
-    borderLeftWidth,
-    borderBottomWidth,
-    borderTopWidth,
-    borderRightWidth,
-    borderWidth,
-    borderStyle,
-    borderColor
-  } = _useStyleConfig,
-      styles = divider_objectWithoutPropertiesLoose(_useStyleConfig, ["borderLeftWidth", "borderBottomWidth", "borderTopWidth", "borderRightWidth", "borderWidth", "borderStyle", "borderColor"]);
-
-  var _omitThemingProps = (0,system_utils/* omitThemingProps */.Lr)(props),
-      {
-    className,
-    orientation = "horizontal",
-    __css
-  } = _omitThemingProps,
-      rest = divider_objectWithoutPropertiesLoose(_omitThemingProps, ["className", "orientation", "__css"]);
-
-  var dividerStyles = {
-    vertical: {
-      borderLeftWidth: borderLeftWidth || borderRightWidth || borderWidth || "1px",
-      height: "100%"
-    },
-    horizontal: {
-      borderBottomWidth: borderBottomWidth || borderTopWidth || borderWidth || "1px",
-      width: "100%"
-    }
-  };
-  return /*#__PURE__*/react.createElement(dist_esm.chakra.hr, divider_extends({
-    ref: ref,
-    role: "separator",
-    "aria-orientation": orientation
-  }, rest, {
-    __css: divider_extends({}, styles, {
-      border: "0",
-      borderColor,
-      borderStyle
-    }, dividerStyles[orientation], __css),
-    className: (0,utils_dist_esm.cx)("chakra-divider", className)
-  }));
-});
-
-if (utils_dist_esm.__DEV__) {
-  Divider.displayName = "Divider";
-}
-//# sourceMappingURL=divider.js.map
 ;// CONCATENATED MODULE: ./node_modules/@chakra-ui/layout/dist/esm/stack.utils.js
 
 
@@ -15222,6 +15209,231 @@ if (utils_dist_esm.__DEV__) {
   VStack.displayName = "VStack";
 }
 //# sourceMappingURL=stack.js.map
+// EXTERNAL MODULE: ./node_modules/@chakra-ui/system/dist/esm/system.utils.js
+var system_utils = __webpack_require__(5284);
+;// CONCATENATED MODULE: ./node_modules/@chakra-ui/layout/dist/esm/text.js
+function text_extends() { text_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return text_extends.apply(this, arguments); }
+
+function text_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+
+/**
+ * Used to render texts or paragraphs.
+ *
+ * @see Docs https://chakra-ui.com/docs/typography/text
+ */
+var Text = /*#__PURE__*/(0,dist_esm.forwardRef)((props, ref) => {
+  var styles = (0,dist_esm.useStyleConfig)("Text", props);
+
+  var _omitThemingProps = (0,system_utils/* omitThemingProps */.Lr)(props),
+      rest = text_objectWithoutPropertiesLoose(_omitThemingProps, ["className", "align", "decoration", "casing"]);
+
+  var aliasedProps = (0,utils_dist_esm.filterUndefined)({
+    textAlign: props.align,
+    textDecoration: props.decoration,
+    textTransform: props.casing
+  });
+  return /*#__PURE__*/react.createElement(dist_esm.chakra.p, text_extends({
+    ref: ref,
+    className: (0,utils_dist_esm.cx)("chakra-text", props.className)
+  }, aliasedProps, rest, {
+    __css: styles
+  }));
+});
+
+if (utils_dist_esm.__DEV__) {
+  Text.displayName = "Text";
+}
+//# sourceMappingURL=text.js.map
+;// CONCATENATED MODULE: ./node_modules/@chakra-ui/layout/dist/esm/box.js
+function box_extends() { box_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return box_extends.apply(this, arguments); }
+
+function box_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+
+/**
+ * Box is the most abstract component on top of which other chakra
+ * components are built. It renders a `div` element by default.
+ *
+ * @see Docs https://chakra-ui.com/docs/layout/box
+ */
+var Box = (0,dist_esm.chakra)("div");
+
+if (utils_dist_esm.__DEV__) {
+  Box.displayName = "Box";
+}
+/**
+ * As a constraint, you can't pass size related props
+ * Only `size` would be allowed
+ */
+
+
+var Square = /*#__PURE__*/(0,dist_esm.forwardRef)((props, ref) => {
+  var {
+    size,
+    centerContent = true
+  } = props,
+      rest = box_objectWithoutPropertiesLoose(props, ["size", "centerContent"]);
+
+  var styles = centerContent ? {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  } : {};
+  return /*#__PURE__*/react.createElement(Box, box_extends({
+    ref: ref,
+    boxSize: size,
+    __css: box_extends({}, styles, {
+      flexShrink: 0,
+      flexGrow: 0
+    })
+  }, rest));
+});
+
+if (utils_dist_esm.__DEV__) {
+  Square.displayName = "Square";
+}
+
+var Circle = /*#__PURE__*/(0,dist_esm.forwardRef)((props, ref) => {
+  var {
+    size
+  } = props,
+      rest = box_objectWithoutPropertiesLoose(props, ["size"]);
+
+  return /*#__PURE__*/react.createElement(Square, box_extends({
+    size: size,
+    ref: ref,
+    borderRadius: "9999px"
+  }, rest));
+});
+
+if (utils_dist_esm.__DEV__) {
+  Circle.displayName = "Circle";
+}
+//# sourceMappingURL=box.js.map
+;// CONCATENATED MODULE: ./src/StateBox.tsx
+
+
+
+var StateBox = function (props) {
+    var gameState = useSelector(function (state) {
+        return {
+            action: state.action,
+            turn: state.turn,
+            attemptsLeft: state.attemptsLeft,
+            redPoints: state.redPoints,
+            bluePoints: state.bluePoints,
+            hint: state.hint,
+        };
+    });
+    var PointsBox = (0,react.useMemo)(function () { return (react.createElement(VStack, null,
+        react.createElement(Text, { fontSize: "lg" },
+            "Red: ",
+            gameState.redPoints,
+            " "),
+        react.createElement(Text, { fontSize: "lg" },
+            "Blue: ",
+            gameState.bluePoints,
+            " "))); }, [gameState.redPoints, gameState.bluePoints]);
+    var TurnBox = (0,react.useMemo)(function () { return (react.createElement(VStack, null,
+        react.createElement("p", null,
+            "Turn: ", gameState.turn + " " + gameState.action),
+        gameState.turn == "chooser" ? (react.createElement(Text, { fontSize: "md" },
+            "Attempts Left: ",
+            gameState.attemptsLeft,
+            " ")) : null)); }, [gameState]);
+    return (react.createElement(Center, null,
+        react.createElement(Box, { w: "50%" }, PointsBox),
+        react.createElement(Box, { w: "50%" }, TurnBox)));
+};
+/* harmony default export */ const src_StateBox = (StateBox);
+
+;// CONCATENATED MODULE: ./src/Game.tsx
+
+
+
+
+
+var Game = function () {
+    var match = useRouteMatch("/:id");
+    var game_ID = match.params.id;
+    return (react.createElement("div", { className: "main" },
+        react.createElement(src_Title, null),
+        react.createElement(src_StateBox, { game_ID: game_ID }),
+        react.createElement(src_Board, { game_ID: game_ID })));
+};
+/* harmony default export */ const src_Game = (Game);
+
+;// CONCATENATED MODULE: ./node_modules/@chakra-ui/layout/dist/esm/divider.js
+function divider_extends() { divider_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return divider_extends.apply(this, arguments); }
+
+function divider_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+/**
+ * Layout component used to visually separate content in a list or group.
+ * It display a thin horizontal or vertical line, and renders a `hr` tag.
+ *
+ * @see Docs https://chakra-ui.com/docs/data-display/divider
+ */
+
+var Divider = /*#__PURE__*/(0,dist_esm.forwardRef)((props, ref) => {
+  var _useStyleConfig = (0,dist_esm.useStyleConfig)("Divider", props),
+      {
+    borderLeftWidth,
+    borderBottomWidth,
+    borderTopWidth,
+    borderRightWidth,
+    borderWidth,
+    borderStyle,
+    borderColor
+  } = _useStyleConfig,
+      styles = divider_objectWithoutPropertiesLoose(_useStyleConfig, ["borderLeftWidth", "borderBottomWidth", "borderTopWidth", "borderRightWidth", "borderWidth", "borderStyle", "borderColor"]);
+
+  var _omitThemingProps = (0,system_utils/* omitThemingProps */.Lr)(props),
+      {
+    className,
+    orientation = "horizontal",
+    __css
+  } = _omitThemingProps,
+      rest = divider_objectWithoutPropertiesLoose(_omitThemingProps, ["className", "orientation", "__css"]);
+
+  var dividerStyles = {
+    vertical: {
+      borderLeftWidth: borderLeftWidth || borderRightWidth || borderWidth || "1px",
+      height: "100%"
+    },
+    horizontal: {
+      borderBottomWidth: borderBottomWidth || borderTopWidth || borderWidth || "1px",
+      width: "100%"
+    }
+  };
+  return /*#__PURE__*/react.createElement(dist_esm.chakra.hr, divider_extends({
+    ref: ref,
+    role: "separator",
+    "aria-orientation": orientation
+  }, rest, {
+    __css: divider_extends({}, styles, {
+      border: "0",
+      borderColor,
+      borderStyle
+    }, dividerStyles[orientation], __css),
+    className: (0,utils_dist_esm.cx)("chakra-divider", className)
+  }));
+});
+
+if (utils_dist_esm.__DEV__) {
+  Divider.displayName = "Divider";
+}
+//# sourceMappingURL=divider.js.map
 ;// CONCATENATED MODULE: ./node_modules/@chakra-ui/hooks/dist/esm/use-safe-layout-effect.js
 
 
@@ -16381,17 +16593,17 @@ var forwardRefShim = function forwardRefShim(C) {
   return C;
 };
 
-var forwardRef = react.forwardRef;
+var react_router_dom_forwardRef = react.forwardRef;
 
-if (typeof forwardRef === "undefined") {
-  forwardRef = forwardRefShim;
+if (typeof react_router_dom_forwardRef === "undefined") {
+  react_router_dom_forwardRef = forwardRefShim;
 }
 
 function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
-var LinkAnchor = forwardRef(function (_ref, forwardedRef) {
+var LinkAnchor = react_router_dom_forwardRef(function (_ref, forwardedRef) {
   var innerRef = _ref.innerRef,
       navigate = _ref.navigate,
       _onClick = _ref.onClick,
@@ -16420,7 +16632,7 @@ var LinkAnchor = forwardRef(function (_ref, forwardedRef) {
   }); // React 15 compat
 
 
-  if (forwardRefShim !== forwardRef) {
+  if (forwardRefShim !== react_router_dom_forwardRef) {
     props.ref = forwardedRef || innerRef;
   } else {
     props.ref = innerRef;
@@ -16437,7 +16649,7 @@ if (false) {}
  */
 
 
-var Link = forwardRef(function (_ref2, forwardedRef) {
+var Link = react_router_dom_forwardRef(function (_ref2, forwardedRef) {
   var _ref2$component = _ref2.component,
       component = _ref2$component === void 0 ? LinkAnchor : _ref2$component,
       replace = _ref2.replace,
@@ -16461,7 +16673,7 @@ var Link = forwardRef(function (_ref2, forwardedRef) {
     }); // React 15 compat
 
 
-    if (forwardRefShim !== forwardRef) {
+    if (forwardRefShim !== react_router_dom_forwardRef) {
       props.ref = forwardedRef || innerRef;
     } else {
       props.innerRef = innerRef;

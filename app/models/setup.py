@@ -1,5 +1,5 @@
 from nltk.corpus import wordnet as wn
-from . import models
+import models
 
 
 def setup_db():

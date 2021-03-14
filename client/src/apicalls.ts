@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Team, Turn, CurrTurn, WordsState, PlayerState} from "./types/types";
+import {WordsState, PlayerState} from "./types/types";
 
 const BASE = "http://127.0.0.1:5000";
 

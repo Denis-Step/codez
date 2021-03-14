@@ -353,6 +353,11 @@ h3 {
 h2 {
   font-size: 1.1em;
 }
+
+p{
+  font-family: '1942report'
+}
+
 p.intro {
   line-height: 1.5em;
   margin-bottom: 3em;
