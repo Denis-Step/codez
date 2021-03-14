@@ -16341,13 +16341,41 @@ var AbsoluteCenter = /*#__PURE__*/(/* unused pure expression or super */ null &&
   }, rest));
 })));
 //# sourceMappingURL=center.js.map
+// EXTERNAL MODULE: ./node_modules/@chakra-ui/system/dist/esm/system.utils.js
+var system_utils = __webpack_require__(5284);
+;// CONCATENATED MODULE: ./node_modules/@chakra-ui/layout/dist/esm/heading.js
+function heading_extends() { heading_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return heading_extends.apply(this, arguments); }
+
+function heading_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+var Heading = /*#__PURE__*/(0,dist_esm.forwardRef)((props, ref) => {
+  var styles = (0,dist_esm.useStyleConfig)("Heading", props);
+
+  var _omitThemingProps = (0,system_utils/* omitThemingProps */.Lr)(props),
+      rest = heading_objectWithoutPropertiesLoose(_omitThemingProps, ["className"]);
+
+  return /*#__PURE__*/react.createElement(dist_esm.chakra.h2, heading_extends({
+    ref: ref,
+    className: (0,utils_dist_esm.cx)("chakra-heading", props.className)
+  }, rest, {
+    __css: styles
+  }));
+});
+
+if (utils_dist_esm.__DEV__) {
+  Heading.displayName = "Heading";
+}
+//# sourceMappingURL=heading.js.map
 ;// CONCATENATED MODULE: ./src/Title.tsx
 
 
 var Title = function () {
     return (react.createElement(Center, null,
         react.createElement("div", { id: "topbar" },
-            react.createElement("h1", null, "CODEZ"))));
+            react.createElement(Heading, { style: { fontFamily: "BadlyStamped" }, size: "3xl" }, "CODEZ"))));
 };
 /* harmony default export */ const src_Title = (Title);
 
@@ -16856,8 +16884,6 @@ if (utils_dist_esm.__DEV__) {
   VStack.displayName = "VStack";
 }
 //# sourceMappingURL=stack.js.map
-// EXTERNAL MODULE: ./node_modules/@chakra-ui/system/dist/esm/system.utils.js
-var system_utils = __webpack_require__(5284);
 ;// CONCATENATED MODULE: ./node_modules/@chakra-ui/input/dist/esm/input-group.js
 function input_group_extends() { input_group_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return input_group_extends.apply(this, arguments); }
 
@@ -17857,50 +17883,41 @@ var StateBox = function (props) {
             redPoints: state.redPoints,
             bluePoints: state.bluePoints,
             hint: state.hint,
-            winner: state.winner
+            winner: state.winner,
         };
     });
-    var PointsBox = (0,react.useMemo)(function () { return (react.createElement(VStack, null,
-        react.createElement(Text, { fontSize: "lg" },
-            "Red: ",
+    var PointsBox = (0,react.useMemo)(function () { return (react.createElement(VStack, { spacing: 10 },
+        react.createElement(Text, { color: "red", fontSize: "4xl" },
+            "RED: ",
             gameState.redPoints,
             " "),
-        react.createElement(Text, { fontSize: "lg" },
-            "Blue: ",
+        react.createElement(Text, { color: "blue", fontSize: "4xl" },
+            "BLUE: ",
             gameState.bluePoints,
             " "))); }, [gameState.redPoints, gameState.bluePoints]);
-    var TurnBox = (0,react.useMemo)(function () { return (react.createElement(VStack, null,
-        react.createElement(Text, { fontSize: "md" }, gameState.turn + "'s Turn"),
-        gameState.action == "chooser" ? (react.createElement(react.Fragment, null,
-            react.createElement(Text, { fontSize: "md" },
-                "Hint: ",
-                gameState.hint,
-                " "),
-            react.createElement(Text, { fontSize: "md" },
-                "Attempts Left: ",
-                gameState.attemptsLeft,
-                " "))) : null)); }, [gameState]);
+    var TurnBox = (0,react.useMemo)(function () { return (react.createElement(VStack, { spacing: 10 }, gameState.action == "chooser" ? (react.createElement(react.Fragment, null,
+        react.createElement(Text, { fontSize: "lg" },
+            "HINT: ",
+            gameState.hint,
+            " "),
+        react.createElement(Text, { fontSize: "md" },
+            "Attemps Left: ",
+            gameState.attemptsLeft,
+            " "))) : (react.createElement(src_SpymasterBox, { game_ID: props.game_ID })))); }, [gameState]);
     // CHECK FOR WINNER
     if (gameState.winner != "none") {
         return (react.createElement(Center, null,
             react.createElement(Text, { fontSize: "lg" }, gameState.winner + " WINS!!"),
             react.createElement("hr", { style: { paddingBottom: "20px" } })));
     }
-    if (gameState.action == "chooser") {
-        return (react.createElement(Center, null,
-            react.createElement(Box, { w: "50%" }, PointsBox),
-            react.createElement(Box, { w: "50%" }, TurnBox)));
-    }
-    else {
-        return (react.createElement(Stack, { w: "100%" },
-            react.createElement(Center, null,
-                react.createElement(Box, { w: "50%" }, PointsBox),
-                react.createElement(Box, { w: "50%" },
-                    react.createElement(VStack, { spacing: 10 },
-                        TurnBox,
-                        react.createElement(src_SpymasterBox, { game_ID: props.game_ID })))),
-            react.createElement("hr", { style: { paddingBottom: "20px" } })));
-    }
+    return (react.createElement(Stack, { w: "100%" },
+        react.createElement(Center, null,
+            react.createElement(Box, { w: "33%" }, PointsBox),
+            react.createElement(Box, { w: "33%" },
+                react.createElement(Text, { color: gameState.turn, fontSize: "2xl" },
+                    react.createElement(Center, null, gameState.turn + "'s Turn"))),
+            react.createElement(Box, { w: "33%" }, TurnBox)),
+        react.createElement("hr", { style: { paddingBottom: "20px" } })));
 };
 /* harmony default export */ const src_StateBox = (StateBox);
 
