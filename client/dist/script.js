@@ -17857,6 +17857,7 @@ var StateBox = function (props) {
             redPoints: state.redPoints,
             bluePoints: state.bluePoints,
             hint: state.hint,
+            winner: state.winner
         };
     });
     var PointsBox = (0,react.useMemo)(function () { return (react.createElement(VStack, null,
@@ -17879,6 +17880,12 @@ var StateBox = function (props) {
                 "Attempts Left: ",
                 gameState.attemptsLeft,
                 " "))) : null)); }, [gameState]);
+    // CHECK FOR WINNER
+    if (gameState.winner != "none") {
+        return (react.createElement(Center, null,
+            react.createElement(Text, { fontSize: "lg" }, gameState.winner + " WINS!!"),
+            react.createElement("hr", { style: { paddingBottom: "20px" } })));
+    }
     if (gameState.action == "chooser") {
         return (react.createElement(Center, null,
             react.createElement(Box, { w: "50%" }, PointsBox),

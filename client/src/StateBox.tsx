@@ -12,6 +12,7 @@ const StateBox = (props: {game_ID: string}): JSX.Element => {
       redPoints: state.redPoints,
       bluePoints: state.bluePoints,
       hint: state.hint,
+      winner: state.winner
     };
   });
 
@@ -41,6 +42,16 @@ const StateBox = (props: {game_ID: string}): JSX.Element => {
     ),
     [gameState]
   );
+  
+  // CHECK FOR WINNER
+  if (gameState.winner != "none"){
+    return (
+      <Center>
+        <Text fontSize="lg">{`${gameState.winner} WINS!!`}</Text>
+        <hr style={{paddingBottom: "20px"}} />
+      </Center>
+    )
+  }
 
   if (gameState.action == "chooser") {
     return (
