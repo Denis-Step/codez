@@ -1,13 +1,12 @@
 import axios from "axios";
-import {WordsState, PlayerState} from "./types/types";
+import { WordsState, PlayerState } from "./types/types";
 
 const BASE = "http://127.0.0.1:5000";
 
 interface StateResponse {
-  playerState: PlayerState,
-  wordsState: WordsState
+  playerState: PlayerState;
+  wordsState: WordsState;
 }
-
 
 export async function get_State(game_ID: string): Promise<StateResponse> {
   const endpoint = `/games/${game_ID}`;
@@ -23,33 +22,38 @@ export async function get_State(game_ID: string): Promise<StateResponse> {
   return results;
 }
 
+export async function spymaster_Move(
+  game_ID: string,
+  team: "red" | "blue",
+  hint: string,
+  attempts: number
+): Promise<number> {
+  const endpoint = `/games/${game_ID}`;
 
-export async function spymaster_Move(game_ID: string, hint: string, attempts: number): Promise<number> {
-  const endpoint = `/games/${game_ID}/spymaster`
-  console.log(hint)
-  console.log(attempts)
-  
   const response = await axios({
     method: "post",
     url: BASE + endpoint,
-    data: {hint: hint,
-           attempts: attempts}
-  })
-  
-  return response.status
+    data: {
+      team: team,
+      action: "spymaster",
+      payload: { hint: hint, attempts: attempts },
+    },
+  });
+
+  return response.status;
 }
 
-export async function revealWord(word: string): Promise<number> {
+export async function reveal_Word(word: string): Promise<number> {
   const endpoint = "/api/revealword";
 
   const response = await axios({
     method: "post",
     url: BASE + endpoint,
-    data: {pick: word},
+    data: { pick: word },
   });
 
   const results = response.data;
-  return results
+  return results;
 }
 
 export async function login(name: string, password: string): Promise<string> {
@@ -58,25 +62,24 @@ export async function login(name: string, password: string): Promise<string> {
   const response = await axios({
     method: "post",
     url: BASE + endpoint,
-    data: {username: name,
-           password: password},
+    data: { username: name, password: password },
   });
 
-  
-  return response["access_token"]
+  return response["access_token"];
 }
 
-export async function register(name: string, password: string): Promise<number> {
+export async function register(
+  name: string,
+  password: string
+): Promise<number> {
   const endpoint = "/users";
 
   const response = await axios({
     method: "post",
     url: BASE + endpoint,
-    data: { action: "signup",
-          username: name,
-           password: password},
+    data: { action: "signup", username: name, password: password },
   });
 
   const results = response.status;
-  return results
+  return results;
 }

@@ -1,5 +1,5 @@
 
-export type Team = "red" | "blue" | "neutral";
+export type Team = "red" | "blue";
 export type Action = "chooser" | "spymaster"
 export type CurrTurn = "blue-spymaster" | "blue-chooser" | "red-spymaster" | "red-chooser";
 

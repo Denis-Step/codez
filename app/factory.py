@@ -76,6 +76,7 @@ def home_page():
 def dev_spa_script():
     return send_file("../client/dist/script.js")
 
+
 # Catch-all
 @codez_bp.route("/", defaults={"path": ""})
 @codez_bp.route("/<path:path>")
@@ -88,6 +89,7 @@ def authenticate(username, password):
         return models.User.login(username, password)
     except Exception:
         return None
+
 
 def create_app(db_path=None):
     app = Flask("Codez", static_folder="../static")

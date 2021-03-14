@@ -1,13 +1,13 @@
 import {
   RECEIVE_TOKEN,
-  ADD_WORD,
   RECEIVE_WORDS,
   CALL_WORDS,
   REVEAL_WORD,
   RECEIVE_GAME_STATE,
 } from "./actionTypes";
 import {PlayerState, WordsState} from "../types/types";
-import {get_State, spymaster_Move, revealWord} from "../apicalls"
+import {get_State, spymaster_Move, reveal_Word} from "../apicalls"
+import {Team} from "../types/types";
 
 export function receiveToken(token: string): {type: typeof RECEIVE_TOKEN, token: string} {
   return {type: RECEIVE_TOKEN, 'token': token }
@@ -38,11 +38,12 @@ export function refreshState(game_ID: string): (dispatch) => Promise<void> {
   };
 }
 
-export function makeSpymasterMove(game_ID: string, hint: string, attempts: number): (dispatch) => Promise<void | ((dispatch) => void)> {
+export function makeSpymasterMove(game_ID: string, team: Team, hint: string, attempts: number): (dispatch) => Promise<void | ((dispatch) => void)> {
+  console.log(arguments);
   return function(dispatch){
     dispatch(callingWords())
     
-    return spymaster_Move(game_ID, hint, attempts).then((status) => {
+    return spymaster_Move(game_ID, team, hint, attempts).then((status) => {
       console.log(status);
       
       dispatch(refreshState(game_ID));
@@ -56,8 +57,8 @@ export function revealingWord(): {type: typeof REVEAL_WORD} {
 
 export function clickWord(game_ID: string, word: string): (dispatch) => void {
   return async function (dispatch) {
-    dispatch(revealingWord());
-    const response = await revealWord(word);
+    dispatch(callingWords());
+    const response = await reveal_Word(word);
     dispatch(refreshState(game_ID));
     
   };

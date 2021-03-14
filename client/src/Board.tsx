@@ -16,7 +16,6 @@ const Board = (props: BoardProps): JSX.Element => {
 
   const handleClick = (word) => {
     dispatch(clickWord(props.game_ID, word));
-    dispatch(refreshState(props.game_ID));
   }
   
   if (words.length < 1) {

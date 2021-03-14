@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
-import {Center, Text, HStack, VStack, Box } from "@chakra-ui/react";
-import { useSelector, useDispatch } from "react-redux";
-import { makeSpymasterMove } from "./redux/actions";
+import SpymasterBox from "./SpymasterBox";
+import { Center, Text, Stack, HStack, VStack, Box, Divider } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
-const StateBox = (props: { game_ID: string }): JSX.Element => {
+const StateBox = (props: {game_ID: string}): JSX.Element => {
   const gameState = useSelector((state) => {
     return {
       action: state.action,
@@ -39,12 +39,29 @@ const StateBox = (props: { game_ID: string }): JSX.Element => {
     [gameState]
   );
 
-  return (
-    <Center>
-      <Box w='50%'>{PointsBox}</Box>
-      <Box w='50%'>{TurnBox}</Box>
-    </Center>
-  );
+  if (gameState.turn == "chooser") {
+    return (
+      <Center>
+        <Box w="50%">{PointsBox}</Box>
+        <Box w="50%">{TurnBox}</Box>
+      </Center>
+    );
+  } else {
+    return (
+      <Stack w="100%">
+        <Center>
+          <Box w="50%">{PointsBox}</Box>
+          <Box w="50%">
+            <VStack spacing={10}>
+              {TurnBox}
+              <SpymasterBox game_ID = {props.game_ID} />
+            </VStack>
+          </Box>
+        </Center>
+        <hr style={{paddingBottom: "20px"}} />
+      </Stack>
+    );
+  }
 };
 
 export default StateBox;
