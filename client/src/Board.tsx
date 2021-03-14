@@ -1,38 +1,41 @@
-import React, {useCallback} from "react";
+import React, { useCallback, useEffect } from "react";
 import Cell from "./Cell";
-import {clickWord, refreshState} from "./redux/actions";
-import {useSelector, useDispatch} from "react-redux";
+import { chooseWord, refreshState } from "./redux/actions";
+import { useSelector, useDispatch } from "react-redux";
 
 interface BoardProps {
   game_ID: string;
 }
 
-
 const Board = (props: BoardProps): JSX.Element => {
-  const words = useSelector(state => state.words );
+  const gameState = useSelector((state) => {
+    return { words: state.words, turn: state.turn };
+  });
   console.log("These are the words");
-  console.log(words);
+  console.log(gameState.words);
   const dispatch = useDispatch();
 
-  const handleClick = (word) => {
-    dispatch(clickWord(props.game_ID, word));
-  }
-  
-  if (words.length < 1) {
-    console.log('empty');
+  useEffect(() => {
     dispatch(refreshState(props.game_ID));
-    return <></>
-  }
-  else {
-    
+  }, []);
+
+  // @TODO: MODIFY ASAP TO TAKE PLAYER TEAM AND NOT STATE TEAM
+  const handleClick = (word) => {
+    dispatch(chooseWord(props.game_ID, gameState.turn, word));
+  };
+
+  if (gameState.words.length < 1) {
+    console.log("empty");
+    return <></>;
+  } else {
     const cells: JSX.Element[] = [];
-      
-    for (const word in words) {
+
+    for (const word in gameState.words) {
       cells.push(
         <Cell
           key={word}
           word={word}
-          seen={words[word]}
+          seen={gameState.words[word]}
           onClick={(event) => {
             handleClick(word);
           }}
@@ -40,8 +43,8 @@ const Board = (props: BoardProps): JSX.Element => {
       );
     }
 
-  return (<div className={"board"}>{cells}</div>);
-}
-}
+    return <div className={"board"}>{cells}</div>;
+  }
+};
 
-export default Board
+export default Board;

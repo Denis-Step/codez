@@ -14331,6 +14331,8 @@ var initialState = {
 };
 function words_reducer(state, action) {
     if (state === void 0) { state = initialState; }
+    console.log(state);
+    console.log(action.type);
     switch (action.type) {
         case RECEIVE_TOKEN:
             return Object.assign({}, state, {
@@ -14349,7 +14351,7 @@ function words_reducer(state, action) {
             console.log(action.gameInfo);
             return Object.assign({}, state, {
                 winner: action.gameInfo.winner,
-                team: action.gameInfo.team,
+                action: action.gameInfo.action,
                 turn: action.gameInfo.turn,
                 attemptsLeft: action.gameInfo.attemptsLeft,
                 redPoints: action.gameInfo.redPoints,
@@ -16449,17 +16451,21 @@ function spymaster_Move(game_ID, team, hint, attempts) {
         });
     });
 }
-function reveal_Word(word) {
+function reveal_Word(game_ID, team, word) {
     return __awaiter(this, void 0, void 0, function () {
         var endpoint, response, results;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    endpoint = "/api/revealword";
+                    endpoint = "/games/" + game_ID;
                     return [4 /*yield*/, axios_default()({
                             method: "post",
                             url: BASE + endpoint,
-                            data: { pick: word },
+                            data: {
+                                team: team,
+                                action: "chooser",
+                                payload: { guess: word },
+                            }
                         })];
                 case 1:
                     response = _a.sent();
@@ -16583,7 +16589,7 @@ function makeSpymasterMove(game_ID, team, hint, attempts) {
 function revealingWord() {
     return { type: REVEAL_WORD };
 }
-function clickWord(game_ID, word) {
+function chooseWord(game_ID, team, word) {
     return function (dispatch) {
         return actions_awaiter(this, void 0, void 0, function () {
             var response;
@@ -16591,7 +16597,7 @@ function clickWord(game_ID, word) {
                 switch (_a.label) {
                     case 0:
                         dispatch(callingWords());
-                        return [4 /*yield*/, reveal_Word(word)];
+                        return [4 /*yield*/, reveal_Word(game_ID, team, word)];
                     case 1:
                         response = _a.sent();
                         dispatch(refreshState(game_ID));
@@ -16608,29 +16614,34 @@ function clickWord(game_ID, word) {
 
 
 var Board = function (props) {
-    var words = useSelector(function (state) { return state.words; });
+    var gameState = useSelector(function (state) {
+        return { words: state.words, turn: state.turn };
+    });
     console.log("These are the words");
-    console.log(words);
+    console.log(gameState.words);
     var dispatch = useDispatch();
-    var handleClick = function (word) {
-        dispatch(clickWord(props.game_ID, word));
-    };
-    if (words.length < 1) {
-        console.log('empty');
+    (0,react.useEffect)(function () {
         dispatch(refreshState(props.game_ID));
+    }, []);
+    // @TODO: MODIFY ASAP TO TAKE PLAYER TEAM AND NOT STATE TEAM
+    var handleClick = function (word) {
+        dispatch(chooseWord(props.game_ID, gameState.turn, word));
+    };
+    if (gameState.words.length < 1) {
+        console.log("empty");
         return react.createElement(react.Fragment, null);
     }
     else {
         var cells = [];
         var _loop_1 = function (word) {
-            cells.push(react.createElement(src_Cell, { key: word, word: word, seen: words[word], onClick: function (event) {
+            cells.push(react.createElement(src_Cell, { key: word, word: word, seen: gameState.words[word], onClick: function (event) {
                     handleClick(word);
                 } }));
         };
-        for (var word in words) {
+        for (var word in gameState.words) {
             _loop_1(word);
         }
-        return (react.createElement("div", { className: "board" }, cells));
+        return react.createElement("div", { className: "board" }, cells);
     }
 };
 /* harmony default export */ const src_Board = (Board);
@@ -17860,11 +17871,11 @@ var StateBox = function (props) {
     var TurnBox = (0,react.useMemo)(function () { return (react.createElement(VStack, null,
         react.createElement(Text, { fontSize: "md" },
             "Turn: ", gameState.turn + " " + gameState.action),
-        gameState.turn == "chooser" ? (react.createElement(Text, { fontSize: "md" },
+        gameState.action == "chooser" ? (react.createElement(Text, { fontSize: "md" },
             "Attempts Left: ",
             gameState.attemptsLeft,
             " ")) : null)); }, [gameState]);
-    if (gameState.turn == "chooser") {
+    if (gameState.action == "chooser") {
         return (react.createElement(Center, null,
             react.createElement(Box, { w: "50%" }, PointsBox),
             react.createElement(Box, { w: "50%" }, TurnBox)));

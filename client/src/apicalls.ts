@@ -43,13 +43,17 @@ export async function spymaster_Move(
   return response.status;
 }
 
-export async function reveal_Word(word: string): Promise<number> {
-  const endpoint = "/api/revealword";
+export async function reveal_Word(game_ID: string, team: "red" | "blue", word: string): Promise<number> {
+  const endpoint = `/games/${game_ID}`;
 
   const response = await axios({
     method: "post",
     url: BASE + endpoint,
-    data: { pick: word },
+    data: {
+      team: team,
+      action: "chooser",
+      payload: { guess: word },
+    }
   });
 
   const results = response.data;

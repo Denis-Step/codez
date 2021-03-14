@@ -55,10 +55,10 @@ export function revealingWord(): {type: typeof REVEAL_WORD} {
   return { type: REVEAL_WORD };
 }
 
-export function clickWord(game_ID: string, word: string): (dispatch) => void {
+export function chooseWord(game_ID: string, team: Team, word: string): (dispatch) => void {
   return async function (dispatch) {
     dispatch(callingWords());
-    const response = await reveal_Word(word);
+    const response = await reveal_Word(game_ID, team, word);
     dispatch(refreshState(game_ID));
     
   };
