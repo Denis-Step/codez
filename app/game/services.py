@@ -170,6 +170,7 @@ def spymaster_move(game_ID, hint, attempts):
 def chooser_move(game_ID, words, guess, team):
     if words[guess] == "bomb":
         r.hincrby("state:" + game_ID, "attemptsLeft", -1)
+        r.hset("words:" + game_ID, guess, "bomb" + "-revealed")
         return set_winner(game_ID, opposite(team))
 
     elif words[guess] == team:
