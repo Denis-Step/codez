@@ -69,6 +69,8 @@ def get_state(game_ID: str) -> dict:
         "wordsState": decode_dict(r.hgetall("words:" + game_ID)),
     }
 
+    print(state["wordsState"])
+
     return state
 
 
@@ -76,6 +78,8 @@ def handle_turn(game_ID, team, action, payload):
     """Make sure Only Valid Moves Work"""
 
     state = get_state(game_ID)
+    if state["playerState"]["winner"] != "none":
+        return ["playerState"]
     if state["playerState"]["turn"] != team or state["playerState"]["action"] != action:
         raise InvalidTurnError(
             f'{state["playerState"]["action"]} for {state["playerState"]["turn"]} goes now'

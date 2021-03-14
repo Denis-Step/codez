@@ -17869,12 +17869,16 @@ var StateBox = function (props) {
             gameState.bluePoints,
             " "))); }, [gameState.redPoints, gameState.bluePoints]);
     var TurnBox = (0,react.useMemo)(function () { return (react.createElement(VStack, null,
-        react.createElement(Text, { fontSize: "md" },
-            "Turn: ", gameState.turn + " " + gameState.action),
-        gameState.action == "chooser" ? (react.createElement(Text, { fontSize: "md" },
-            "Attempts Left: ",
-            gameState.attemptsLeft,
-            " ")) : null)); }, [gameState]);
+        react.createElement(Text, { fontSize: "md" }, gameState.turn + "'s Turn"),
+        gameState.action == "chooser" ? (react.createElement(react.Fragment, null,
+            react.createElement(Text, { fontSize: "md" },
+                "Hint: ",
+                gameState.hint,
+                " "),
+            react.createElement(Text, { fontSize: "md" },
+                "Attempts Left: ",
+                gameState.attemptsLeft,
+                " "))) : null)); }, [gameState]);
     if (gameState.action == "chooser") {
         return (react.createElement(Center, null,
             react.createElement(Box, { w: "50%" }, PointsBox),

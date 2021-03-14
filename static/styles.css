@@ -96,6 +96,8 @@
 #next-game-btn {
   margin-left: 10px;
 }
+
+
 .cell {
   display: flex;
   justify-content: center;
@@ -116,7 +118,7 @@
 .board .hidden-word {
   cursor: pointer;
 }
-.board .neutral.revealed {
+.neutral-revealed {
   background: #ede2cc;
 }
 .cell .word {
@@ -138,11 +140,11 @@
 .codemaster .cell {
   font-weight: 700;
 }
-.board .red.revealed {
+.red-revealed {
   background: #d13030;
   color: #fff;
 }
-.board .blue.revealed {
+.blue-revealed {
   background: #4183cc;
   color: #fff;
 }
@@ -355,7 +357,7 @@ h2 {
 }
 
 p{
-  font-family: '1942report'
+  font-family: "1942report"
 }
 
 p.intro {

@@ -29,10 +29,13 @@ const StateBox = (props: {game_ID: string}): JSX.Element => {
     () => (
       <VStack>
         <Text fontSize="md">
-          Turn: {`${gameState.turn} ${gameState.action}`}
+          {`${gameState.turn}'s Turn`}
         </Text>
         {gameState.action == "chooser" ? (
+          <>
+          <Text fontSize="md">Hint: {gameState.hint} </Text>
           <Text fontSize="md">Attempts Left: {gameState.attemptsLeft} </Text>
+          </>
         ) : null}
       </VStack>
     ),
