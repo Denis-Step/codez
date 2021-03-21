@@ -60,16 +60,12 @@ class GameResource(Resource):
     def post(self, game_id=None):
         data = request.get_json()
         if not game_id:
-            state = services.create_game(data["ID"])
-            return make_response(state, 201)
+            if data["action"] == "create":
+                state = services.create_game(data["payload"]["gameID"])
+                return make_response(state, 201)
 
         services.handle_turn(game_id, data["team"], data["action"], data["payload"])
         return (None, 201)
-
-
-@codez_bp.route("/")
-def home_page():
-    return send_file("../static/index.html")
 
 
 @codez_bp.route("/static/script.js")
@@ -94,8 +90,8 @@ def authenticate(username, password):
 def create_app(db_path=None):
     app = Flask("Codez", static_folder="../static")
     app.debug = True
-    api.add_resource(UserResource, "/users/<int:user_id>", "/users")
-    api.add_resource(GameResource, "/games/<string:game_id>", "/games")
+    api.add_resource(UserResource, "/users/<int:user_id>", "/users/")
+    api.add_resource(GameResource, "/games/<string:game_id>", "/games/")
     app.register_blueprint(codez_bp)
     if db_path is None:
         db_path = "sqlite:///db.db"

@@ -10926,7 +10926,7 @@ var __webpack_unused_export__;
 var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?
 Symbol.for("react.suspense_list"):60120,r=b?Symbol.for("react.memo"):60115,t=b?Symbol.for("react.lazy"):60116,v=b?Symbol.for("react.block"):60121,w=b?Symbol.for("react.fundamental"):60117,x=b?Symbol.for("react.responder"):60118,y=b?Symbol.for("react.scope"):60119;
 function z(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case t:case r:case h:return a;default:return u}}case d:return u}}}function A(a){return z(a)===m}__webpack_unused_export__=l;__webpack_unused_export__=m;__webpack_unused_export__=k;__webpack_unused_export__=h;__webpack_unused_export__=c;__webpack_unused_export__=n;__webpack_unused_export__=e;__webpack_unused_export__=t;__webpack_unused_export__=r;__webpack_unused_export__=d;
-__webpack_unused_export__=g;__webpack_unused_export__=f;__webpack_unused_export__=p;__webpack_unused_export__=function(a){return A(a)||z(a)===l};__webpack_unused_export__=A;exports.isContextConsumer=function(a){return z(a)===k};__webpack_unused_export__=function(a){return z(a)===h};__webpack_unused_export__=function(a){return"object"===typeof a&&null!==a&&a.$$typeof===c};__webpack_unused_export__=function(a){return z(a)===n};__webpack_unused_export__=function(a){return z(a)===e};__webpack_unused_export__=function(a){return z(a)===t};
+__webpack_unused_export__=g;__webpack_unused_export__=f;__webpack_unused_export__=p;__webpack_unused_export__=function(a){return A(a)||z(a)===l};__webpack_unused_export__=A;__webpack_unused_export__=function(a){return z(a)===k};__webpack_unused_export__=function(a){return z(a)===h};__webpack_unused_export__=function(a){return"object"===typeof a&&null!==a&&a.$$typeof===c};__webpack_unused_export__=function(a){return z(a)===n};__webpack_unused_export__=function(a){return z(a)===e};__webpack_unused_export__=function(a){return z(a)===t};
 __webpack_unused_export__=function(a){return z(a)===r};__webpack_unused_export__=function(a){return z(a)===d};__webpack_unused_export__=function(a){return z(a)===g};__webpack_unused_export__=function(a){return z(a)===f};__webpack_unused_export__=function(a){return z(a)===p};
 __webpack_unused_export__=function(a){return"string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||a===q||"object"===typeof a&&null!==a&&(a.$$typeof===t||a.$$typeof===r||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n||a.$$typeof===w||a.$$typeof===x||a.$$typeof===y||a.$$typeof===v)};__webpack_unused_export__=z;
 
@@ -10940,7 +10940,7 @@ __webpack_unused_export__=function(a){return"string"===typeof a||"function"===ty
 
 
 if (true) {
-  module.exports = __webpack_require__(8359);
+  /* unused reexport */ __webpack_require__(8359);
 } else {}
 
 
@@ -12432,11 +12432,11 @@ var prop_types = __webpack_require__(5697);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 ;// CONCATENATED MODULE: ./node_modules/react-redux/es/components/Context.js
 
-var ReactReduxContext = /*#__PURE__*/react.createContext(null);
+var Context_ReactReduxContext = /*#__PURE__*/react.createContext(null);
 
 if (false) {}
 
-/* harmony default export */ const Context = ((/* unused pure expression or super */ null && (ReactReduxContext)));
+/* harmony default export */ const Context = ((/* unused pure expression or super */ null && (Context_ReactReduxContext)));
 ;// CONCATENATED MODULE: ./node_modules/react-redux/es/utils/batch.js
 // Default to a dummy "batch" implementation that just runs the callback
 function defaultNoopBatch(callback) {
@@ -12525,7 +12525,7 @@ function createListenerCollection() {
   };
 }
 
-var Subscription = /*#__PURE__*/function () {
+var Subscription_Subscription = /*#__PURE__*/function () {
   function Subscription(store, parentSub) {
     this.store = store;
     this.parentSub = parentSub;
@@ -12586,7 +12586,7 @@ function Provider(_ref) {
       context = _ref.context,
       children = _ref.children;
   var contextValue = (0,react.useMemo)(function () {
-    var subscription = new Subscription(store);
+    var subscription = new Subscription_Subscription(store);
     subscription.onStateChange = subscription.notifyNestedSubs;
     return {
       store: store,
@@ -12609,7 +12609,7 @@ function Provider(_ref) {
       subscription.onStateChange = null;
     };
   }, [contextValue, previousState]);
-  var Context = context || ReactReduxContext;
+  var Context = context || Context_ReactReduxContext;
   return /*#__PURE__*/react.createElement(Context.Provider, {
     value: contextValue
   }, children);
@@ -12618,42 +12618,8 @@ function Provider(_ref) {
 if (false) {}
 
 /* harmony default export */ const components_Provider = (Provider);
-;// CONCATENATED MODULE: ./node_modules/react-redux/node_modules/@babel/runtime/helpers/esm/extends.js
-function extends_extends() {
-  extends_extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return extends_extends.apply(this, arguments);
-}
-;// CONCATENATED MODULE: ./node_modules/react-redux/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-function objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
 // EXTERNAL MODULE: ./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js
 var hoist_non_react_statics_cjs = __webpack_require__(8679);
-var hoist_non_react_statics_cjs_default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics_cjs);
 // EXTERNAL MODULE: ./node_modules/react-redux/node_modules/react-is/index.js
 var react_is = __webpack_require__(2973);
 ;// CONCATENATED MODULE: ./node_modules/react-redux/es/utils/useIsomorphicLayoutEffect.js
@@ -12666,7 +12632,7 @@ var react_is = __webpack_require__(2973);
 // is created synchronously, otherwise a store update may occur before the
 // subscription is created and an inconsistent state may be observed
 
-var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? react.useLayoutEffect : react.useEffect;
+var useIsomorphicLayoutEffect_useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? react.useLayoutEffect : react.useEffect;
 ;// CONCATENATED MODULE: ./node_modules/react-redux/es/components/connectAdvanced.js
 
 
@@ -12677,8 +12643,8 @@ var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.d
 
  // Define some constant arrays just to avoid re-creating these
 
-var EMPTY_ARRAY = [];
-var NO_SUBSCRIPTION_ARRAY = [null, null];
+var EMPTY_ARRAY = (/* unused pure expression or super */ null && ([]));
+var NO_SUBSCRIPTION_ARRAY = (/* unused pure expression or super */ null && ([null, null]));
 
 var stringifyComponent = function stringifyComponent(Comp) {
   try {
@@ -12793,7 +12759,7 @@ var initStateUpdates = function initStateUpdates() {
   return [null, 0];
 };
 
-function connectAdvanced(
+function connectAdvanced_connectAdvanced(
 /*
   selectorFactory is a func that is responsible for returning the selector function used to
   compute new props from state, props, and dispatch. For example:
@@ -12833,7 +12799,7 @@ _ref) {
       forwardRef = _ref2$forwardRef === void 0 ? false : _ref2$forwardRef,
       _ref2$context = _ref2.context,
       context = _ref2$context === void 0 ? ReactReduxContext : _ref2$context,
-      connectOptions = objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_ref2, ["getDisplayName", "methodName", "renderCountProp", "shouldHandleStateChanges", "storeKey", "withRef", "forwardRef", "context"]);
+      connectOptions = _objectWithoutPropertiesLoose(_ref2, ["getDisplayName", "methodName", "renderCountProp", "shouldHandleStateChanges", "storeKey", "withRef", "forwardRef", "context"]);
 
   if (false) { var customStoreWarningMessage; }
 
@@ -12844,7 +12810,7 @@ _ref) {
     var wrappedComponentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
     var displayName = getDisplayName(wrappedComponentName);
 
-    var selectorFactoryOptions = extends_extends({}, connectOptions, {
+    var selectorFactoryOptions = _extends({}, connectOptions, {
       getDisplayName: getDisplayName,
       methodName: methodName,
       renderCountProp: renderCountProp,
@@ -12864,17 +12830,17 @@ _ref) {
     // that just executes the given callback immediately.
 
 
-    var usePureOnlyMemo = pure ? react.useMemo : function (callback) {
+    var usePureOnlyMemo = pure ? useMemo : function (callback) {
       return callback();
     };
 
     function ConnectFunction(props) {
-      var _useMemo = (0,react.useMemo)(function () {
+      var _useMemo = useMemo(function () {
         // Distinguish between actual "data" props that were passed to the wrapper component,
         // and values needed to control behavior (forwarded refs, alternate context instances).
         // To maintain the wrapperProps object reference, memoize this destructuring.
         var reactReduxForwardedRef = props.reactReduxForwardedRef,
-            wrapperProps = objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(props, ["reactReduxForwardedRef"]);
+            wrapperProps = _objectWithoutPropertiesLoose(props, ["reactReduxForwardedRef"]);
 
         return [props.context, reactReduxForwardedRef, wrapperProps];
       }, [props]),
@@ -12882,13 +12848,13 @@ _ref) {
           reactReduxForwardedRef = _useMemo[1],
           wrapperProps = _useMemo[2];
 
-      var ContextToUse = (0,react.useMemo)(function () {
+      var ContextToUse = useMemo(function () {
         // Users may optionally pass in a custom context instance to use instead of our ReactReduxContext.
         // Memoize the check that determines which context instance we should use.
-        return propsContext && propsContext.Consumer && (0,react_is.isContextConsumer)( /*#__PURE__*/react.createElement(propsContext.Consumer, null)) ? propsContext : Context;
+        return propsContext && propsContext.Consumer && isContextConsumer( /*#__PURE__*/React.createElement(propsContext.Consumer, null)) ? propsContext : Context;
       }, [propsContext, Context]); // Retrieve the store and ancestor subscription via context, if available
 
-      var contextValue = (0,react.useContext)(ContextToUse); // The store _must_ exist as either a prop or in context.
+      var contextValue = useContext(ContextToUse); // The store _must_ exist as either a prop or in context.
       // We'll check to see if it _looks_ like a Redux store first.
       // This allows us to pass through a `store` prop that is just a plain value.
 
@@ -12899,13 +12865,13 @@ _ref) {
 
 
       var store = didStoreComeFromProps ? props.store : contextValue.store;
-      var childPropsSelector = (0,react.useMemo)(function () {
+      var childPropsSelector = useMemo(function () {
         // The child props selector needs the store reference as an input.
         // Re-create this selector whenever the store changes.
         return createChildSelector(store);
       }, [store]);
 
-      var _useMemo2 = (0,react.useMemo)(function () {
+      var _useMemo2 = useMemo(function () {
         if (!shouldHandleStateChanges) return NO_SUBSCRIPTION_ARRAY; // This Subscription's source should match where store came from: props vs. context. A component
         // connected to the store via props shouldn't use subscription from context, or vice versa.
 
@@ -12922,7 +12888,7 @@ _ref) {
       // and memoize that value to avoid unnecessary context updates.
 
 
-      var overriddenContextValue = (0,react.useMemo)(function () {
+      var overriddenContextValue = useMemo(function () {
         if (didStoreComeFromProps) {
           // This component is directly subscribed to a store from props.
           // We don't want descendants reading from this store - pass down whatever
@@ -12932,13 +12898,13 @@ _ref) {
         // connected descendants won't update until after this component is done
 
 
-        return extends_extends({}, contextValue, {
+        return _extends({}, contextValue, {
           subscription: subscription
         });
       }, [didStoreComeFromProps, contextValue, subscription]); // We need to force this wrapper component to re-render whenever a Redux store update
       // causes a change to the calculated child component props (or we caught an error in mapState)
 
-      var _useReducer = (0,react.useReducer)(storeStateUpdatesReducer, EMPTY_ARRAY, initStateUpdates),
+      var _useReducer = useReducer(storeStateUpdatesReducer, EMPTY_ARRAY, initStateUpdates),
           _useReducer$ = _useReducer[0],
           previousStateUpdateResult = _useReducer$[0],
           forceComponentUpdateDispatch = _useReducer[1]; // Propagate any mapState/mapDispatch errors upwards
@@ -12949,10 +12915,10 @@ _ref) {
       } // Set up refs to coordinate values between the subscription effect and the render logic
 
 
-      var lastChildProps = (0,react.useRef)();
-      var lastWrapperProps = (0,react.useRef)(wrapperProps);
-      var childPropsFromStoreUpdate = (0,react.useRef)();
-      var renderIsScheduled = (0,react.useRef)(false);
+      var lastChildProps = useRef();
+      var lastWrapperProps = useRef(wrapperProps);
+      var childPropsFromStoreUpdate = useRef();
+      var renderIsScheduled = useRef(false);
       var actualChildProps = usePureOnlyMemo(function () {
         // Tricky logic here:
         // - This render may have been triggered by a Redux store update that produced new child props
@@ -12978,19 +12944,19 @@ _ref) {
       useIsomorphicLayoutEffectWithArgs(subscribeUpdates, [shouldHandleStateChanges, store, subscription, childPropsSelector, lastWrapperProps, lastChildProps, renderIsScheduled, childPropsFromStoreUpdate, notifyNestedSubs, forceComponentUpdateDispatch], [store, subscription, childPropsSelector]); // Now that all that's done, we can finally try to actually render the child component.
       // We memoize the elements for the rendered child component as an optimization.
 
-      var renderedWrappedComponent = (0,react.useMemo)(function () {
-        return /*#__PURE__*/react.createElement(WrappedComponent, extends_extends({}, actualChildProps, {
+      var renderedWrappedComponent = useMemo(function () {
+        return /*#__PURE__*/React.createElement(WrappedComponent, _extends({}, actualChildProps, {
           ref: reactReduxForwardedRef
         }));
       }, [reactReduxForwardedRef, WrappedComponent, actualChildProps]); // If React sees the exact same element reference as last time, it bails out of re-rendering
       // that child, same as if it was wrapped in React.memo() or returned false from shouldComponentUpdate.
 
-      var renderedChild = (0,react.useMemo)(function () {
+      var renderedChild = useMemo(function () {
         if (shouldHandleStateChanges) {
           // If this component is subscribed to store updates, we need to pass its own
           // subscription instance down to our descendants. That means rendering the same
           // Context instance, and putting a different value into the context.
-          return /*#__PURE__*/react.createElement(ContextToUse.Provider, {
+          return /*#__PURE__*/React.createElement(ContextToUse.Provider, {
             value: overriddenContextValue
           }, renderedWrappedComponent);
         }
@@ -13001,51 +12967,23 @@ _ref) {
     } // If we're in "pure" mode, ensure our wrapper component only re-renders when incoming props have changed.
 
 
-    var Connect = pure ? react.memo(ConnectFunction) : ConnectFunction;
+    var Connect = pure ? React.memo(ConnectFunction) : ConnectFunction;
     Connect.WrappedComponent = WrappedComponent;
     Connect.displayName = displayName;
 
     if (forwardRef) {
-      var forwarded = react.forwardRef(function forwardConnectRef(props, ref) {
-        return /*#__PURE__*/react.createElement(Connect, extends_extends({}, props, {
+      var forwarded = React.forwardRef(function forwardConnectRef(props, ref) {
+        return /*#__PURE__*/React.createElement(Connect, _extends({}, props, {
           reactReduxForwardedRef: ref
         }));
       });
       forwarded.displayName = displayName;
       forwarded.WrappedComponent = WrappedComponent;
-      return hoist_non_react_statics_cjs_default()(forwarded, WrappedComponent);
+      return hoistStatics(forwarded, WrappedComponent);
     }
 
-    return hoist_non_react_statics_cjs_default()(Connect, WrappedComponent);
+    return hoistStatics(Connect, WrappedComponent);
   };
-}
-;// CONCATENATED MODULE: ./node_modules/react-redux/es/utils/shallowEqual.js
-function is(x, y) {
-  if (x === y) {
-    return x !== 0 || y !== 0 || 1 / x === 1 / y;
-  } else {
-    return x !== x && y !== y;
-  }
-}
-
-function shallowEqual(objA, objB) {
-  if (is(objA, objB)) return true;
-
-  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-    return false;
-  }
-
-  var keysA = Object.keys(objA);
-  var keysB = Object.keys(objB);
-  if (keysA.length !== keysB.length) return false;
-
-  for (var i = 0; i < keysA.length; i++) {
-    if (!Object.prototype.hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
-      return false;
-    }
-  }
-
-  return true;
 }
 // EXTERNAL MODULE: ./node_modules/symbol-observable/es/index.js + 1 modules
 var es = __webpack_require__(7121);
@@ -13795,6 +13733,24 @@ function whenMapStateToPropsIsMissing(mapStateToProps) {
   }) : undefined;
 }
 /* harmony default export */ const mapStateToProps = ([whenMapStateToPropsIsFunction, whenMapStateToPropsIsMissing]);
+;// CONCATENATED MODULE: ./node_modules/react-redux/node_modules/@babel/runtime/helpers/esm/extends.js
+function extends_extends() {
+  extends_extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return extends_extends.apply(this, arguments);
+}
 ;// CONCATENATED MODULE: ./node_modules/react-redux/es/connect/mergeProps.js
 
 
@@ -13832,92 +13788,6 @@ function whenMergePropsIsOmitted(mergeProps) {
   } : undefined;
 }
 /* harmony default export */ const mergeProps = ([whenMergePropsIsFunction, whenMergePropsIsOmitted]);
-;// CONCATENATED MODULE: ./node_modules/react-redux/es/connect/selectorFactory.js
-
-
-function impureFinalPropsSelectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch) {
-  return function impureFinalPropsSelector(state, ownProps) {
-    return mergeProps(mapStateToProps(state, ownProps), mapDispatchToProps(dispatch, ownProps), ownProps);
-  };
-}
-function pureFinalPropsSelectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch, _ref) {
-  var areStatesEqual = _ref.areStatesEqual,
-      areOwnPropsEqual = _ref.areOwnPropsEqual,
-      areStatePropsEqual = _ref.areStatePropsEqual;
-  var hasRunAtLeastOnce = false;
-  var state;
-  var ownProps;
-  var stateProps;
-  var dispatchProps;
-  var mergedProps;
-
-  function handleFirstCall(firstState, firstOwnProps) {
-    state = firstState;
-    ownProps = firstOwnProps;
-    stateProps = mapStateToProps(state, ownProps);
-    dispatchProps = mapDispatchToProps(dispatch, ownProps);
-    mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
-    hasRunAtLeastOnce = true;
-    return mergedProps;
-  }
-
-  function handleNewPropsAndNewState() {
-    stateProps = mapStateToProps(state, ownProps);
-    if (mapDispatchToProps.dependsOnOwnProps) dispatchProps = mapDispatchToProps(dispatch, ownProps);
-    mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
-    return mergedProps;
-  }
-
-  function handleNewProps() {
-    if (mapStateToProps.dependsOnOwnProps) stateProps = mapStateToProps(state, ownProps);
-    if (mapDispatchToProps.dependsOnOwnProps) dispatchProps = mapDispatchToProps(dispatch, ownProps);
-    mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
-    return mergedProps;
-  }
-
-  function handleNewState() {
-    var nextStateProps = mapStateToProps(state, ownProps);
-    var statePropsChanged = !areStatePropsEqual(nextStateProps, stateProps);
-    stateProps = nextStateProps;
-    if (statePropsChanged) mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
-    return mergedProps;
-  }
-
-  function handleSubsequentCalls(nextState, nextOwnProps) {
-    var propsChanged = !areOwnPropsEqual(nextOwnProps, ownProps);
-    var stateChanged = !areStatesEqual(nextState, state);
-    state = nextState;
-    ownProps = nextOwnProps;
-    if (propsChanged && stateChanged) return handleNewPropsAndNewState();
-    if (propsChanged) return handleNewProps();
-    if (stateChanged) return handleNewState();
-    return mergedProps;
-  }
-
-  return function pureFinalPropsSelector(nextState, nextOwnProps) {
-    return hasRunAtLeastOnce ? handleSubsequentCalls(nextState, nextOwnProps) : handleFirstCall(nextState, nextOwnProps);
-  };
-} // TODO: Add more comments
-// If pure is true, the selector returned by selectorFactory will memoize its results,
-// allowing connectAdvanced's shouldComponentUpdate to return false if final
-// props have not changed. If false, the selector will always return a new
-// object and shouldComponentUpdate will always return true.
-
-function finalPropsSelectorFactory(dispatch, _ref2) {
-  var initMapStateToProps = _ref2.initMapStateToProps,
-      initMapDispatchToProps = _ref2.initMapDispatchToProps,
-      initMergeProps = _ref2.initMergeProps,
-      options = objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_ref2, ["initMapStateToProps", "initMapDispatchToProps", "initMergeProps"]);
-
-  var mapStateToProps = initMapStateToProps(dispatch, options);
-  var mapDispatchToProps = initMapDispatchToProps(dispatch, options);
-  var mergeProps = initMergeProps(dispatch, options);
-
-  if (false) {}
-
-  var selectorFactory = options.pure ? pureFinalPropsSelectorFactory : impureFinalPropsSelectorFactory;
-  return selectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch, options);
-}
 ;// CONCATENATED MODULE: ./node_modules/react-redux/es/connect/connect.js
 
 
@@ -13966,13 +13836,13 @@ function createConnect(_temp) {
       _ref$connectHOC = _ref.connectHOC,
       connectHOC = _ref$connectHOC === void 0 ? connectAdvanced : _ref$connectHOC,
       _ref$mapStateToPropsF = _ref.mapStateToPropsFactories,
-      mapStateToPropsFactories = _ref$mapStateToPropsF === void 0 ? mapStateToProps : _ref$mapStateToPropsF,
+      mapStateToPropsFactories = _ref$mapStateToPropsF === void 0 ? defaultMapStateToPropsFactories : _ref$mapStateToPropsF,
       _ref$mapDispatchToPro = _ref.mapDispatchToPropsFactories,
-      mapDispatchToPropsFactories = _ref$mapDispatchToPro === void 0 ? mapDispatchToProps : _ref$mapDispatchToPro,
+      mapDispatchToPropsFactories = _ref$mapDispatchToPro === void 0 ? defaultMapDispatchToPropsFactories : _ref$mapDispatchToPro,
       _ref$mergePropsFactor = _ref.mergePropsFactories,
-      mergePropsFactories = _ref$mergePropsFactor === void 0 ? mergeProps : _ref$mergePropsFactor,
+      mergePropsFactories = _ref$mergePropsFactor === void 0 ? defaultMergePropsFactories : _ref$mergePropsFactor,
       _ref$selectorFactory = _ref.selectorFactory,
-      selectorFactory = _ref$selectorFactory === void 0 ? finalPropsSelectorFactory : _ref$selectorFactory;
+      selectorFactory = _ref$selectorFactory === void 0 ? defaultSelectorFactory : _ref$selectorFactory;
 
   return function connect(mapStateToProps, mapDispatchToProps, mergeProps, _ref2) {
     if (_ref2 === void 0) {
@@ -13990,12 +13860,12 @@ function createConnect(_temp) {
         areStatePropsEqual = _ref3$areStatePropsEq === void 0 ? shallowEqual : _ref3$areStatePropsEq,
         _ref3$areMergedPropsE = _ref3.areMergedPropsEqual,
         areMergedPropsEqual = _ref3$areMergedPropsE === void 0 ? shallowEqual : _ref3$areMergedPropsE,
-        extraOptions = objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_ref3, ["pure", "areStatesEqual", "areOwnPropsEqual", "areStatePropsEqual", "areMergedPropsEqual"]);
+        extraOptions = _objectWithoutPropertiesLoose(_ref3, ["pure", "areStatesEqual", "areOwnPropsEqual", "areStatePropsEqual", "areMergedPropsEqual"]);
 
     var initMapStateToProps = match(mapStateToProps, mapStateToPropsFactories, 'mapStateToProps');
     var initMapDispatchToProps = match(mapDispatchToProps, mapDispatchToPropsFactories, 'mapDispatchToProps');
     var initMergeProps = match(mergeProps, mergePropsFactories, 'mergeProps');
-    return connectHOC(selectorFactory, extends_extends({
+    return connectHOC(selectorFactory, _extends({
       // used in error messages
       methodName: 'connect',
       // used to compute Connect's displayName from the wrapped component's displayName.
@@ -14016,7 +13886,7 @@ function createConnect(_temp) {
     }, extraOptions));
   };
 }
-/* harmony default export */ const connect = (/*#__PURE__*/createConnect());
+/* harmony default export */ const connect = (/*#__PURE__*/(/* unused pure expression or super */ null && (createConnect())));
 ;// CONCATENATED MODULE: ./node_modules/react-redux/es/hooks/useReduxContext.js
 
 
@@ -14038,7 +13908,7 @@ function createConnect(_temp) {
  */
 
 function useReduxContext_useReduxContext() {
-  var contextValue = (0,react.useContext)(ReactReduxContext);
+  var contextValue = (0,react.useContext)(Context_ReactReduxContext);
 
   if (false) {}
 
@@ -14057,10 +13927,10 @@ function useReduxContext_useReduxContext() {
 
 function createStoreHook(context) {
   if (context === void 0) {
-    context = ReactReduxContext;
+    context = Context_ReactReduxContext;
   }
 
-  var useReduxContext = context === ReactReduxContext ? useReduxContext_useReduxContext : function () {
+  var useReduxContext = context === Context_ReactReduxContext ? useReduxContext_useReduxContext : function () {
     return (0,react.useContext)(context);
   };
   return function useStore() {
@@ -14099,10 +13969,10 @@ var useStore_useStore = /*#__PURE__*/createStoreHook();
 
 function createDispatchHook(context) {
   if (context === void 0) {
-    context = ReactReduxContext;
+    context = Context_ReactReduxContext;
   }
 
-  var useStore = context === ReactReduxContext ? useStore_useStore : createStoreHook(context);
+  var useStore = context === Context_ReactReduxContext ? useStore_useStore : createStoreHook(context);
   return function useDispatch() {
     var store = useStore();
     return store.dispatch;
@@ -14149,7 +14019,7 @@ function useSelectorWithStoreAndSubscription(selector, equalityFn, store, contex
       forceRender = _useReducer[1];
 
   var subscription = (0,react.useMemo)(function () {
-    return new Subscription(store, contextSub);
+    return new Subscription_Subscription(store, contextSub);
   }, [store, contextSub]);
   var latestSubscriptionCallbackError = (0,react.useRef)();
   var latestSelector = (0,react.useRef)();
@@ -14172,13 +14042,13 @@ function useSelectorWithStoreAndSubscription(selector, equalityFn, store, contex
     throw err;
   }
 
-  useIsomorphicLayoutEffect(function () {
+  useIsomorphicLayoutEffect_useIsomorphicLayoutEffect(function () {
     latestSelector.current = selector;
     latestStoreState.current = storeState;
     latestSelectedState.current = selectedState;
     latestSubscriptionCallbackError.current = undefined;
   });
-  useIsomorphicLayoutEffect(function () {
+  useIsomorphicLayoutEffect_useIsomorphicLayoutEffect(function () {
     function checkForUpdates() {
       try {
         var newSelectedState = latestSelector.current(store.getState());
@@ -14218,10 +14088,10 @@ function useSelectorWithStoreAndSubscription(selector, equalityFn, store, contex
 
 function createSelectorHook(context) {
   if (context === void 0) {
-    context = ReactReduxContext;
+    context = Context_ReactReduxContext;
   }
 
-  var useReduxContext = context === ReactReduxContext ? useReduxContext_useReduxContext : function () {
+  var useReduxContext = context === Context_ReactReduxContext ? useReduxContext_useReduxContext : function () {
     return (0,react.useContext)(context);
   };
   return function useSelector(selector, equalityFn) {
@@ -14310,7 +14180,8 @@ var actionTypes_REVEAL_WORD = "Clicking Word";
 var RECEIVE_GAME_STATE = "Updating Game Info";
 var INITIALIZE_STATE = "Fetching State first time";
 var SPYMASTER_MOVE = "Entering Hint and Attempts";
-var RECEIVE_TOKEN = "Authenticated";
+var actionTypes_RECEIVE_TOKEN = "Authenticated";
+//export const LOG_IN_ATTEMPT = "Logging in";
 
 ;// CONCATENATED MODULE: ./src/redux/reducer.ts
 
@@ -14334,7 +14205,7 @@ function words_reducer(state, action) {
     console.log(state);
     console.log(action.type);
     switch (action.type) {
-        case RECEIVE_TOKEN:
+        case actionTypes_RECEIVE_TOKEN:
             return Object.assign({}, state, {
                 auth: {
                     authenticated: true,
@@ -15599,7 +15470,7 @@ var path_to_regexp_default = /*#__PURE__*/__webpack_require__.n(path_to_regexp);
 // EXTERNAL MODULE: ./node_modules/react-router/node_modules/react-is/index.js
 var node_modules_react_is = __webpack_require__(663);
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-function esm_objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(source, excluded) {
+function objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
   var sourceKeys = Object.keys(source);
@@ -16142,7 +16013,7 @@ function (_React$Component) {
         context = _this$props2$context === void 0 ? {} : _this$props2$context,
         _this$props2$location = _this$props2.location,
         location = _this$props2$location === void 0 ? "/" : _this$props2$location,
-        rest = esm_objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_this$props2, ["basename", "context", "location"]);
+        rest = objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_this$props2, ["basename", "context", "location"]);
 
     var history = {
       createHref: function createHref(path) {
@@ -16243,28 +16114,28 @@ function withRouter(Component) {
   return hoistStatics(C, Component);
 }
 
-var useContext = react.useContext;
+var react_router_useContext = react.useContext;
 function useHistory() {
   if (false) {}
 
-  return useContext(historyContext);
+  return react_router_useContext(historyContext);
 }
 function useLocation() {
   if (false) {}
 
-  return useContext(context).location;
+  return react_router_useContext(context).location;
 }
 function useParams() {
   if (false) {}
 
-  var match = useContext(context).match;
+  var match = react_router_useContext(context).match;
   return match ? match.params : {};
 }
 function useRouteMatch(path) {
   if (false) {}
 
   var location = useLocation();
-  var match = useContext(context).match;
+  var match = react_router_useContext(context).match;
   return path ? matchPath(location.pathname, path) : match;
 }
 
@@ -16394,8 +16265,8 @@ var Cell = function (props) {
 /* harmony default export */ const src_Cell = (Cell);
 
 // EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(9669);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+var node_modules_axios = __webpack_require__(9669);
+var axios_default = /*#__PURE__*/__webpack_require__.n(node_modules_axios);
 ;// CONCATENATED MODULE: ./src/apicalls.ts
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -16493,12 +16364,37 @@ function reveal_Word(game_ID, team, word) {
                                 team: team,
                                 action: "chooser",
                                 payload: { guess: word },
-                            }
+                            },
                         })];
                 case 1:
                     response = _a.sent();
                     results = response.data;
                     return [2 /*return*/, results];
+            }
+        });
+    });
+}
+function create_Game(game_ID) {
+    return __awaiter(this, void 0, void 0, function () {
+        var endpoint, response, result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    endpoint = "/games/";
+                    return [4 /*yield*/, axios_default()({
+                            method: "post",
+                            url: BASE + endpoint,
+                            data: {
+                                action: "create",
+                                payload: {
+                                    gameID: game_ID,
+                                },
+                            },
+                        })];
+                case 1:
+                    response = _a.sent();
+                    result = response.status;
+                    return [2 /*return*/, result];
             }
         });
     });
@@ -16510,7 +16406,7 @@ function login(name, password) {
             switch (_a.label) {
                 case 0:
                     endpoint = "/auth";
-                    return [4 /*yield*/, axios_default()({
+                    return [4 /*yield*/, axios({
                             method: "post",
                             url: BASE + endpoint,
                             data: { username: name, password: password },
@@ -16529,7 +16425,7 @@ function register(name, password) {
             switch (_a.label) {
                 case 0:
                     endpoint = "/users";
-                    return [4 /*yield*/, axios_default()({
+                    return [4 /*yield*/, axios({
                             method: "post",
                             url: BASE + endpoint,
                             data: { action: "signup", username: name, password: password },
@@ -16605,7 +16501,6 @@ function refreshState(game_ID) {
     };
 }
 function makeSpymasterMove(game_ID, team, hint, attempts) {
-    console.log(arguments);
     return function (dispatch) {
         dispatch(callingWords());
         return spymaster_Move(game_ID, team, hint, attempts).then(function (status) {
@@ -17928,7 +17823,7 @@ var StateBox = function (props) {
 
 
 var Game = function () {
-    var match = useRouteMatch("/:id");
+    var match = useRouteMatch("/play/:id");
     var game_ID = match.params.id;
     return (react.createElement("div", { className: "main" },
         react.createElement(src_Title, null),
@@ -18001,8 +17896,8 @@ if (utils_dist_esm.__DEV__) {
   Divider.displayName = "Divider";
 }
 //# sourceMappingURL=divider.js.map
-;// CONCATENATED MODULE: ./src/Login/SignupPage.tsx
-var SignupPage_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+;// CONCATENATED MODULE: ./src/HomePage.tsx
+var HomePage_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -18011,7 +17906,7 @@ var SignupPage_awaiter = (undefined && undefined.__awaiter) || function (thisArg
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var SignupPage_generator = (undefined && undefined.__generator) || function (thisArg, body) {
+var HomePage_generator = (undefined && undefined.__generator) || function (thisArg, body) {
     var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
     return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
@@ -18043,59 +17938,56 @@ var SignupPage_generator = (undefined && undefined.__generator) || function (thi
 
 
 
-
-var style_elTypewriterSignupButton = {
-    borderRadius: "3.0px",
-    filter: "drop-shadow(0.0px 2.0px 3px rgba(0, 0, 0, 0.3000))",
-    overflow: "visible",
-};
-var style_elTypewriterLoginButton = {
-    borderRadius: "3.0%",
-    filter: "drop-shadow(0.0px 2.0px 3px rgba(0, 0, 0, 0.3000))",
-    overflow: "visible",
-};
-var style_title = {
-    fontSize: 75,
-    color: "black",
-    textAlign: "center",
-};
-var style_SignIn = {
-    fontSize: 60,
-    color: "black",
-    textAlign: "center",
-    display: "flex"
-};
-var SignupPage = function (props) {
-    var _a = (0,react.useState)(""), name = _a[0], setName = _a[1];
-    var _b = (0,react.useState)(""), password = _b[0], setPassword = _b[1];
+var HomePage = function () {
     var history = useHistory();
-    var authenticate = function (username, password) { return SignupPage_awaiter(void 0, void 0, void 0, function () {
-        var token;
-        return SignupPage_generator(this, function (_a) {
-            token = login(username, password);
+    var _a = (0,react.useState)(''), createForm = _a[0], setCreateForm = _a[1];
+    var _b = (0,react.useState)(''), chooseForm = _b[0], setChooseForm = _b[1];
+    var createGame = (0,react.useCallback)(function () { return HomePage_awaiter(void 0, void 0, void 0, function () {
+        var resp;
+        return HomePage_generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (createForm == '') {
+                        alert('No Game ID Selected');
+                    }
+                    return [4 /*yield*/, create_Game(createForm)];
+                case 1:
+                    resp = _a.sent();
+                    if (resp === 201) {
+                        history.push("play/" + createForm);
+                    }
+                    else {
+                        alert('Game ID Taken');
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    }); }, [createForm]);
+    var chooseGame = (0,react.useCallback)(function () { return HomePage_awaiter(void 0, void 0, void 0, function () {
+        return HomePage_generator(this, function (_a) {
+            history.push("play/" + chooseForm);
             return [2 /*return*/];
         });
-    }); };
-    return (react.createElement("div", { className: "login-grid-root login-background" },
-        react.createElement("div", { className: "font-badlyStamped", style: style_title },
-            react.createElement("span", null, "CODEZ")),
+    }); }, [chooseForm]);
+    return (react.createElement("div", null,
+        react.createElement(src_Title, null),
         react.createElement(Divider, null),
-        react.createElement("div", { className: "font-n1942report " },
+        react.createElement("div", null,
             react.createElement(VStack, null,
-                react.createElement("span", { className: "", style: style_SignIn }, "Sign In"),
-                react.createElement(FormControl, null,
-                    react.createElement(VStack, null,
-                        react.createElement(Input, { style: { width: '50%' }, size: "lg", type: "username", placeholder: "Username", onChange: function (e) { return setName(e.currentTarget.value); } }),
-                        react.createElement(Input, { style: { width: '50%' }, size: "lg", type: "password", placeholder: "password", onChange: function (e) { return setPassword(e.currentTarget.value); } }))),
-                react.createElement(HStack, null,
-                    react.createElement(Button, { size: "lg", className: "font-n1942report login-button", onClick: function (e) { return authenticate(name, password); } }, "LOGIN "),
-                    react.createElement(Button, { size: "lg", className: "font-n1942report signup-button", onClick: function (e) { return register(name, password); } }, "SIGNUP "))),
-            react.createElement(Divider, null))));
+                react.createElement(Text, null, "Home Page")),
+            react.createElement(Divider, null)),
+        react.createElement(Center, null,
+            react.createElement(VStack, { spacing: 4 },
+                react.createElement(InputGroup, { size: 'lg' },
+                    react.createElement(Text, null, "Create Game "),
+                    react.createElement(Input, { placeholder: 'New GameID', onChange: function (e) { return setCreateForm(e.target.value); } }),
+                    react.createElement(Button, { size: 'lg', width: 0.25, colorScheme: 'teal', variant: 'solid', onClick: createGame }, "Submit ")),
+                react.createElement(InputGroup, { size: 'lg' },
+                    react.createElement(Text, null, "Join Game "),
+                    react.createElement(Input, { placeholder: 'Join ', onChange: function (e) { return setChooseForm(e.target.value); } }),
+                    react.createElement(Button, { size: 'lg', width: 0.25, colorScheme: 'teal', variant: 'solid', onClick: chooseGame }, "Submit"))))));
 };
-var SignupPage_mapDispatchToProps = function (dispatch) { return ({
-    receiveToken: function (token) { return dispatch(receiveToken(token)); },
-}); };
-/* harmony default export */ const Login_SignupPage = (connect(SignupPage_mapDispatchToProps)(SignupPage));
+/* harmony default export */ const src_HomePage = (HomePage);
 
 ;// CONCATENATED MODULE: ./src/Routes.tsx
 
@@ -18104,8 +17996,8 @@ var SignupPage_mapDispatchToProps = function (dispatch) { return ({
 
 var Routes = function () {
     return (react.createElement(Switch, null,
-        react.createElement(Route, { path: "/:id", component: src_Game }),
-        react.createElement(Route, { path: "/", component: Login_SignupPage })));
+        react.createElement(Route, { path: "/play/:id", component: src_Game }),
+        react.createElement(Route, { path: "/", component: src_HomePage })));
 };
 /* harmony default export */ const src_Routes = (Routes);
 
@@ -21945,7 +21837,7 @@ var LinkAnchor = react_router_dom_forwardRef(function (_ref, forwardedRef) {
   var innerRef = _ref.innerRef,
       navigate = _ref.navigate,
       _onClick = _ref.onClick,
-      rest = esm_objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_ref, ["innerRef", "navigate", "onClick"]);
+      rest = objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_ref, ["innerRef", "navigate", "onClick"]);
 
   var target = rest.target;
 
@@ -21993,7 +21885,7 @@ var Link = react_router_dom_forwardRef(function (_ref2, forwardedRef) {
       replace = _ref2.replace,
       to = _ref2.to,
       innerRef = _ref2.innerRef,
-      rest = esm_objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_ref2, ["component", "replace", "to", "innerRef"]);
+      rest = objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_ref2, ["component", "replace", "to", "innerRef"]);
 
   return react.createElement(context.Consumer, null, function (context) {
     !context ?  false ? 0 : tiny_invariant_esm(false) : void 0;
@@ -22062,7 +21954,7 @@ var NavLink = forwardRef$1(function (_ref, forwardedRef) {
       styleProp = _ref.style,
       to = _ref.to,
       innerRef = _ref.innerRef,
-      rest = esm_objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_ref, ["aria-current", "activeClassName", "activeStyle", "className", "exact", "isActive", "location", "sensitive", "strict", "style", "to", "innerRef"]);
+      rest = objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_ref, ["aria-current", "activeClassName", "activeStyle", "className", "exact", "isActive", "location", "sensitive", "strict", "style", "to", "innerRef"]);
 
   return react.createElement(context.Consumer, null, function (context) {
     !context ?  false ? 0 : tiny_invariant_esm(false) : void 0;
@@ -22104,18 +21996,26 @@ if (false) { var ariaCurrentType; }
 
 //# sourceMappingURL=react-router-dom.js.map
 
+;// CONCATENATED MODULE: ./src/App.tsx
+
+
+
+
+
+
+var App = function () {
+    return (react.createElement(BrowserRouter, null,
+        react.createElement(components_Provider, { store: redux_store },
+            react.createElement(ChakraProvider, null,
+                react.createElement(src_Routes, null)))));
+};
+/* harmony default export */ const src_App = (App);
+
 ;// CONCATENATED MODULE: ./src/main.tsx
 
 
 
-
-
-
-
-react_dom.render(react.createElement(BrowserRouter, null,
-    react.createElement(components_Provider, { store: redux_store },
-        react.createElement(ChakraProvider, null,
-            react.createElement(src_Routes, null)))), document.getElementById("root"));
+react_dom.render(react.createElement(src_App, null), document.getElementById("root"));
 
 })();
 

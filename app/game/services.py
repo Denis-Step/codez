@@ -182,10 +182,16 @@ def chooser_move(game_ID, words, guess, team):
         r.hincrby("state:" + game_ID, opposite(team) + "Points", 1)
         r.hset("state:" + game_ID, "attemptsLeft", 0)
         r.hset("words:" + game_ID, guess, opposite(team) + "-revealed")
+        r.hset(
+            "state:" + game_ID, mapping={"turn": opposite(team), "action": "spymaster"}
+        )
 
     elif words[guess] == "neutral":
         r.hset("state:" + game_ID, "attemptsLeft", 0)
         r.hset("words:" + game_ID, guess, opposite(team) + "-revealed")
+        r.hset(
+            "state:" + game_ID, mapping={"turn": opposite(team), "action": "spymaster"}
+        )
 
     return finish_turn(game_ID)
 

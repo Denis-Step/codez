@@ -9,7 +9,7 @@ export interface MatchParams {
 }
 
 const Game = (): JSX.Element => {
-  const match = useRouteMatch<MatchParams>("/:id") as {params: MatchParams};
+  const match = useRouteMatch<MatchParams>("/play/:id") as {params: MatchParams};
   const game_ID = match.params.id;
   
   return (

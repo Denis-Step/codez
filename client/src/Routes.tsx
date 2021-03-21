@@ -1,14 +1,14 @@
 import React from "react";
 import {Route, Switch} from "react-router";
 import Game from "./Game";
-import SignupPage from "./Login/SignupPage";
+import HomePage from "./HomePage";
 
 const Routes = (): JSX.Element => {
     
     return (
         <Switch>
-            <Route path = "/:id" component={Game} />
-            <Route path = "/" component={SignupPage} />
+            <Route path = "/play/:id" component={Game} />
+            <Route path = "/" component={HomePage} />
         </Switch>
     )
 }

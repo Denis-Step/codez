@@ -43,7 +43,11 @@ export async function spymaster_Move(
   return response.status;
 }
 
-export async function reveal_Word(game_ID: string, team: "red" | "blue", word: string): Promise<number> {
+export async function reveal_Word(
+  game_ID: string,
+  team: "red" | "blue",
+  word: string
+): Promise<number> {
   const endpoint = `/games/${game_ID}`;
 
   const response = await axios({
@@ -53,11 +57,29 @@ export async function reveal_Word(game_ID: string, team: "red" | "blue", word: s
       team: team,
       action: "chooser",
       payload: { guess: word },
-    }
+    },
   });
 
   const results = response.data;
   return results;
+}
+
+export async function create_Game(game_ID: string): Promise<number> {
+  const endpoint = `/games/`;
+
+  const response = await axios({
+    method: "post",
+    url: BASE + endpoint,
+    data: {
+      action: "create",
+      payload: {
+        gameID: game_ID,
+      },
+    },
+  });
+
+  const result = response.status;
+  return result;
 }
 
 export async function login(name: string, password: string): Promise<string> {

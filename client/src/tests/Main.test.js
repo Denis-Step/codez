@@ -1,9 +1,7 @@
-const apicalls = require("../apicalls");
+/*const apicalls = require("../apicalls");
 
 import axios from "axios";
-jest.mock("../");
+jest.mock("axios");
 
-test("API Call Loads Words properly", () => {
-  const resp = { data: SAMPLE };
-  axios.mockResolvedValue(SAMPLE);
-});
+
+*/

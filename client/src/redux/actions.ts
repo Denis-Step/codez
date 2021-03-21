@@ -39,7 +39,6 @@ export function refreshState(game_ID: string): (dispatch) => Promise<void> {
 }
 
 export function makeSpymasterMove(game_ID: string, team: Team, hint: string, attempts: number): (dispatch) => Promise<void | ((dispatch) => void)> {
-  console.log(arguments);
   return function(dispatch){
     dispatch(callingWords())
     
