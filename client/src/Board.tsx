@@ -11,8 +11,6 @@ const Board = (props: BoardProps): JSX.Element => {
   const gameState = useSelector((state) => {
     return { words: state.words, turn: state.turn };
   });
-  console.log("These are the words");
-  console.log(gameState.words);
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -22,6 +22,21 @@ export async function get_State(game_ID: string): Promise<StateResponse> {
   return results;
 }
 
+
+export async function get_fullState(game_ID: string): Promise<StateResponse> {
+  const endpoint = `/games/${game_ID}/spymaster`;
+
+  const response = await axios({
+    method: "get",
+    url: BASE + endpoint,
+    params: {},
+  });
+
+  const results = response.data;
+  return results;
+}
+
+
 export async function spymaster_Move(
   game_ID: string,
   team: "red" | "blue",

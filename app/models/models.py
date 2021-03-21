@@ -1,6 +1,7 @@
 import bcrypt
 import datetime
 import jwt
+from nltk.corpus import wordnet as wn
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 
@@ -17,6 +18,28 @@ class Word(db.Model):
 
     def __repr__(self):
         return f"{self.word}"
+
+    @staticmethod
+    def get(text):
+        word = Word.query.filter(Word.word == text).scalar()
+        return word
+
+    @staticmethod
+    def common_hypernyms(first_word, second_word):
+        common_hyps = set()
+
+        for syn in wn.synsets(first_word):
+            for syn2 in wn.synsets(second_word):
+                com = syn.common_hypernyms(syn2)
+                for comSyn in com:
+                    common_hyps.add(comSyn.name())
+
+        return common_hyps
+
+    def definitions(self):
+        synset = wn.synsets(self.word)
+        definitions = {syn.name(): syn.definition() for syn in synset}
+        return definitions
 
 
 class User(db.Model):

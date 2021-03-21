@@ -46,3 +46,8 @@ class GameResource(Resource):
 
         services.handle_turn(game_id, data["team"], data["action"], data["payload"])
         return (None, 201)
+
+
+class DefinitionResource(Resource):
+    def get(self, word):
+        return jsonify(models.Word.get(word).definitions())

@@ -33,7 +33,6 @@ const initialState: WordsStore = {
 };
 
 export function words_reducer(state = initialState, action): WordsStore {
-  console.log(state);
   console.log(action.type);
   switch (action.type) {
     case RECEIVE_TOKEN:
@@ -45,13 +44,11 @@ export function words_reducer(state = initialState, action): WordsStore {
       });
 
     case RECEIVE_WORDS:
-      console.log(action.words);
       return Object.assign({}, state, {
         words: action.words,
         isFetching: false,
       });
     case RECEIVE_GAME_STATE:
-      console.log(action.gameInfo);
       return Object.assign({}, state, {
         winner: action.gameInfo.winner,
         action: action.gameInfo.action,

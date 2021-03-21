@@ -6,4 +6,3 @@ export const RECEIVE_GAME_STATE = "Updating Game Info";
 export const INITIALIZE_STATE = "Fetching State first time";
 export const SPYMASTER_MOVE = "Entering Hint and Attempts";
 export const RECEIVE_TOKEN = "Authenticated";
-//export const LOG_IN_ATTEMPT = "Logging in";
