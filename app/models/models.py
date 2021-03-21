@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../db.db"
 db = SQLAlchemy(app)
 
 
@@ -38,7 +38,7 @@ class Word(db.Model):
 
     def definitions(self):
         synset = wn.synsets(self.word)
-        definitions = {syn.name(): syn.definition() for syn in synset}
+        definitions = [{syn.name(): syn.definition()} for syn in synset]
         return definitions
 
 

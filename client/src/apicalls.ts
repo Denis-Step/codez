@@ -1,5 +1,5 @@
 import axios from "axios";
-import { WordsState, PlayerState } from "./types/types";
+import { WordsState, PlayerState, WordDefinition } from "./types/types";
 
 const BASE = "http://127.0.0.1:5000";
 
@@ -96,6 +96,8 @@ export async function create_Game(game_ID: string): Promise<number> {
   const result = response.status;
   return result;
 }
+
+export async function get_Definition(text: string): Promise<
 
 export async function login(name: string, password: string): Promise<string> {
   const endpoint = "/auth";

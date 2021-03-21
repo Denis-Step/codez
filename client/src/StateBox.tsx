@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import SpymasterBox from "./SpymasterBox";
 import { Center, Text, Stack, VStack, Box } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
+import HelperBox from "./HelperBox";
 
 const StateBox = (props: { game_ID: string }): JSX.Element => {
   const gameState = useSelector((state) => {
@@ -61,9 +62,14 @@ const StateBox = (props: { game_ID: string }): JSX.Element => {
       <Center>
         <Box w="33%">{PointsBox}</Box>
         <Box w="33%">
-          <Text color={gameState.turn} fontSize="2xl">
-            <Center>{`${gameState.turn}'s Turn`}</Center>
-          </Text>
+          <Center>
+            <VStack>
+              <Text color={gameState.turn} fontSize="2xl">
+                {`${gameState.turn}'s Turn`}
+              </Text>
+              <HelperBox />
+            </VStack>
+          </Center>
         </Box>
         <Box w="33%">{TurnBox}</Box>
       </Center>

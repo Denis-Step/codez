@@ -7,6 +7,10 @@ export type Word = {
     [key: string]: "hidden" | "blue-revealed" | "red-revealed" | "bomb-revealed" | "neutral-revealed";
 }
 
+export type WordDefinition = {
+    [key: string]: string
+}
+
 export type WordsState = Word[];
 
 export interface PlayerState {

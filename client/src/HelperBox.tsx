@@ -1,40 +1,48 @@
-import React, { useCallback, useEffect, useState, useRef } from "react";
+import React, { useRef } from "react";
 import {
-  Radio,
-  RadioGroup,
   Button,
   Drawer,
-  Stack,
+  Center,
   DrawerBody,
   DrawerOverlay,
   DrawerContent,
   DrawerHeader,
+  Input,
+  InputGroup,
   useDisclosure,
+  InputRightElement,
 } from "@chakra-ui/react";
-
+import { BsBook } from "react-icons/bs";
 
 const HelperBox = (): JSX.Element => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <>
+    <Center>
       <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        Open
+        Hints
       </Button>
       <Drawer placement={"bottom"} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay>
           <DrawerContent>
-            <DrawerHeader borderBottomWidth="1px">Basic Drawer</DrawerHeader>
+            <Center>
+              <DrawerHeader borderBottomWidth="1px">
+                SPYMASTER TOOLS
+              </DrawerHeader>
+            </Center>
             <DrawerBody>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
+              <InputGroup size="md">
+                <Input variant="outline" placeholder="Word" />
+                <InputRightElement size="10rem">
+                  <Button variant="solid" leftIcon={<BsBook />}>Get Definition</Button>
+                </InputRightElement>
+              </InputGroup>
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>
       </Drawer>
-    </>
+    </Center>
   );
 };
 
