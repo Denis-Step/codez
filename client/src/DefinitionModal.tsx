@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -8,25 +8,32 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useDisclosure,
+  Spinner
 } from "@chakra-ui/react";
+import {WordDefinition} from "./types/types";
 
-const DefinitionModal = (): JSX.Element => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+interface DefinitionModalProps {
+    isOpen: boolean;
+    closeModal: () => void;
+}
+
+const DefinitionModal = (props: DefinitionModalProps): JSX.Element => {
+    const [definitions, setDefinitions] = useState<WordDefinition[]>();
+  
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={props.isOpen} onClose={props.closeModal}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Definitions</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+              {definitions || <Spinner />}
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="pink" mr={3} onClick={onClose}>
+            <Button colorScheme="pink" mr={3} onClick={props.closeModal}>
               Close
             </Button>
           </ModalFooter>

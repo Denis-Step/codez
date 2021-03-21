@@ -97,7 +97,17 @@ export async function create_Game(game_ID: string): Promise<number> {
   return result;
 }
 
-export async function get_Definition(text: string): Promise<
+export async function get_Definition(text: string): Promise<WordDefinition[]> {
+  const endpoint = "/definitions/";
+  
+  const response = await axios({
+    method: "get",
+    url: BASE + endpoint + text,
+    });
+    
+    const result = response.data;
+    return result;
+}
 
 export async function login(name: string, password: string): Promise<string> {
   const endpoint = "/auth";

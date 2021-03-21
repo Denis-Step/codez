@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   Button,
   Drawer,
@@ -13,9 +13,11 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { BsBook } from "react-icons/bs";
+import DefinitionModal from "./DefinitionModal";
 
 const HelperBox = (): JSX.Element => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [defModalOpen, setDefModalOpen] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -33,9 +35,16 @@ const HelperBox = (): JSX.Element => {
             </Center>
             <DrawerBody>
               <InputGroup size="md">
+                <DefinitionModal isOpen={defModalOpen} closeModal = {() => setDefModalOpen(false)} />
                 <Input variant="outline" placeholder="Word" />
                 <InputRightElement size="10rem">
-                  <Button variant="solid" leftIcon={<BsBook />}>Get Definition</Button>
+                  <Button
+                    variant="solid"
+                    leftIcon={<BsBook />}
+                    onClick={(e) => setDefModalOpen(true)}
+                  >
+                    Get Definition
+                  </Button>
                 </InputRightElement>
               </InputGroup>
             </DrawerBody>

@@ -49,7 +49,7 @@ def create_app(db_path=None):
     app.debug = True
     api.add_resource(UserResource, "/users/<int:user_id>", "/users/")
     api.add_resource(GameResource, "/games/<string:game_id>", "/games/")
-    api.add_resource(DefinitionResource, "/definition/<string:word>")
+    api.add_resource(DefinitionResource, "/definitions/<string:word>")
     app.register_blueprint(codez_bp)
     if db_path is None:
         db_path = "sqlite:///db.db"
