@@ -2,11 +2,11 @@
 
 CodeNames
 
-TODO:
-1.Front-End Auth
-2.Add URL shortner + hasher
-3.Enable Logging
-
+###TODO:
+1. Front-End Auth
+2.  Add URL shortner + hasher
+3.  Enable Logging
+ 
 ( Brew or apt-get install redis-cli)
 ### Install/Start redis-server
 1. Run word_load
