@@ -18,6 +18,7 @@ import DefinitionModal from "./DefinitionModal";
 const HelperBox = (): JSX.Element => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [defModalOpen, setDefModalOpen] = useState(false);
+  const [defModalWord, setDefModalWord] = useState<string>();
   const btnRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -35,8 +36,8 @@ const HelperBox = (): JSX.Element => {
             </Center>
             <DrawerBody>
               <InputGroup size="md">
-                <DefinitionModal isOpen={defModalOpen} closeModal = {() => setDefModalOpen(false)} />
-                <Input variant="outline" placeholder="Word" />
+                <DefinitionModal isOpen={defModalOpen} word={defModalWord} closeModal = {() => setDefModalOpen(false)} />
+                <Input variant="outline" placeholder="Word" onChange = {(e) => setDefModalWord(e.target.value)} />
                 <InputRightElement size="10rem">
                   <Button
                     variant="solid"

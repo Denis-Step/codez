@@ -38,7 +38,9 @@ class Word(db.Model):
 
     def definitions(self):
         synset = wn.synsets(self.word)
-        definitions = [{syn.name(): syn.definition()} for syn in synset]
+        definitions = [
+            {"word": syn.name(), "definition": syn.definition()} for syn in synset
+        ]
         return definitions
 
 

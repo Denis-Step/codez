@@ -8,7 +8,8 @@ export type Word = {
 }
 
 export type WordDefinition = {
-    [key: string]: string
+    "word": string;
+    "definition": string;
 }
 
 export type WordsState = Word[];
