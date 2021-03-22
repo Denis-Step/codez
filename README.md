@@ -3,12 +3,9 @@
 CodeNames
 
 TODO:
+-Front-End Auth
 -Add URL shortner + hasher
--Create more back-end handlers
--Split the state's presentational components, wrap with containers, and connect to store
--Implement a User Model with Social Auth authentication
-*Compare vs Django + DRF implementation
-*Log hints and expose hypernym, synset, and definition functions
+-Enable Logging
 
 ( Brew or apt-get install redis-cli)
 ### Install/Start redis-server
