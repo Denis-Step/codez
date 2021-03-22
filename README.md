@@ -3,11 +3,9 @@
 CodeNames
 
 TODO:
--Front-End Auth
-
--Add URL shortner + hasher
-
--Enable Logging
+1.Front-End Auth
+2.Add URL shortner + hasher
+3.Enable Logging
 
 ( Brew or apt-get install redis-cli)
 ### Install/Start redis-server
