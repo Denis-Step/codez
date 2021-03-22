@@ -1,5 +1,5 @@
 import os
-from flask import Flask, Blueprint, send_file
+from flask import Flask, Blueprint, send_file, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
 from flask_login import (
@@ -43,6 +43,23 @@ def login_page():
     return send_file("../client/dist/login.js")
 
 
+@codez_bp.route("/login")
+def login():
+    # Find out what URL to hit for Google login
+    google_provider_cfg = get_google_provider_cfg()
+    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+    print(authorization_endpoint)
+    print(GOOGLE_CLIENT_ID)
+    print(GOOGLE_CLIENT_SECRET)
+
+    request_uri = client.prepare_request_uri(
+        authorization_endpoint,
+        redirect_uri=request.base_url + "/callback",
+        scope=["openid", "email", "profile"],
+    )
+    return redirect(request_uri)
+
+
 # Catch-all
 @codez_bp.route("/", defaults={"path": ""})
 @codez_bp.route("/<path:path>")
@@ -52,11 +69,8 @@ def index(path):
     return send_file("../static/index.html")
 
 
-def authenticate(username, password):
-    try:
-        return models.User.login(username, password)
-    except Exception:
-        return None
+def get_google_provider_cfg():
+    return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 
 def create_app(db_path=None):
