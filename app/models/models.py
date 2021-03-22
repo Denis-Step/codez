@@ -4,6 +4,8 @@ import jwt
 from nltk.corpus import wordnet as wn
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
+import random
+import string
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../db.db"
@@ -68,6 +70,18 @@ class User(db.Model):
     def __repr__(self):
         return f"User {self.name}"
 
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return str(self.id)
+
     @staticmethod
     def get(ID):
         user = User.query.filter(User.id == ID).scalar()
@@ -86,9 +100,18 @@ class User(db.Model):
         hashed_pw = bcrypt.hashpw(password.encode(), salt)
         return {"salt": salt, "hashed_pw": hashed_pw}
 
+    @staticmethod
+    def random_password(length):
+        return "".join(random.choice(string.ascii_letters) for i in range(length))
+
     @classmethod
     def exists(cls, username):
         user = User.query.filter(User.name == username).scalar()
+        return bool(user)
+
+    @classmethod
+    def email_exists(cls, email):
+        user = User.query.filter(User.email == email).scalar()
         return bool(user)
 
     @classmethod
