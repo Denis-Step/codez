@@ -10,7 +10,7 @@ import {
   Input,
   InputGroup,
   useDisclosure,
-  InputRightElement,
+  InputLeftAddon,
 } from "@chakra-ui/react";
 import { BsBook } from "react-icons/bs";
 import DefinitionModal from "./DefinitionModal";
@@ -36,9 +36,7 @@ const HelperBox = (): JSX.Element => {
             </Center>
             <DrawerBody>
               <InputGroup size="md">
-                <DefinitionModal isOpen={defModalOpen} word={defModalWord} closeModal = {() => setDefModalOpen(false)} />
-                <Input variant="outline" placeholder="Word" onChange = {(e) => setDefModalWord(e.target.value)} />
-                <InputRightElement size="10rem">
+                <InputLeftAddon size="lg">
                   <Button
                     variant="solid"
                     leftIcon={<BsBook />}
@@ -46,7 +44,17 @@ const HelperBox = (): JSX.Element => {
                   >
                     Get Definition
                   </Button>
-                </InputRightElement>
+                </InputLeftAddon>
+                <DefinitionModal
+                  isOpen={defModalOpen}
+                  word={defModalWord}
+                  closeModal={() => setDefModalOpen(false)}
+                />
+                <Input
+                  variant="outline"
+                  placeholder="Word"
+                  onChange={(e) => setDefModalWord(e.target.value)}
+                />
               </InputGroup>
             </DrawerBody>
           </DrawerContent>

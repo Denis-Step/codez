@@ -35411,95 +35411,6 @@ function useDisclosure(props) {
   };
 }
 //# sourceMappingURL=use-disclosure.js.map
-;// CONCATENATED MODULE: ./node_modules/@chakra-ui/input/dist/esm/input-element.js
-function input_element_extends() { input_element_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return input_element_extends.apply(this, arguments); }
-
-function input_element_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
-
-
-var StyledElement = (0,dist_esm.chakra)("div", {
-  baseStyle: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    top: "0",
-    zIndex: 2
-  }
-});
-var InputElement = /*#__PURE__*/(0,dist_esm.forwardRef)((props, ref) => {
-  var _input$height, _input$height2, _input$paddingLeft;
-
-  var {
-    placement = "left"
-  } = props,
-      rest = input_element_objectWithoutPropertiesLoose(props, ["placement"]);
-
-  var styles = (0,dist_esm.useStyles)();
-  var input = styles.field;
-  var elementStyles = {
-    [placement]: "0",
-    width: (_input$height = input == null ? void 0 : input.height) != null ? _input$height : input == null ? void 0 : input.h,
-    height: (_input$height2 = input == null ? void 0 : input.height) != null ? _input$height2 : input == null ? void 0 : input.h,
-    fontSize: input == null ? void 0 : input.fontSize,
-    paddingX: (_input$paddingLeft = input == null ? void 0 : input.paddingLeft) != null ? _input$paddingLeft : input == null ? void 0 : input.pl
-  };
-  return /*#__PURE__*/react.createElement(StyledElement, input_element_extends({
-    ref: ref,
-    __css: elementStyles
-  }, rest));
-}); // This is used in `input-group.tsx`
-
-InputElement.id = "InputElement";
-
-if (utils_dist_esm.__DEV__) {
-  InputElement.displayName = "InputElement";
-}
-
-var InputLeftElement = /*#__PURE__*/(0,dist_esm.forwardRef)((props, ref) => {
-  var {
-    className
-  } = props,
-      rest = input_element_objectWithoutPropertiesLoose(props, ["className"]);
-
-  var _className = (0,utils_dist_esm.cx)("chakra-input__left-element", className);
-
-  return /*#__PURE__*/react.createElement(InputElement, input_element_extends({
-    ref: ref,
-    placement: "left",
-    className: _className
-  }, rest));
-}); // This is used in `input-group.tsx`
-
-InputLeftElement.id = "InputLeftElement";
-
-if (utils_dist_esm.__DEV__) {
-  InputLeftElement.displayName = "InputLeftElement";
-}
-
-var InputRightElement = /*#__PURE__*/(0,dist_esm.forwardRef)((props, ref) => {
-  var {
-    className
-  } = props,
-      rest = input_element_objectWithoutPropertiesLoose(props, ["className"]);
-
-  var _className = (0,utils_dist_esm.cx)("chakra-input__right-element", className);
-
-  return /*#__PURE__*/react.createElement(InputElement, input_element_extends({
-    ref: ref,
-    placement: "right",
-    className: _className
-  }, rest));
-}); // This is used in `input-group.tsx`
-
-InputRightElement.id = "InputRightElement";
-
-if (utils_dist_esm.__DEV__) {
-  InputRightElement.displayName = "InputRightElement";
-}
-//# sourceMappingURL=input-element.js.map
 ;// CONCATENATED MODULE: ./node_modules/react-icons/lib/esm/iconsManifest.js
 var IconsManifest = [
   {
@@ -37852,10 +37763,10 @@ var HelperBox = function () {
                         react.createElement(react_dist_esm.DrawerHeader, { borderBottomWidth: "1px" }, "SPYMASTER TOOLS")),
                     react.createElement(react_dist_esm.DrawerBody, null,
                         react.createElement(InputGroup, { size: "md" },
+                            react.createElement(InputLeftAddon, { size: "lg" },
+                                react.createElement(Button, { variant: "solid", leftIcon: react.createElement(BsBook, null), onClick: function (e) { return setDefModalOpen(true); } }, "Get Definition")),
                             react.createElement(src_DefinitionModal, { isOpen: defModalOpen, word: defModalWord, closeModal: function () { return setDefModalOpen(false); } }),
-                            react.createElement(Input, { variant: "outline", placeholder: "Word", onChange: function (e) { return setDefModalWord(e.target.value); } }),
-                            react.createElement(InputRightElement, { size: "10rem" },
-                                react.createElement(Button, { variant: "solid", leftIcon: react.createElement(BsBook, null), onClick: function (e) { return setDefModalOpen(true); } }, "Get Definition")))))))));
+                            react.createElement(Input, { variant: "outline", placeholder: "Word", onChange: function (e) { return setDefModalWord(e.target.value); } }))))))));
 };
 /* harmony default export */ const src_HelperBox = (HelperBox);
 
