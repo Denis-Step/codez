@@ -1,7 +1,7 @@
 import os
-from flask import Flask, Blueprint, make_response, request, jsonify, send_file
+from flask import Flask, Blueprint, send_file
 from flask_sqlalchemy import SQLAlchemy
-from flask_restful import Api, Resource
+from flask_restful import Api
 from flask_login import (
     LoginManager,
     current_user,
@@ -10,7 +10,6 @@ from flask_login import (
     logout_user,
 )
 from models import models
-from game import services, exceptions
 from resources import UserResource, GameResource, DefinitionResource, HypernymResource
 
 # Configuration
