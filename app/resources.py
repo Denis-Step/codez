@@ -55,9 +55,11 @@ class DefinitionResource(Resource):
 
 class HypernymResource(Resource):
     def get(self):
-        words = request.args.get("words", None)
-        try:
-            hyps = models.Word.common_hypernyms(words[0], words[1])
-            return jsonify(hyps)
-        except Exception:
-            return (None, 404)
+        words = request.args.get("words", None).split(" ")
+        print(words)
+        if not words:
+            return jsonify([])
+
+        hyps = models.Word.common_hypernyms(words[0], words[1])
+        print(hyps)
+        return jsonify(list(hyps))
