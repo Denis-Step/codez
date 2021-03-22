@@ -11,7 +11,7 @@ from flask_login import (
 )
 from models import models
 from game import services, exceptions
-from resources import UserResource, GameResource, DefinitionResource
+from resources import UserResource, GameResource, DefinitionResource, HypernymResource
 
 # Configuration
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
@@ -50,6 +50,7 @@ def create_app(db_path=None):
     api.add_resource(UserResource, "/users/<int:user_id>", "/users/")
     api.add_resource(GameResource, "/games/<string:game_id>", "/games/")
     api.add_resource(DefinitionResource, "/definitions/<string:word>")
+    api.add_resource(HypernymResource, "/hypernyms")
     app.register_blueprint(codez_bp)
     if db_path is None:
         db_path = "sqlite:///db.db"

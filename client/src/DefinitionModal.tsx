@@ -9,7 +9,6 @@ import {
   ModalHeader,
   ModalOverlay,
   Spinner,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { WordDefinition } from "./types/types";
 import { get_Definition } from "./apicalls";
@@ -18,6 +17,12 @@ interface DefinitionModalProps {
   isOpen: boolean;
   closeModal: () => void;
   word: string | undefined;
+}
+
+function formatDef(word: string){
+    const wordList = word.split(".");
+    const formattedWord = `${wordList[0]} (${wordList[1]})`;
+    return formattedWord;
 }
 
 const DefinitionModal = (props: DefinitionModalProps): JSX.Element => {
@@ -32,7 +37,10 @@ const DefinitionModal = (props: DefinitionModalProps): JSX.Element => {
 
     for (const definition of definitions) {
       const defBox = (
-        <li>{`${definition["word"]}: ${definition["definition"]}`}</li>
+        <li>
+            <em>{`${formatDef(definition["word"])}`}</em>: 
+            {`${definition["definition"]}`}
+        </li>
       );
       defBoxes.push(defBox);
     }
@@ -48,8 +56,6 @@ const DefinitionModal = (props: DefinitionModalProps): JSX.Element => {
       };
 
       getDefinitions(props.word);
-    } else {
-      setDefinitions(undefined);
     }
   }, [props.word, props.isOpen]);
 

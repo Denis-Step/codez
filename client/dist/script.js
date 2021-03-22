@@ -37784,6 +37784,11 @@ var DefinitionModal_generator = (undefined && undefined.__generator) || function
 
 
 
+function formatDef(word) {
+    var wordList = word.split(".");
+    var formattedWord = wordList[0] + " (" + wordList[1] + ")";
+    return formattedWord;
+}
 var DefinitionModal = function (props) {
     var _a = (0,react.useState)(), definitions = _a[0], setDefinitions = _a[1];
     var DefinitionList = (0,react.useMemo)(function () {
@@ -37793,7 +37798,9 @@ var DefinitionModal = function (props) {
         }
         for (var _i = 0, definitions_1 = definitions; _i < definitions_1.length; _i++) {
             var definition = definitions_1[_i];
-            var defBox = (react.createElement("li", null, definition["word"] + ": " + definition["definition"]));
+            var defBox = (react.createElement("li", null,
+                react.createElement("em", null, "" + formatDef(definition["word"])),
+                ":", "" + definition["definition"]));
             defBoxes.push(defBox);
         }
         return react.createElement("ol", null, defBoxes);
@@ -37813,9 +37820,6 @@ var DefinitionModal = function (props) {
                 });
             }); };
             getDefinitions(props.word);
-        }
-        else {
-            setDefinitions(undefined);
         }
     }, [props.word, props.isOpen]);
     return (react.createElement(react_dist_esm.Modal, { isOpen: props.isOpen, onClose: props.closeModal },
