@@ -8,3 +8,5 @@ redisconf
 redis-start.zsh
 .DS_Store
 googlesecrets.json
+.idea
+.vscode
