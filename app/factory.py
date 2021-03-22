@@ -9,6 +9,8 @@ from flask_login import (
     login_user,
     logout_user,
 )
+from oauthlib.oauth2 import WebApplicationClient
+import requests
 from models import models
 from resources import UserResource, GameResource, DefinitionResource, HypernymResource
 
@@ -17,11 +19,18 @@ GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
 GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
 
-login_manager = LoginManager()
 
 codez_bp = Blueprint("codez_bp", __name__)
 api = Api(codez_bp)
+
+
 login_manager = LoginManager()
+client = WebApplicationClient(GOOGLE_CLIENT_ID)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return models.User.get(user_id)
 
 
 @codez_bp.route("/static/script.js")
@@ -29,10 +38,17 @@ def dev_spa_script():
     return send_file("../client/dist/script.js")
 
 
+@codez_bp.route("/static/login.js")
+def login_page():
+    return send_file("../client/dist/login.js")
+
+
 # Catch-all
 @codez_bp.route("/", defaults={"path": ""})
 @codez_bp.route("/<path:path>")
 def index(path):
+    if not current_user.is_authenticated:
+        return send_file("../static/login.html")
     return send_file("../static/index.html")
 
 
@@ -59,4 +75,5 @@ def create_app(db_path=None):
     app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY")
     db = SQLAlchemy(app)
     db.init_app(app)
+    login_manager.init_app(app)
     return app

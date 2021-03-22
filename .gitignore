@@ -7,3 +7,4 @@ __pycache__
 redisconf
 redis-start.zsh
 .DS_Store
+googlesecrets.json
