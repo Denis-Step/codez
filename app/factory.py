@@ -1,6 +1,17 @@
 import os
 import json
-from flask import Flask, Blueprint, send_file, request, redirect, url_for, Response
+import requests
+import redis
+from flask import (
+    Flask,
+    Blueprint,
+    send_file,
+    request,
+    redirect,
+    url_for,
+    Response,
+    session,
+)
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
 from flask_login import (
@@ -11,18 +22,33 @@ from flask_login import (
     logout_user,
 )
 from oauthlib.oauth2 import WebApplicationClient
-import requests
+from flask_session import Session
 from models import models
 from resources import UserResource, GameResource, DefinitionResource, HypernymResource
 
-# Configuration
-GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
-GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
-GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
-
-
 codez_bp = Blueprint("codez_bp", __name__)
 api = Api(codez_bp)
+
+# Flask-Session
+
+
+@codez_bp.route("/set/")
+def set():
+    session["key"] = "value"
+    return "ok"
+
+
+@codez_bp.route("/get/")
+def get():
+    return session.get("key", "not set")
+
+
+# Configuration
+with open("../googlesecrets.json") as f:
+    GOOGLE_SECRETS = json.load(f)
+GOOGLE_CLIENT_ID = GOOGLE_SECRETS["web"]["client_id"]
+GOOGLE_CLIENT_SECRET = GOOGLE_SECRETS["web"]["client_secret"]
+GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
 
 
 login_manager = LoginManager()
@@ -88,6 +114,10 @@ def callback():
         unique_id = userinfo_response.json()["sub"]
         user_email = userinfo_response.json()["email"]
         user_name = userinfo_response.json()["given_name"]
+
+        session["id"] = unique_id
+        session["name"] = user_name
+        session["user_email"] = user_email
         # picture = userinfo_response.json()["picture"]
     else:
         return Response("User email not available or not verified by Google.", 400)
@@ -138,8 +168,12 @@ def create_app(db_path=None):
     else:
         db_path = "sqlite:///" + db_path
     app.config["SQLALCHEMY_DATABASE_URI"] = db_path
-    app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY")
+    app.secret_key = os.environ.get("FLASK_SECRET_KEY", None)
+    app.config["SESSION_TYPE"] = "redis"
+    app.config["SESSION_USE_SIGNER"] = True
+    app.config["SESSION_REDIS"] = redis.from_url("redis://127.0.0.1:6379")
     db = SQLAlchemy(app)
     db.init_app(app)
     login_manager.init_app(app)
+    Session(app)
     return app
