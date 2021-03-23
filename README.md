@@ -2,14 +2,11 @@
 
 CodeNames
 
-TODO:
--Add URL shortner + hasher
--Create more back-end handlers
--Split the state's presentational components, wrap with containers, and connect to store
--Implement a User Model with Social Auth authentication
-*Compare vs Django + DRF implementation
-*Log hints and expose hypernym, synset, and definition functions
-
+###TODO:
+1. Front-End Auth
+2.  Add URL shortner + hasher
+3.  Enable Logging
+ 
 ( Brew or apt-get install redis-cli)
 ### Install/Start redis-server
 1. Run word_load
