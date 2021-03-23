@@ -8,9 +8,9 @@ import {
   Button,
   Text
 } from '@chakra-ui/react'
-import { create_Game } from './apicalls'
-import Title from './Title'
 import { useHistory } from 'react-router-dom'
+import { create_Game, get_State } from './apicalls'
+import Title from './Title'
 
 const HomePage = (): JSX.Element => {
   const history = useHistory()
@@ -30,7 +30,9 @@ const HomePage = (): JSX.Element => {
   }, [createForm])
 
   const chooseGame = useCallback(async () => {
-    history.push(`play/${chooseForm}`)
+    get_State(chooseForm)
+      .then(data => history.push(`play/${chooseForm}`))
+      .catch(() => alert('Game not found'))
   }, [chooseForm])
 
   return (
@@ -46,36 +48,39 @@ const HomePage = (): JSX.Element => {
 
       <Center>
         <VStack spacing={4}>
-        <InputGroup size='lg'>
-          <Text>Create Game </Text>
-          <Input
-            placeholder='New GameID'
-            onChange={e => setCreateForm(e.target.value)}
-          />
-          <Button
-            
-            size='lg'
-            width={0.25}
-            colorScheme='teal'
-            variant='solid'
-            onClick={createGame}
-          >Submit </Button>
-        </InputGroup>
+          <InputGroup size='lg'>
+            <Text>Create Game </Text>
+            <Input
+              placeholder='New GameID'
+              onChange={e => setCreateForm(e.target.value)}
+            />
+            <Button
+              size='lg'
+              width={0.25}
+              colorScheme='teal'
+              variant='solid'
+              onClick={createGame}
+            >
+              Submit{' '}
+            </Button>
+          </InputGroup>
 
-        <InputGroup size='lg'>
-          <Text>Join Game </Text>
-          <Input
-            placeholder='Join '
-            onChange={e => setChooseForm(e.target.value)}
-          />
-          <Button
-            size='lg'
-            width={0.25}
-            colorScheme='teal'
-            variant='solid'
-            onClick={chooseGame}
-          >Submit</Button>
-        </InputGroup>
+          <InputGroup size='lg'>
+            <Text>Join Game </Text>
+            <Input
+              placeholder='Join '
+              onChange={e => setChooseForm(e.target.value)}
+            />
+            <Button
+              size='lg'
+              width={0.25}
+              colorScheme='teal'
+              variant='solid'
+              onClick={chooseGame}
+            >
+              Submit
+            </Button>
+          </InputGroup>
         </VStack>
       </Center>
     </div>

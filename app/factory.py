@@ -117,8 +117,8 @@ def logout():
 @codez_bp.route("/", defaults={"path": ""})
 @codez_bp.route("/<path:path>")
 def index(path):
-    if not current_user.is_authenticated:
-        return send_file("../static/login.html")
+    # if not current_user.is_authenticated:
+    #   return send_file("../static/login.html")
     return send_file("../static/index.html")
 
 
