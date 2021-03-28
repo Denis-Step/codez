@@ -31,7 +31,7 @@ class GameResource(Resource):
         try:
             state = services.get_state(game_id)
             for word, value in state["wordsState"].items():
-                if value not in ("blue-revealed", "red-revealed"):
+                if value not in ("blue-revealed", "red-revealed", "neutral-revealed"):
                     state["wordsState"][word] = "hidden"
             return jsonify(state)
         except exceptions.GameNotFoundError:
@@ -50,7 +50,10 @@ class GameResource(Resource):
 
 class DefinitionResource(Resource):
     def get(self, word):
-        return jsonify(models.Word.get(word).definitions())
+        try:
+            return jsonify(models.Word.get(word).definitions())
+        except AttributeError:
+            return ("Wordnet API from NLTK is down", 404)
 
 
 class HypernymResource(Resource):

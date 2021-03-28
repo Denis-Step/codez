@@ -188,7 +188,7 @@ def chooser_move(game_ID, words, guess, team):
 
     elif words[guess] == "neutral":
         r.hset("state:" + game_ID, "attemptsLeft", 0)
-        r.hset("words:" + game_ID, guess, opposite(team) + "-revealed")
+        r.hset("words:" + game_ID, guess, "neutral" + "-revealed")
         r.hset(
             "state:" + game_ID, mapping={"turn": opposite(team), "action": "spymaster"}
         )

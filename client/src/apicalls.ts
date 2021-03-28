@@ -1,7 +1,7 @@
 import axios from "axios";
 import { WordsState, PlayerState, WordDefinition } from "./types/types";
 
-const BASE = "https://127.0.0.1:5000";
+const BASE = "http://159.203.124.40:5000";
 
 interface StateResponse {
   playerState: PlayerState;
@@ -22,7 +22,6 @@ export async function get_State(game_ID: string): Promise<StateResponse> {
   return results;
 }
 
-
 export async function get_fullState(game_ID: string): Promise<StateResponse> {
   const endpoint = `/games/${game_ID}/spymaster`;
 
@@ -35,7 +34,6 @@ export async function get_fullState(game_ID: string): Promise<StateResponse> {
   const results = response.data;
   return results;
 }
-
 
 export async function spymaster_Move(
   game_ID: string,
@@ -99,14 +97,14 @@ export async function create_Game(game_ID: string): Promise<number> {
 
 export async function get_Definition(text: string): Promise<WordDefinition[]> {
   const endpoint = "/definitions/";
-  
+
   const response = await axios({
     method: "get",
-    url: BASE + endpoint + text,
-    });
-    
-    const result = response.data;
-    return result;
+    url: BASE + endpoint + text.toLowerCase(),
+  });
+
+  const result = response.data;
+  return result;
 }
 
 export async function login(name: string, password: string): Promise<string> {

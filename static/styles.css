@@ -156,6 +156,10 @@
   background: #4183cc;
   color: #fff;
 }
+.neutral-revealed {
+  background: #BEBEBE	;
+  color: #fff;
+}
 .board .black.revealed {
   background: #000;
   color: #fff;

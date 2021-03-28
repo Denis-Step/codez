@@ -26,7 +26,7 @@
     "typescript": "^4.1.3",
     "url-loader": "^4.1.1",
     "webpack": "^5.0.0",
-    "webpack-cli": "*"
+    "webpack-cli": "^4.5.0"
   },
   "dependencies": {
     "@babel/core": "^7.12.17",

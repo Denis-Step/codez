@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback } from "react";
 import {
   VStack,
   Center,
@@ -6,34 +6,35 @@ import {
   Input,
   Divider,
   Button,
-  Text
-} from '@chakra-ui/react'
-import { useHistory } from 'react-router-dom'
-import { create_Game, get_State } from './apicalls'
-import Title from './Title'
+  Text,
+} from "@chakra-ui/react";
+import { useHistory } from "react-router-dom";
+import { create_Game, get_State } from "./apicalls";
+import Title from "./Title";
 
 const HomePage = (): JSX.Element => {
-  const history = useHistory()
-  const [createForm, setCreateForm] = useState('')
-  const [chooseForm, setChooseForm] = useState('')
+  const history = useHistory();
+  const [createForm, setCreateForm] = useState("");
+  const [chooseForm, setChooseForm] = useState("");
 
   const createGame = useCallback(async () => {
-    if (createForm == '') {
-      alert('No Game ID Selected')
+    if (createForm == "") {
+      alert("No Game ID Selected");
     }
     const resp = await create_Game(createForm)
-    if (resp === 201) {
-      history.push(`play/${createForm}`)
-    } else {
-      alert('Game ID Taken')
-    }
-  }, [createForm])
+      .then((data) => {
+        history.push(`play/${createForm}`);
+      })
+      .catch(() => {
+        alert("Game ID Taken");
+      });
+  }, [createForm]);
 
   const chooseGame = useCallback(async () => {
     get_State(chooseForm)
-      .then(data => history.push(`play/${chooseForm}`))
-      .catch(() => alert('Game not found'))
-  }, [chooseForm])
+      .then((data) => history.push(`play/${chooseForm}`))
+      .catch(() => alert("Game not found"));
+  }, [chooseForm]);
 
   return (
     <div>
@@ -48,34 +49,34 @@ const HomePage = (): JSX.Element => {
 
       <Center>
         <VStack spacing={4}>
-          <InputGroup size='lg'>
+          <InputGroup size="lg">
             <Text>Create Game </Text>
             <Input
-              placeholder='New GameID'
-              onChange={e => setCreateForm(e.target.value)}
+              placeholder="New GameID"
+              onChange={(e) => setCreateForm(e.target.value)}
             />
             <Button
-              size='lg'
+              size="lg"
               width={0.25}
-              colorScheme='teal'
-              variant='solid'
+              colorScheme="teal"
+              variant="solid"
               onClick={createGame}
             >
-              Submit{' '}
+              Submit
             </Button>
           </InputGroup>
 
-          <InputGroup size='lg'>
+          <InputGroup size="lg">
             <Text>Join Game </Text>
             <Input
-              placeholder='Join '
-              onChange={e => setChooseForm(e.target.value)}
+              placeholder="Join "
+              onChange={(e) => setChooseForm(e.target.value)}
             />
             <Button
-              size='lg'
+              size="lg"
               width={0.25}
-              colorScheme='teal'
-              variant='solid'
+              colorScheme="teal"
+              variant="solid"
               onClick={chooseGame}
             >
               Submit
@@ -84,7 +85,7 @@ const HomePage = (): JSX.Element => {
         </VStack>
       </Center>
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

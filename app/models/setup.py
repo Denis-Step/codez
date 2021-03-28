@@ -3,6 +3,7 @@ import models
 
 
 def setup_db():
+    models.db.create_all()
     test_user = models.User.create(
         username="Dummy", email="fake@gmail.com", password="TESTING"
     )

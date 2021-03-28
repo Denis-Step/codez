@@ -19,10 +19,10 @@ interface DefinitionModalProps {
   word: string | undefined;
 }
 
-function formatDef(word: string){
-    const wordList = word.split(".");
-    const formattedWord = `${wordList[0]} (${wordList[1]})`;
-    return formattedWord;
+function formatDef(word: string) {
+  const wordList = word.split(".");
+  const formattedWord = `${wordList[0]} (${wordList[1]})`;
+  return formattedWord;
 }
 
 const DefinitionModal = (props: DefinitionModalProps): JSX.Element => {
@@ -38,8 +38,8 @@ const DefinitionModal = (props: DefinitionModalProps): JSX.Element => {
     for (const definition of definitions) {
       const defBox = (
         <li>
-            <em>{`${formatDef(definition["word"])}`}</em>: 
-            {`${definition["definition"]}`}
+          <em>{`${formatDef(definition["word"])}`}</em>:
+          {`${definition["definition"]}`}
         </li>
       );
       defBoxes.push(defBox);
@@ -51,8 +51,14 @@ const DefinitionModal = (props: DefinitionModalProps): JSX.Element => {
   useEffect(() => {
     if (props.isOpen && props.word) {
       const getDefinitions = async (word: string) => {
-        const defs = await get_Definition(word);
-        setDefinitions(defs);
+        get_Definition(word)
+          .then((data) => {
+            setDefinitions(data);
+          })
+          .catch(() => {
+            setDefinitions([]);
+            alert("Word not found in database.");
+          });
       };
 
       getDefinitions(props.word);
@@ -65,9 +71,7 @@ const DefinitionModal = (props: DefinitionModalProps): JSX.Element => {
       <ModalContent>
         <ModalHeader>Definitions</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          {definitions ? DefinitionList : <Spinner />}
-        </ModalBody>
+        <ModalBody>{definitions ? DefinitionList : <Spinner />}</ModalBody>
 
         <ModalFooter>
           <Button colorScheme="pink" mr={3} onClick={props.closeModal}>
